@@ -384,6 +384,12 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    bowerRequirejs: {
+      target: {
+        rjsConfig: 'app/scripts/config.js'
+      }
     }
   });
 

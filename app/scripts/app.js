@@ -1,12 +1,7 @@
-'use strict';
+require([
+  'angular'
+  ], function (angular) {
+  'use strict';
 
-/**
- * @ngdoc overview
- * @name angularjsextensionApp
- * @description
- * # angularjsextensionApp
- *
- * Main module of the application.
- */
-angular
-  .module('angularJsExtension', []);
+  angular.module('angularJsExtension', []);
+});
