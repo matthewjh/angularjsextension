@@ -20,6 +20,11 @@ requirejs.config({
         json3: '../../bower_components/json3/lib/json3',
         requirejs: '../../bower_components/requirejs/require'
     },
+    shim: {
+      angular: {
+        exports: 'angular'
+      }
+    },
     packages: [
 
     ]

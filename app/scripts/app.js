@@ -1,5 +1,6 @@
 require([
-  'angular'
+  'angular',
+  'controllers/main',
   ], function (angular) {
   'use strict';
 
