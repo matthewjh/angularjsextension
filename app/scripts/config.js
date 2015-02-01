@@ -21,9 +21,9 @@ requirejs.config({
         requirejs: '../../bower_components/requirejs/require'
     },
     shim: {
-      angular: {
-        exports: 'angular'
-      }
+        angular: {
+            exports: 'angular'
+        }
     },
     packages: [
 
