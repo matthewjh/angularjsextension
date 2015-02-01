@@ -1,14 +1,13 @@
-require([
-  'angular',
-  ], function (angular) {
+define([
+  'app',
+  ], function (app) {
   'use strict';
 
-  angular.module('angularJsExtension')
-  .controller('MainCtrl', function ($scope) {
+  app.controller('MainCtrl', ['$scope', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+  }]);
 });

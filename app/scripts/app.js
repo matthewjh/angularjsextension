@@ -1,8 +1,11 @@
-require([
+define([
   'angular',
-  'controllers/main',
   ], function (angular) {
   'use strict';
 
-  angular.module('angularJsExtension', []);
+  var app;
+
+  app = angular.module('angularJsExtension', []);
+
+  return app;
 });

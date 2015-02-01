@@ -138,6 +138,7 @@ module.exports = function (grunt) {
           src: [
             '.tmp',
             '<%= yeoman.dist %>/{,*/}*',
+            '!<%= yeoman.dist %>/index.html',
             '!<%= yeoman.dist %>/.git*'
           ]
         }]
@@ -245,15 +246,15 @@ module.exports = function (grunt) {
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
+    cssmin: {
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/styles/main.css': [
+            '.tmp/styles/{,*/}*.css'
+          ]
+        }
+      }
+    },
     // uglify: {
     //   dist: {
     //     files: {
@@ -338,7 +339,6 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
-            '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*'
@@ -390,6 +390,19 @@ module.exports = function (grunt) {
       target: {
         rjsConfig: 'app/scripts/config.js'
       }
+    },
+
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: '<%= yeoman.app %>/scripts',
+          mainConfigFile: '<%= yeoman.app %>/scripts/config.js',
+          out: '<%= yeoman.dist %>/main.js',
+          include: ['requirejs', 'app', 'main'],
+          stubModules: ['config'],
+          findNestedDependencies: true
+        }
+      }
     }
   });
 
@@ -424,18 +437,12 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'wiredep',
-    'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'concat',
-    'ngAnnotate',
+    'requirejs',
     'copy:dist',
-    'cdnify',
     'cssmin',
-    'uglify',
-    'filerev',
-    'usemin',
+   // 'filerev',
     'htmlmin'
   ]);
 
