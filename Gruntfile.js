@@ -206,6 +206,7 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: [
+          '<%= yeoman.dist %>/{,*/}*.js',
           '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
           '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
@@ -386,6 +387,39 @@ module.exports = function (grunt) {
       }
     },
 
+    template: {
+      dist: {
+        options: {
+          data: function () {
+            var mapping,
+                fullMapping,
+
+            mapping = {
+              js_path: 'main.js',
+              css_path: 'styles/main.css'
+            };
+
+            fullMapping = {};
+
+            for (var name in mapping) {
+              var oldPath,
+                  newPath;
+
+              oldPath = appConfig.dist + '/' + mapping[name];
+              newPath = grunt.filerev.summary[oldPath].replace(appConfig.dist + '/', '');
+
+              fullMapping[name] = newPath;
+            }
+
+            return fullMapping;
+          }
+        },
+        files: {
+          '<%= yeoman.dist %>/index.html': ['<%= yeoman.dist %>_tpl/index.html.tpl']
+        }
+      }
+    },
+
     bowerRequirejs: {
       target: {
         rjsConfig: 'app/scripts/config.js'
@@ -442,7 +476,8 @@ module.exports = function (grunt) {
     'requirejs',
     'copy:dist',
     'cssmin',
-   // 'filerev',
+    'filerev',
+    'template',
     'htmlmin'
   ]);
 
