@@ -18,6 +18,7 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
+    bg: 'background_page',
     dist: 'dist'
   };
 
@@ -207,10 +208,10 @@ module.exports = function (grunt) {
       dist: {
         src: [
           '<%= yeoman.dist %>/{,*/}*.js',
-          '<%= yeoman.dist %>/scripts/{,*/}*.js',
-          '<%= yeoman.dist %>/styles/{,*/}*.css',
-          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/styles/fonts/*'
+          '<%= yeoman.dist %>/app/scripts/{,*/}*.js',
+          '<%= yeoman.dist %>/app/styles/{,*/}*.css',
+          //'<%= yeoman.dist %>/app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          //'<%= yeoman.dist %>/app/styles/fonts/*'
         ]
       }
     },
@@ -250,7 +251,7 @@ module.exports = function (grunt) {
     cssmin: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/styles/main.css': [
+          '<%= yeoman.dist %>/app/styles/main.css': [
             '.tmp/styles/{,*/}*.css'
           ]
         }
@@ -275,7 +276,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>/images',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/images'
+          dest: '<%= yeoman.dist %>/app/images'
         }]
       }
     },
@@ -325,7 +326,7 @@ module.exports = function (grunt) {
     // Replace Google CDN references
     cdnify: {
       dist: {
-        html: ['<%= yeoman.dist %>/*.html']
+        html: ['<%= yeoman.dist %>/app/*.html']
       }
     },
 
@@ -336,7 +337,7 @@ module.exports = function (grunt) {
           expand: true,
           dot: true,
           cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
+          dest: '<%= yeoman.dist %>/app',
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
@@ -346,14 +347,27 @@ module.exports = function (grunt) {
           ]
         }, {
           expand: true,
+          dot: true,
+          cwd: '<%= yeoman.bg %>',
+          dest: '<%= yeoman.dist %>/background_page',
+          src: [
+            '*.{ico,png,txt}',
+            '*.js',
+            '.htaccess',
+            'views/{,*/}*.html',
+            'images/{,*/}*.{webp}',
+            'fonts/*'
+          ]
+        }, {
+          expand: true,
           cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
+          dest: '<%= yeoman.dist %>/app/images',
           src: ['generated/*']
         }, {
           expand: true,
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
-          dest: '<%= yeoman.dist %>'
+          dest: '<%= yeoman.dist %>/app'
         }]
       },
       styles: {
@@ -395,8 +409,9 @@ module.exports = function (grunt) {
                 fullMapping,
 
             mapping = {
-              js_path: 'main.js',
-              css_path: 'styles/main.css'
+              app_js_path: '/app/main.js',
+              app_css_path: '/app/styles/main.css',
+              bg_js_path: '/background_page/main.js',
             };
 
             fullMapping = {};
@@ -405,8 +420,8 @@ module.exports = function (grunt) {
               var oldPath,
                   newPath;
 
-              oldPath = appConfig.dist + '/' + mapping[name];
-              newPath = grunt.filerev.summary[oldPath].replace(appConfig.dist + '/', '');
+              oldPath = appConfig.dist + mapping[name];
+              newPath = grunt.filerev.summary[oldPath].replace(appConfig.dist, '');
 
               fullMapping[name] = newPath;
             }
@@ -415,7 +430,9 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '<%= yeoman.dist %>/index.html': ['<%= yeoman.dist %>_tpl/index.html.tpl']
+          '<%= yeoman.dist %>/app/index.html': ['<%= yeoman.dist %>_tpl/app/index.html.tpl'],
+          '<%= yeoman.dist %>/background_page/index.html': ['<%= yeoman.dist %>_tpl/background_page/index.html.tpl'],
+          '<%= yeoman.dist %>/manifest.json': ['<%= yeoman.dist %>_tpl/manifest.json.tpl']
         }
       }
     },
@@ -431,7 +448,7 @@ module.exports = function (grunt) {
         options: {
           baseUrl: '<%= yeoman.app %>/scripts',
           mainConfigFile: '<%= yeoman.app %>/scripts/config.js',
-          out: '<%= yeoman.dist %>/main.js',
+          out: '<%= yeoman.dist %>/app/main.js',
           include: ['requirejs', 'app', 'main'],
           stubModules: ['config'],
           findNestedDependencies: true
