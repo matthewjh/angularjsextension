@@ -29,7 +29,7 @@ module.exports = function (consts, grunt) {
       oldPath =  consts.paths.dist + mapping[name];
       newPath = grunt.filerev.summary[oldPath].replace(consts.paths.dist, '');
 
-      fullMapping[name] = newPath;
+      fullMapping[name] = '/' + newPath;
     }
 
     return fullMapping;

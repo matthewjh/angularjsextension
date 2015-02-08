@@ -4,7 +4,8 @@ module.exports = function (consts) {
       src: [
         consts.paths.dist + consts.paths.app + '{,*/}*.js',
         consts.paths.dist + consts.paths.app + 'scripts/{,*/}*.js',
-        consts.paths.dist + consts.paths.app + 'styles/{,*/}*.css'
+        consts.paths.dist + consts.paths.app + 'styles/{,*/}*.css',
+        consts.paths.dist + consts.paths.backgroundPage + '{,*/}*.js',
       ]
     }
   };
