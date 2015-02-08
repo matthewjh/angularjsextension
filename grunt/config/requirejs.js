@@ -1,0 +1,26 @@
+module.exports = function (consts) {
+  return {
+    app: {
+      options: {
+        baseUrl: consts.paths.app + 'scripts',
+        mainConfigFile: consts.paths.app + 'scripts/config.js',
+        out: consts.paths.dist + consts.paths.app + 'main.js',
+        include: ['requirejs', 'app', 'main'],
+        stubModules: ['config'],
+        findNestedDependencies: true,
+        wrap: true
+      }
+    },
+    backgroundPage: {
+      options: {
+        baseUrl: consts.paths.backgroundPage + 'scripts',
+        mainConfigFile: consts.paths.backgroundPage + 'scripts/config.js',
+        out: consts.paths.dist + consts.paths.backgroundPage + 'main.js',
+        include: ['requirejs', 'main'],
+        stubModules: ['config'],
+        findNestedDependencies: true,
+        wrap: true
+      }
+    }
+  }
+};
