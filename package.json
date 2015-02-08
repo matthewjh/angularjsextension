@@ -2,6 +2,7 @@
   "name": "angularjsextension",
   "version": "0.0.0",
   "devDependencies": {
+    "glob": "^4.3.5",
     "grunt": "^0.4.1",
     "grunt-autoprefixer": "^0.7.3",
     "grunt-bower-requirejs": "^2.0.0",
