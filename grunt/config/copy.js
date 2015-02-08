@@ -10,7 +10,7 @@ module.exports = function (consts) {
           '*.{ico,png,txt}',
           '.htaccess',
           'views/{,*/}*.html',
-          'images/{,*/}*.{webp}',
+          'images/{,*/}*.*',
           'fonts/*'
         ]
       }, {
@@ -25,6 +25,11 @@ module.exports = function (consts) {
           'images/{,*/}*.{webp}',
           'fonts/*'
         ]
+      }, {
+        expand: true,
+        cwd: '.',
+        src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+        dest: consts.paths.dist + consts.paths.app
       }]
     },
     styles: {
