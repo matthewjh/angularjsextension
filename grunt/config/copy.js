@@ -11,6 +11,7 @@ module.exports = function (consts) {
           '.htaccess',
           'views/{,*/}*.html',
           'images/{,*/}*.*',
+          'scripts/devtools_background.js',
           'fonts/*'
         ]
       }, {
