@@ -444,14 +444,26 @@ module.exports = function (grunt) {
     },
 
     requirejs: {
-      compile: {
+      app: {
         options: {
-          baseUrl: '<%= yeoman.app %>/scripts',
-          mainConfigFile: '<%= yeoman.app %>/scripts/config.js',
-          out: '<%= yeoman.dist %>/app/main.js',
+          baseUrl: 'app/scripts',
+          mainConfigFile: 'app/scripts/config.js',
+          out: 'dist/app/main.js',
           include: ['requirejs', 'app', 'main'],
           stubModules: ['config'],
-          findNestedDependencies: true
+          findNestedDependencies: true,
+          wrap: true
+        }
+      },
+      background_page: {
+        options: {
+          baseUrl: 'background_page/scripts',
+          mainConfigFile: 'background_page/scripts/config.js',
+          out: 'dist/background_page/main.js',
+          include: ['requirejs', 'main'],
+          stubModules: ['config'],
+          findNestedDependencies: true,
+          wrap: true
         }
       }
     }
