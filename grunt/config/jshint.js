@@ -5,14 +5,9 @@ module.exports = function (consts) {
       reporter: require('jshint-stylish')
     },
     app: {
-      options: {
-        ignores: [
-          consts.paths.app + 'scripts/{,*/}*.spec.js'
-        ]
-      },
       src: [
         'Gruntfile.js',
-        consts.paths.app + 'scripts/{,*/}*.js'
+        consts.paths.app + 'scripts/{,*/}*[!spec].js'
       ]
     },
     test: {
