@@ -1,3 +1,5 @@
+'use strict';
+
 var allTestFiles = [];
 var TEST_REGEXP = /(spec|test)\.js$/i;
 
@@ -13,22 +15,28 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 });
 
 require.config({
-  // Karma serves files under /base, which is the basePath from your config file
   baseUrl: '/base/app/scripts',
 
   paths: {
-    'angular': '../../bower_components/angular/angular'
+    'angular': '../../bower_components/angular/angular',
+    'angular-mocks': '../../bower_components/angular-mocks/angular-mocks'
   },
 
   shim: {
     angular: {
       exports: 'angular'
+    },
+    'angular-mocks': {
+      exports: 'angular'
     }
-  },
+  }
+});
 
-  // dynamically load all test files
-  deps: allTestFiles,
 
-  // we have to kickoff jasmine, as it is asynchronous
-  callback: window.__karma__.start
+require(['angular'], function () {
+  require(['angular-mocks'], function () {
+    require(allTestFiles, function () {
+      window.__karma__.start();
+    });
+  });
 });

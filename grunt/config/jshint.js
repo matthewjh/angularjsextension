@@ -4,7 +4,12 @@ module.exports = function (consts) {
       jshintrc: '.jshintrc',
       reporter: require('jshint-stylish')
     },
-    all: {
+    app: {
+      options: {
+        ignores: [
+          consts.paths.app + 'scripts/{,*/}*.spec.js'
+        ]
+      },
       src: [
         'Gruntfile.js',
         consts.paths.app + 'scripts/{,*/}*.js'
@@ -12,9 +17,9 @@ module.exports = function (consts) {
     },
     test: {
       options: {
-        jshintrc: 'test/.jshintrc'
+        jshintrc: consts.paths.app + 'test/unit/.jshintrc'
       },
-      src: ['test/spec/{,*/}*.js']
+      src: [consts.paths.app + 'scripts/{,*/}*.spec.js']
     }
   };
 };
