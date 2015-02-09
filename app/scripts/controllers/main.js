@@ -10,4 +10,6 @@ define([
       'Karma'
     ];
   }]);
+
+  console.log('her11');
 });
