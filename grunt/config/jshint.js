@@ -10,7 +10,7 @@ module.exports = function (consts) {
         consts.paths.app + 'scripts/{,*/}*[!spec].js'
       ]
     },
-    test: {
+    appTests: {
       options: {
         jshintrc: consts.paths.app + 'test/unit/.jshintrc'
       },
