@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="<%= app_css_path %>">
   </head>
   <body>
-    <div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+    <div ng-include="'views/main.html'" ng-controller="MainController"></div>
     <script type="text/javascript" src="<%= app_js_path %>"></script>
   </body>
 </html>
