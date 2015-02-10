@@ -29,14 +29,18 @@ require.config({
     'angular-mocks': {
       exports: 'angular'
     }
-  }
+  },
+
+  callback: onRequireJsReady
 });
 
 
-require(['angular'], function () {
-  require(['angular-mocks'], function () {
-    require(allTestFiles, function () {
-      window.__karma__.start();
+function onRequireJsReady () {
+  require(['angular'], function () {
+    require(['angular-mocks'], function () {
+      require(allTestFiles, function () {
+        window.__karma__.start();
+      });
     });
   });
-});
+}

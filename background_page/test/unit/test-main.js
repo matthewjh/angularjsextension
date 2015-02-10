@@ -15,12 +15,15 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 });
 
 require.config({
-  baseUrl: '/base/background_page/scripts'
+  baseUrl: '/base/background_page/scripts',
+  callback: onRequireJsReady
 });
 
 // stub config module
 define('config', [], function () {});
 
-require(allTestFiles, function () {
-      window.__karma__.start();
-});
+function onRequireJsReady () {
+  require(allTestFiles, function () {
+        window.__karma__.start();
+  });
+};
