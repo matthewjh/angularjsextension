@@ -49,7 +49,5 @@ module.exports = function (consts, grunt) {
 
   addDevTargets(options);
 
-  console.log(options);
-
   return options;
 }
