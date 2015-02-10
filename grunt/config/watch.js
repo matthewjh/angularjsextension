@@ -2,8 +2,8 @@ module.exports = function (consts) {
   var projectFiles;
 
   projectFiles = [
-    consts.paths.app + 'scripts/{,*/}*.js',
-    consts.paths.backgroundPage + 'scripts/{,*/}*.js'
+    consts.paths.app + '{,*/}*.js',
+    consts.paths.backgroundPage + '{,*/}*.js'
   ];
 
   return {

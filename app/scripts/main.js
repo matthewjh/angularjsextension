@@ -1,12 +1,15 @@
+'use strict';
+
 require([
     'config'
   ],
-  function() {
+  function () {
     require([
       'angular',
       'app',
       'controllers/main'
-    ], function(angular, app) {
+    ], function (angular, app) {
       angular.bootstrap(document, [app.name]);
     });
   });
+
