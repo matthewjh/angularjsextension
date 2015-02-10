@@ -3,6 +3,10 @@ module.exports = function (consts) {
     app: {
       configFile: consts.paths.app + 'test/unit/karma.conf.js',
       singleRun: true
+    },
+    background_page: {
+      configFile: consts.paths.backgroundPage + 'test/unit/karma.conf.js',
+      singleRun: true
     }
   };
 };
