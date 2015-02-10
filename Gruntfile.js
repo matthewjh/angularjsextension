@@ -10,6 +10,8 @@ module.exports = function (grunt) {
   var consts,
       loadTasksConfig;
 
+  grunt._ = require('lodash');
+
   consts = {
     paths: {
       app: 'app/',

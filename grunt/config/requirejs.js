@@ -1,5 +1,13 @@
-module.exports = function (consts) {
-  return {
+module.exports = function (consts, grunt) {
+  var addDevTargets,
+      devOptimisation,
+      prodOptimisation,
+      options;
+
+  devOptimisation = 'none';
+  prodOptimisation = 'uglify';
+
+  options = {
     app: {
       options: {
         baseUrl: consts.paths.app + 'scripts',
@@ -8,7 +16,8 @@ module.exports = function (consts) {
         include: ['requirejs', 'app', 'main'],
         stubModules: ['config'],
         findNestedDependencies: true,
-        wrap: true
+        wrap: true,
+        optimize: prodOptimisation
       }
     },
     backgroundPage: {
@@ -19,8 +28,28 @@ module.exports = function (consts) {
         include: ['requirejs', 'main'],
         stubModules: ['config'],
         findNestedDependencies: true,
-        wrap: true
+        wrap: true,
+        optimize: prodOptimisation
       }
     }
+  };
+
+  addDevTargets = function addDevTargets (options) {
+    for (var target in options) {
+      var devTargetOptions;
+
+      devTargetOptions = grunt._.clone(options[target], true);
+      devTargetOptions.options.optimize = devOptimisation;
+
+      options[target + 'Dev'] = devTargetOptions;
+    }
+
+    return options;
   }
-};
+
+  addDevTargets(options);
+
+  console.log(options);
+
+  return options;
+}
