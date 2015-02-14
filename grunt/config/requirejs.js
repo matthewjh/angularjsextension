@@ -33,6 +33,19 @@ module.exports = function (consts, grunt) {
         optimize: prodOptimisation,
         insertRequire: ['main']
       }
+    },
+    bridgeBootstrap: {
+      options: {
+        baseUrl: consts.paths.backgroundPage + 'scripts',
+        mainConfigFile: consts.paths.backgroundPage + 'scripts/config.js',
+        out: consts.paths.dist + consts.paths.backgroundPage + 'bridge/bootstrap-self-executing.js',
+        include: ['requirejs', 'bridge/bootstrap-self-executing'],
+        stubModules: ['config'],
+        findNestedDependencies: true,
+        wrap: true,
+        optimize: prodOptimisation,
+        insertRequire: ['bridge/bootstrap-self-executing']
+      }
     }
   };
 

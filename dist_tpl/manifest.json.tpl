@@ -10,6 +10,6 @@
   {
     "matches": ["<all_urls>"],
     "run_at": "document_idle",
-    "js" : ["<%= bg_js_path %>"]
+    "js" : ["background_page/inject-bridge.js", "<%= bg_js_path %>"]
   }]
 }

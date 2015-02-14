@@ -7,7 +7,7 @@ define([
     var start;
 
     start = function start () {
-      window.alert('hi');
+      window.alert(window.angular);
     };
 
     return start;

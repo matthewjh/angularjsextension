@@ -1,7 +1,8 @@
 module.exports = function (consts, grunt) {
   var distTplPath,
       getFiles,
-      getFileMapping;
+      getFileMapping,
+      getTemplateVars;
 
   distTplPath = consts.paths.dist.replace(/\//, '_') + consts.templateSuffix + '/';
 
@@ -54,10 +55,21 @@ module.exports = function (consts, grunt) {
     return fullMapping;
   };
 
+  getTemplateVars = function getTemplateVars () {
+    var vars;
+
+    vars = getFileMapping();
+
+    vars.bridge_bootstrap_source = grunt.file.read(grunt.filerev.summary[consts.paths.bridgeBootstrap]);
+    vars.bridge_bootstrap_fn = eval("(function () {" + vars.bridge_bootstrap_source + "})");
+    console.log(vars.bridge_bootstrap_fn);
+    return vars;
+  };
+
   return {
     dist: {
       options: {
-        data: getFileMapping
+        data: getTemplateVars
       },
       files: getFiles()
     }
