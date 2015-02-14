@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-  'ng-decorator',
+  'ng-decorator-impl',
   'angular'
   ],
   function (ngDecorator, angular) {

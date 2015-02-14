@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-  'main'
+  'main-impl'
   ],
   function (main) {
 

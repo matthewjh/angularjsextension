@@ -1,15 +1,32 @@
 module.exports = function (consts, grunt) {
   var distTplPath,
-      files,
+      getFiles,
       getFileMapping;
 
-  files = {};
   distTplPath = consts.paths.dist.replace(/\//, '_') + consts.templateSuffix + '/';
 
-  files[consts.paths.dist + consts.paths.app + 'index.html'] = [distTplPath + consts.paths.app + 'index.html.' + consts.templateSuffix];
-  files[consts.paths.dist + consts.paths.app + 'devtools_page.html'] = [distTplPath + consts.paths.app + 'devtools_page.html.' + consts.templateSuffix]
-  files[consts.paths.dist + consts.paths.backgroundPage + 'index.html'] = [distTplPath + consts.paths.backgroundPage + 'index.html.' + consts.templateSuffix];
-  files[consts.paths.dist + 'manifest.json'] = [distTplPath + 'manifest.json.' + consts.templateSuffix];
+  getFiles = function getFiles () {
+    var files,
+        glob;
+
+    files = {};
+    glob = require('glob');
+
+    glob.sync('**/*.' + consts.templateSuffix, {cwd: distTplPath}).forEach(function (fileName) {
+      var sourcePath,
+          destPath;
+
+      sourcePath = distTplPath + fileName;
+      // strip out the template folder path for the real dist path, and remove suffix
+      destPath = sourcePath.replace(distTplPath, consts.paths.dist)
+                           .replace('.' + consts.templateSuffix, '');
+
+      files[destPath] = sourcePath;
+    });
+
+    return files;
+  };
+
 
   getFileMapping = function getFileMapping () {
     var mapping,
@@ -42,7 +59,7 @@ module.exports = function (consts, grunt) {
       options: {
         data: getFileMapping
       },
-      files: files
+      files: getFiles()
     }
   };
 };

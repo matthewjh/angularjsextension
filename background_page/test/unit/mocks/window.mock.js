@@ -1,10 +1,12 @@
 'use strict';
 
 define([
-  'angular'
+  'angular',
+  'sinon'
   ],
-  function (angular) {
+  function (angular, sinon) {
     return {
-      angular: angular
+      angular: angular,
+      alert: sinon.stub()
     };
   });
