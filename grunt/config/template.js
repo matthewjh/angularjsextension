@@ -61,7 +61,7 @@ module.exports = function (consts, grunt) {
         bridgeBootstrapSource;
 
     bridgeBootstrapPath = grunt.filerev.summary[consts.paths.bridgeBootstrap];
-    bridgeBootstrapSource == grunt.file.read(bridgeBootstrapPath);
+    bridgeBootstrapSource = grunt.file.read(bridgeBootstrapPath);
 
     vars = getFileMapping();
     vars.bridge_bootstrap_fn = new Function(bridgeBootstrapSource);
