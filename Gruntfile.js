@@ -50,11 +50,25 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
+  grunt.registerTask('build:dev', [
+    'clean:dist',
+    'concurrent:dist',
+    'autoprefixer',
+    'requirejs:appDev',
+    'requirejs:backgroundPageDev',
+    'copy:dist',
+    'cssmin',
+    'filerev',
+    'template',
+    'htmlmin'
+  ]);
+
   grunt.registerTask('build', [
     'clean:dist',
     'concurrent:dist',
     'autoprefixer',
-    'requirejs',
+    'requirejs:app',
+    'requirejs:backgroundPage',
     'copy:dist',
     'cssmin',
     'filerev',

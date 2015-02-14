@@ -5,7 +5,7 @@ define([
 
   app.controller('MainController', ['$scope', function ($scope) {
     $scope.awesomeThings = [
-      'HTML5 Boilerplate',
+      'HTML5 Boi ler plate',
       'AngularJS',
       'Karma'
     ];

@@ -49,7 +49,7 @@ module.exports = function (consts, grunt) {
     return options;
   }
 
-  //addDevTargets(options);
+  addDevTargets(options);
 
   return options;
 }
