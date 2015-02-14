@@ -8,7 +8,7 @@ module.exports = function (consts, grunt) {
   almondPath = '../../bower_components/almond/almond';
 
   devOptimisation = 'none';
-  prodOptimisation = 'uglify';
+  prodOptimisation = 'uglify2';
 
   options = {
     app: {
@@ -61,6 +61,7 @@ module.exports = function (consts, grunt) {
 
       devTargetOptions = grunt._.clone(options[target], true);
       devTargetOptions.options.optimize = devOptimisation;
+      devTargetOptions.options.useSourceUrl = true;
 
       options[target + 'Dev'] = devTargetOptions;
     }
