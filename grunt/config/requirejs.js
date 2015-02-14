@@ -17,7 +17,7 @@ module.exports = function (consts, grunt) {
         baseUrl: consts.paths.app + 'scripts',
         mainConfigFile: consts.paths.app + 'scripts/config.js',
         out: consts.paths.dist + consts.paths.app + 'main.js',
-        include: ['app', 'main'],
+        include: ['main'],
         stubModules: ['config'],
         findNestedDependencies: true,
         wrap: true,
@@ -60,8 +60,17 @@ module.exports = function (consts, grunt) {
       var devTargetOptions;
 
       devTargetOptions = grunt._.clone(options[target], true);
+
+      // we don't want to use almond in development
+      devTargetOptions.options.name = undefined;
+      devTargetOptions.options.include.unshift('requirejs');
+
       devTargetOptions.options.optimize = devOptimisation;
-      devTargetOptions.options.useSourceUrl = true;
+
+      // Chrome CSP breaks useSourceUrl for DevTools pages :(
+      if (target !== 'app') {
+        devTargetOptions.options.useSourceUrl = true;
+      }
 
       options[target + 'Dev'] = devTargetOptions;
     }
