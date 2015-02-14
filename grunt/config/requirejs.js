@@ -17,7 +17,8 @@ module.exports = function (consts, grunt) {
         stubModules: ['config'],
         findNestedDependencies: true,
         wrap: true,
-        optimize: prodOptimisation
+        optimize: prodOptimisation,
+        insertRequire: ['main']
       }
     },
     backgroundPage: {
@@ -29,7 +30,8 @@ module.exports = function (consts, grunt) {
         stubModules: ['config'],
         findNestedDependencies: true,
         wrap: true,
-        optimize: prodOptimisation
+        optimize: prodOptimisation,
+        insertRequire: ['main']
       }
     }
   };
@@ -47,7 +49,7 @@ module.exports = function (consts, grunt) {
     return options;
   }
 
-  addDevTargets(options);
+  //addDevTargets(options);
 
   return options;
 }
