@@ -2,7 +2,9 @@ define([
   'config'
   ],
   function() {
-    alert('hello from background  page!');
+    require(['ng-decorator'], function (ngDecorator) {
+      alert(ngDecorator.ngModule);
+    });
 
     return 'hello';
   });

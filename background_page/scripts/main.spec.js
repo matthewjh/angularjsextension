@@ -2,7 +2,8 @@
 
 define([
   'main'
-  ], function (main) {
+  ],
+  function (main) {
 
     describe('main', function () {
       it('should equal "hello"', function () {

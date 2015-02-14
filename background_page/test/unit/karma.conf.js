@@ -14,6 +14,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'background_page/test/unit/test-main.js',
+      {pattern: 'background_page/test/unit/mocks/{,/*}*.js', included: false},
       {pattern: 'background_page/scripts/{,/*}*.js', included: false}
     ],
 

@@ -11,8 +11,7 @@
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
-    "angular-scenario": "~1.2.0",
-    "sinon": "~1.12.2"
+    "angular-scenario": "~1.2.0"
   },
   "appPath": "app"
 }

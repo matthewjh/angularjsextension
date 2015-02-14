@@ -17,7 +17,15 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 require.config({
   baseUrl: '/base/background_page/scripts',
   paths: {
-    'sinon': '../../sinon/lib/sinon.js'
+    'sinon': 'http://sinonjs.org/releases/sinon-1.12.2.js'
+  },
+  map: {
+    '*': {
+      'angular': '../test/unit/mocks/angular.mock',
+      'window': '../test/unit/mocks/window.mock',
+      'angular-impl': 'angular',
+      'window-impl': 'window'
+    }
   },
   callback: onRequireJsReady
 });

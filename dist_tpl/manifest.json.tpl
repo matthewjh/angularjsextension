@@ -9,7 +9,7 @@
   "content_scripts": [
   {
     "matches": ["<all_urls>"],
-    "run_at": "document_end",
+    "run_at": "document_idle",
     "js" : ["<%= bg_js_path %>"]
   }]
 }

@@ -20,7 +20,7 @@ require.config({
   paths: {
     'angular': '../../bower_components/angular/angular',
     'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
-    'sinon': '../../sinon/lib/sinon.js'
+    'sinon': 'http://sinonjs.org/releases/sinon-1.12.2.js'
   },
 
   shim: {
