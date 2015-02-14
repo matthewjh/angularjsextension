@@ -10,7 +10,7 @@ module.exports = function (consts) {
     build: {
       files: projectFiles,
       tasks: [
-        'build:dev'
+        'build'
       ]
     },
     test: {
