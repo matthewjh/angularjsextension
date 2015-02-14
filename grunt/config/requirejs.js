@@ -1,8 +1,11 @@
 module.exports = function (consts, grunt) {
-  var addDevTargets,
+  var almondPath,
+      addDevTargets,
       devOptimisation,
       prodOptimisation,
       options;
+
+  almondPath = '../../bower_components/almond/almond';
 
   devOptimisation = 'none';
   prodOptimisation = 'uglify';
@@ -10,10 +13,11 @@ module.exports = function (consts, grunt) {
   options = {
     app: {
       options: {
+        name: almondPath,
         baseUrl: consts.paths.app + 'scripts',
         mainConfigFile: consts.paths.app + 'scripts/config.js',
         out: consts.paths.dist + consts.paths.app + 'main.js',
-        include: ['requirejs', 'app', 'main'],
+        include: ['app', 'main'],
         stubModules: ['config'],
         findNestedDependencies: true,
         wrap: true,
@@ -23,10 +27,11 @@ module.exports = function (consts, grunt) {
     },
     backgroundPage: {
       options: {
+        name: almondPath,
         baseUrl: consts.paths.backgroundPage + 'scripts',
         mainConfigFile: consts.paths.backgroundPage + 'scripts/config.js',
         out: consts.paths.dist + consts.paths.backgroundPage + 'main.js',
-        include: ['requirejs', 'main'],
+        include: ['main'],
         stubModules: ['config'],
         findNestedDependencies: true,
         wrap: true,
@@ -36,10 +41,11 @@ module.exports = function (consts, grunt) {
     },
     bridgeBootstrap: {
       options: {
+        name: almondPath,
         baseUrl: consts.paths.backgroundPage + 'scripts',
         mainConfigFile: consts.paths.backgroundPage + 'scripts/config.js',
         out: consts.paths.dist + consts.paths.backgroundPage + 'bridge/bootstrap-self-executing.js',
-        include: ['requirejs', 'bridge/bootstrap-self-executing'],
+        include: ['bridge/bootstrap-self-executing'],
         stubModules: ['config'],
         findNestedDependencies: true,
         wrap: true,
