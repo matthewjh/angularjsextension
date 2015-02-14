@@ -56,13 +56,16 @@ module.exports = function (consts, grunt) {
   };
 
   getTemplateVars = function getTemplateVars () {
-    var vars;
+    var vars,
+        bridgeBootstrapPath,
+        bridgeBootstrapSource;
+
+    bridgeBootstrapPath = grunt.filerev.summary[consts.paths.bridgeBootstrap];
+    bridgeBootstrapSource == grunt.file.read(bridgeBootstrapPath);
 
     vars = getFileMapping();
+    vars.bridge_bootstrap_fn = new Function(bridgeBootstrapSource);
 
-    vars.bridge_bootstrap_source = grunt.file.read(grunt.filerev.summary[consts.paths.bridgeBootstrap]);
-    vars.bridge_bootstrap_fn = eval("(function () {" + vars.bridge_bootstrap_source + "})");
-    console.log(vars.bridge_bootstrap_fn);
     return vars;
   };
 
