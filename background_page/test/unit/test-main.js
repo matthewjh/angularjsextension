@@ -16,6 +16,9 @@ Object.keys(window.__karma__.files).forEach(function(file) {
 
 require.config({
   baseUrl: '/base/background_page/scripts',
+  paths: {
+    'sinon': '../../sinon/lib/sinon.js'
+  },
   callback: onRequireJsReady
 });
 
