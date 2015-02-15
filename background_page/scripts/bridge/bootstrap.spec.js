@@ -15,10 +15,10 @@ define([
     });
 
     describe('when bootstrap is called', function () {
-      it('should call messenger.sendMessage', function () {
+      it('should call messenger.send', function () {
         bootstrap();
 
-        expect(messenger.sendMessage.withArgs('hello, world').callCount).toBe(1);
+        expect(messenger.send.withArgs('hello, world').callCount).toBe(1);
       });
     });
 });

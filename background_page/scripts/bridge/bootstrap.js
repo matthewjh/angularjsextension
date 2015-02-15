@@ -11,7 +11,7 @@ define([
     var start;
 
     start = function start () {
-      messenger.sendMessage('hello, world');
+      messenger.send('hello, world');
     };
 
     return start;

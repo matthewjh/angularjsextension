@@ -5,18 +5,20 @@ define([
   ],
   function (window) {
     var onRecieve,
-        sendMessage;
+        send;
 
     onRecieve = function onRecieve (handler) {
-      window.addEventListener('message', handler);
+      window.addEventListener('message', function (event) {
+        handler(event.data);
+      });
     };
 
-    sendMessage = function sendMessage (message) {
+    send = function send (message) {
       window.postMessage(message, '*');
     };
 
     return {
       onRecieve: onRecieve,
-      sendMessage: sendMessage
+      send: send
     };
   });
