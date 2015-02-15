@@ -2,9 +2,9 @@
 
 define([
   'bridge/bootstrap-impl',
-  'window'
+  'bridge/messenger'
   ],
-  function (bootstrap, window) {
+  function (bootstrap, messenger) {
 
     describe('bootstrap module', function () {
 
@@ -15,10 +15,10 @@ define([
     });
 
     describe('when bootstrap is called', function () {
-      it('should call window.alert', function () {
+      it('should call messenger.sendMessage', function () {
         bootstrap();
 
-        expect(window.alert.callCount).toBe(1);
+        expect(messenger.sendMessage.withArgs('hello, world').callCount).toBe(1);
       });
     });
 });

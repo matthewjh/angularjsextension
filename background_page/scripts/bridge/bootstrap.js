@@ -5,13 +5,13 @@
 */
 
 define([
-  'window'
+  'bridge/messenger'
   ],
-  function (window) {
+  function (messenger) {
     var start;
 
     start = function start () {
-      window.alert(window.angular);
+      messenger.sendMessage('hello, world');
     };
 
     return start;

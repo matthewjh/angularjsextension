@@ -6,7 +6,9 @@ define([
   ],
   function (angular, sinon) {
     return {
+      addEventListener: sinon.stub(),
       angular: angular,
-      alert: sinon.stub()
+      alert: sinon.stub(),
+      postMessage: sinon.stub()
     };
   });
