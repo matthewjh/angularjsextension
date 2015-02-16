@@ -11,7 +11,12 @@ define([
     var start;
 
     start = function start () {
-      messenger.send('hello, world');
+      messenger.registerContextAsInspectedPage();
+      messenger.send('Inspected Page -> Content Script: hi');
+
+      messenger.onRecieve(function (payload) {
+        window.alert(payload);
+      });
     };
 
     return start;

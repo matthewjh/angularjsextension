@@ -5,9 +5,12 @@ define([
   ],
   function (messenger, window) {
 
-    messenger.onRecieve(function (event) {
-      window.alert(event);
+    messenger.registerContextAsContentScript();
+    messenger.onRecieve(function (payload) {
+      window.alert(payload);
     });
+
+    messenger.send('Content Script -> Inspected Page: hello!');
 
     return 'hello';
   });

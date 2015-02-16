@@ -13,16 +13,56 @@ define([
       });
     });
 
+    describe('.registerContextAsInspectedPage', function () {
+
+    });
+
+    // describe('.registerContextAsContentScript', function () {
+    //   it('should cause messages sent to have the targetContext property set to \'inspected-page\'', function () {
+    //     var messagePayload;
+
+    //     messagePayload = 'some-payload';
+    //     messenger.registerContextAsContentScript();
+
+    //     messenger.send(messagePayload);
+
+    //     expect(
+    //       window.postMessage
+    //       .withArgs(sinon.match.has('targetContext', 'inspected-page'), '*')
+    //       .callCount
+    //       ).toBe(1);
+    //   });
+    // });
+
     describe('.send', function () {
-      it('should call window.postMessage with the correct arguments', function () {
+      it('should call window.postMessage with the correct payload', function () {
         var message;
 
         message = 'some-message';
+        messenger.registerContextAsContentScript();
 
         messenger.send(message);
 
-        expect(window.postMessage.withArgs(message, '*').callCount).toBe(1);
+        expect(
+          window.postMessage
+          .withArgs({
+            payload: message,
+            targetContext: 'inspected-page'
+          }, '*')
+          .callCount).toBe(1);
       });
+
+      // it('should throw an exception if called before a context has been set', function () {
+      //   var thrownException;
+
+      //   try {
+      //     messenger.send('');
+      //   } catch (exception) {
+      //     thrownException = exception;
+      //   }
+
+      //   expect(thrownException).toBeTruthy();
+      // });
     });
 
     describe('.onRecieve', function () {
