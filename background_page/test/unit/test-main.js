@@ -66,11 +66,6 @@ define('config', [], function () {});
 
 function onRequireJsReady () {
   require(allTestFiles, function () {
-        beforeEach(function () {
-          console.log('hi');
-        });
-
-
         window.__karma__.start();
   });
 };

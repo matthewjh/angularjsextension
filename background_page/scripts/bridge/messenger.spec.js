@@ -14,25 +14,38 @@ define([
     });
 
     describe('.registerContextAsInspectedPage', function () {
+      it('should cause messages sent to have the targetContext property set to \'content-script\'', function () {
+        var messagePayload;
 
+        messagePayload = 'some-payload';
+        messenger.registerContextAsInspectedPage();
+
+        messenger.send(messagePayload);
+
+        expect(
+          window.postMessage
+          .withArgs(sinon.match.has('targetContext', 'content-script'), '*')
+          .callCount
+          ).toBe(1);
+      });
     });
 
-    // describe('.registerContextAsContentScript', function () {
-    //   it('should cause messages sent to have the targetContext property set to \'inspected-page\'', function () {
-    //     var messagePayload;
+    describe('.registerContextAsContentScript', function () {
+      it('should cause messages sent to have the targetContext property set to \'inspected-page\'', function () {
+        var messagePayload;
 
-    //     messagePayload = 'some-payload';
-    //     messenger.registerContextAsContentScript();
+        messagePayload = 'some-payload';
+        messenger.registerContextAsContentScript();
 
-    //     messenger.send(messagePayload);
+        messenger.send(messagePayload);
 
-    //     expect(
-    //       window.postMessage
-    //       .withArgs(sinon.match.has('targetContext', 'inspected-page'), '*')
-    //       .callCount
-    //       ).toBe(1);
-    //   });
-    // });
+        expect(
+          window.postMessage
+          .withArgs(sinon.match.has('targetContext', 'inspected-page'), '*')
+          .callCount
+          ).toBe(1);
+      });
+    });
 
     describe('.send', function () {
       it('should call window.postMessage with the correct payload', function () {
@@ -52,32 +65,30 @@ define([
           .callCount).toBe(1);
       });
 
-      // it('should throw an exception if called before a context has been set', function () {
-      //   var thrownException;
+      it('should throw an exception if called before a context has been set', function () {
+        messenger.send = sinon.spy(messenger.send)
 
-      //   try {
-      //     messenger.send('');
-      //   } catch (exception) {
-      //     thrownException = exception;
-      //   }
+        messenger.send('');
 
-      //   expect(thrownException).toBeTruthy();
-      // });
+        expect(messenger.send.threw()).toBe(true);
+      });
     });
 
     describe('.onRecieve', function () {
       it('should call window.addEventListener with the correct arguments', function () {
-        messenger.onRecieve(new Function());
+        messenger.onRecieve(sinon.stub());
 
         expect(window.addEventListener.withArgs('message', sinon.match.func).callCount).toBe(1);
       });
 
-      it('should call the handler with event.data when the listener is fired', function () {
+      it('should call the handler with event.data.payload when the listener is fired', function () {
         var event,
             handler;
 
         event = {
-          data: 'some-event-data'
+          data: {
+            payload: 'some-payload'
+          }
         };
 
         handler = sinon.stub();
@@ -85,7 +96,7 @@ define([
 
         window.addEventListener.callArgWith(1, event);
 
-        expect(handler.withArgs(event.data).callCount).toBe(1);
+        expect(handler.withArgs(event.data.payload).callCount).toBe(1);
       });
     });
 });
