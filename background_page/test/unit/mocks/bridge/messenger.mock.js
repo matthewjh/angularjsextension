@@ -4,10 +4,17 @@ define([
   'sinon'
   ],
   function (sinon) {
-    return {
-      onRecieve: sinon.stub(),
-      send: sinon.stub(),
-      registerContextAsContentScript: sinon.stub(),
-      registerContextAsInspectedPage: sinon.stub()
+    var MessengerMock;
+
+    MessengerMock = function MessengerMock () {
+      this.send = sinon.stub();
+      this.onRecieve = sinon.stub();
     };
+
+    MessengerMock.prototype.contexts = {
+      INSPECTED_PAGE: 'inspected-page',
+      CONTENT_SCRIPT: 'content-script'
+    };
+
+    return MessengerMock;
   });

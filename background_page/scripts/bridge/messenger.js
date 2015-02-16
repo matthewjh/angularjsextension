@@ -4,32 +4,25 @@ define([
   'window'
   ],
   function (window) {
-    var context,
-        contexts,
-        onRecieve,
-        raiseError,
-        registerContextAsContentScript,
-        registerContextAsInspectedPage,
-        send;
+    var Messenger
+        raiseError;
 
-    contexts = {
-      inspectedPage: 'inspected-page',
-      contentScript: 'content-script'
+    var raiseError = function raiseError (reason) {
+      throw 'bridge/Messenger: ' + reason;
     };
 
-    raiseError = function raiseError (reason) {
-      throw 'bridge/messenger: ' + reason;
+    Messenger = function Messenger (context) {
+      this.context = context;
     };
 
-    registerContextAsContentScript = function registerContextAsContentScript () {
-      context = contexts.contentScript;
+    Messenger.prototype.contexts = {
+      INSPECTED_PAGE: 'inspected-page',
+      CONTENT_SCRIPT: 'content-script'
     };
 
-    registerContextAsInspectedPage = function registerContextAsInspectedPage () {
-      context = contexts.inspectedPage;
-    };
+    Messenger.prototype.onRecieve = function  (handler) {
+      var context = this.context;
 
-    onRecieve = function onRecieve (handler) {
       window.addEventListener('message', function (event) {
         if (event.data.targetContext === context) {
           handler(event.data.payload);
@@ -37,19 +30,19 @@ define([
       });
     };
 
-    send = function send (messagePayload) {
+    Messenger.prototype.send = function (messagePayload) {
       var message,
           targetContext;
 
-      switch (context) {
-        case contexts.inspectedPage:
-          targetContext = contexts.contentScript;
+      switch (this.context) {
+        case this.contexts.INSPECTED_PAGE:
+          targetContext = this.contexts.CONTENT_SCRIPT;
           break;
-        case contexts.contentScript:
-          targetContext = contexts.inspectedPage;
+        case this.contexts.CONTENT_SCRIPT:
+          targetContext = this.contexts.INSPECTED_PAGE;
           break;
         default:
-          raiseError('invalid context: ' + context);
+          raiseError('invalid context: ' + this.context);
       }
 
       message = {
@@ -60,10 +53,5 @@ define([
       window.postMessage(message, '*');
     };
 
-    return {
-      onRecieve: onRecieve,
-      registerContextAsContentScript: registerContextAsContentScript,
-      registerContextAsInspectedPage: registerContextAsInspectedPage,
-      send: send
-    };
+    return Messenger;
   });

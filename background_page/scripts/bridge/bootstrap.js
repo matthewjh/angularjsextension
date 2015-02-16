@@ -5,13 +5,14 @@
 */
 
 define([
-  'bridge/messenger'
+  'bridge/Messenger'
   ],
-  function (messenger) {
+  function (Messenger) {
     var start;
 
     start = function start () {
-      messenger.registerContextAsInspectedPage();
+      var messenger = new Messenger(Messenger.prototype.contexts.INSPECTED_PAGE);
+
       messenger.send('Inspected Page -> Content Script: hi');
 
       messenger.onRecieve(function (payload) {

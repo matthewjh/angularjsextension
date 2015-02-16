@@ -1,102 +1,190 @@
 'use strict';
 
 define([
-  'bridge/messenger-impl',
+  'bridge/Messenger-impl',
   'window',
   'sinon'
   ],
-  function (messenger, window, sinon) {
+  function (Messenger, window, sinon) {
 
-    describe('messenger module', function () {
-      it('should export a defined value', function () {
-        expect(messenger).toBeDefined();
+    describe('Messenger module', function () {
+      it('should export a constructor', function () {
+        expect(Messenger.prototype).toBeDefined();
       });
     });
 
-    describe('.registerContextAsInspectedPage', function () {
-      it('should cause messages sent to have the targetContext property set to \'content-script\'', function () {
-        var messagePayload;
+    describe('messenger object created with a valid context', function () {
+      var messenger;
 
-        messagePayload = 'some-payload';
-        messenger.registerContextAsInspectedPage();
+      beforeEach(function () {
+        messenger = new Messenger(Messenger.prototype.contexts.CONTENT_SCRIPT);
+      });
 
-        messenger.send(messagePayload);
+      describe('.send', function () {
+        it('should call window.postMessage with the correct payload', function () {
+          var payload = 'some-message';
 
-        expect(
-          window.postMessage
-          .withArgs(sinon.match.has('targetContext', 'content-script'), '*')
-          .callCount
-          ).toBe(1);
+          messenger.send(payload);
+
+          expect(
+            window.postMessage
+            .withArgs(sinon.match.has('payload', payload), '*')
+            .callCount).toBe(1);
+        });
+      });
+
+      describe('.onRecieve', function () {
+        it('should call window.addEventListener with the correct arguments', function () {
+          messenger.onRecieve(sinon.stub());
+
+          expect(window.addEventListener.withArgs('message', sinon.match.func).callCount).toBe(1);
+        });
       });
     });
 
-    describe('.registerContextAsContentScript', function () {
-      it('should cause messages sent to have the targetContext property set to \'inspected-page\'', function () {
-        var messagePayload;
+    describe('messenger object created with CONTENT_SCRIPT context', function () {
+      var messenger;
 
-        messagePayload = 'some-payload';
-        messenger.registerContextAsContentScript();
+      beforeEach(function () {
+        messenger = new Messenger(Messenger.prototype.contexts.CONTENT_SCRIPT);
+      });
 
-        messenger.send(messagePayload);
+      it('should have the context property set to CONTENT_SCRIPT', function () {
+        expect(messenger.context).toBe(Messenger.prototype.contexts.CONTENT_SCRIPT);
+      });
 
-        expect(
-          window.postMessage
-          .withArgs(sinon.match.has('targetContext', 'inspected-page'), '*')
-          .callCount
-          ).toBe(1);
+      describe('.send', function () {
+        it('should call window.postMessage with the targetContext set to INSPECTED_PAGE', function () {
+          messenger.send('some-message');
+
+          expect(
+            window.postMessage
+            .withArgs(sinon.match.has('targetContext', Messenger.prototype.contexts.INSPECTED_PAGE), '*')
+            .callCount).toBe(1);
+        });
+      });
+
+      describe('.onRecieve', function () {
+        var event;
+
+        beforeEach(function () {
+          event = {
+            data: {
+              payload: 'some-payload',
+              targetContext: null
+            }
+          };
+        });
+
+        it('should call the handler with event.data.payload when the listener is fired \
+            and the targetContext is CONTENT_SCRIPT', function () {
+          var handler;
+
+          event.data.targetContext = Messenger.prototype.contexts.CONTENT_SCRIPT;
+          handler = sinon.stub();
+          messenger.onRecieve(handler);
+
+          window.addEventListener.callArgWith(1, event);
+
+          expect(handler.withArgs(event.data.payload).callCount).toBe(1);
+        });
+
+        it('should not call the handler with event.data.payload when the listener is fired \
+            and the targetContext is not CONTENT_SCRIPT', function () {
+          var handler;
+
+          event.data.targetContext = Messenger.prototype.contexts.INSPECTED_PAGE;
+          handler = sinon.stub();
+          messenger.onRecieve(handler);
+
+          window.addEventListener.callArgWith(1, event);
+
+          expect(handler.withArgs(event.data.payload).callCount).toBe(0);
+        });
       });
     });
 
-    describe('.send', function () {
-      it('should call window.postMessage with the correct payload', function () {
-        var message;
+    describe('messenger object created with INSPECTED_PAGE context', function () {
+      var messenger;
 
-        message = 'some-message';
-        messenger.registerContextAsContentScript();
-
-        messenger.send(message);
-
-        expect(
-          window.postMessage
-          .withArgs({
-            payload: message,
-            targetContext: 'inspected-page'
-          }, '*')
-          .callCount).toBe(1);
+      beforeEach(function () {
+        messenger = new Messenger(Messenger.prototype.contexts.INSPECTED_PAGE);
       });
 
-      it('should throw an exception if called before a context has been set', function () {
-        messenger.send = sinon.spy(messenger.send)
+      it('should have the context property set to CONTENT_SCRIPT', function () {
+        expect(messenger.context).toBe(Messenger.prototype.contexts.INSPECTED_PAGE);
+      });
 
-        messenger.send('');
+      describe('.send', function () {
+        it('should call window.postMessage with the targetContext set to CONTENT_SCRIPT', function () {
+          messenger.send('some-message');
 
-        expect(messenger.send.threw()).toBe(true);
+          expect(
+            window.postMessage
+            .withArgs(sinon.match.has('targetContext', Messenger.prototype.contexts.CONTENT_SCRIPT), '*')
+            .callCount).toBe(1);
+        });
+      });
+
+      describe('.onRecieve', function () {
+        var event;
+
+        beforeEach(function () {
+          event = {
+            data: {
+              payload: 'some-payload',
+              targetContext: null
+            }
+          };
+        });
+
+        it('should call the handler with event.data.payload when the listener is fired \
+            and the targetContext is INSPECTED_PAGE', function () {
+          var handler;
+
+          event.data.targetContext = Messenger.prototype.contexts.INSPECTED_PAGE;
+          handler = sinon.stub();
+          messenger.onRecieve(handler);
+
+          window.addEventListener.callArgWith(1, event);
+
+          expect(handler.withArgs(event.data.payload).callCount).toBe(1);
+        });
+
+        it('should not call the handler with event.data.payload when the listener is fired \
+            and the targetContext is not INSPECTED_PAGE', function () {
+          var handler;
+
+          event.data.targetContext = Messenger.prototype.contexts.CONTENT_SCRIPT;
+          handler = sinon.stub();
+          messenger.onRecieve(handler);
+
+          window.addEventListener.callArgWith(1, event);
+
+          expect(handler.withArgs(event.data.payload).callCount).toBe(0);
+        });
       });
     });
 
-    describe('.onRecieve', function () {
-      it('should call window.addEventListener with the correct arguments', function () {
-        messenger.onRecieve(sinon.stub());
+    describe('messenger object created with an invalid context', function () {
+      var messenger;
 
-        expect(window.addEventListener.withArgs('message', sinon.match.func).callCount).toBe(1);
+      beforeEach(function () {
+        messenger = new Messenger('some-invalid-context');
       });
 
-      it('should call the handler with event.data.payload when the listener is fired', function () {
-        var event,
-            handler;
+      describe('.send', function () {
+        it('should throw an exception', function () {
+          var thrownException;
 
-        event = {
-          data: {
-            payload: 'some-payload'
+          try {
+            messenger.send('some-message');
+          } catch (exception) {
+            thrownException = exception;
           }
-        };
 
-        handler = sinon.stub();
-        messenger.onRecieve(handler);
-
-        window.addEventListener.callArgWith(1, event);
-
-        expect(handler.withArgs(event.data.payload).callCount).toBe(1);
+          expect(thrownException).toBeDefined();
+        });
       });
     });
 });

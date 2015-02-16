@@ -5,10 +5,20 @@ define([
   'sinon'
   ],
   function (angular, sinon) {
-    return {
+    var window;
+
+    window = {
       addEventListener: sinon.stub(),
       angular: angular,
       alert: sinon.stub(),
       postMessage: sinon.stub()
     };
+
+    beforeEach(function () {
+      window.addEventListener.reset();
+      window.alert.reset();
+      window.postMessage.reset();
+    });
+
+    return window;
   });

@@ -1,11 +1,12 @@
 define([
-  'bridge/messenger',
+  'bridge/Messenger',
   'window',
   'config'
   ],
-  function (messenger, window) {
+  function (Messenger, window) {
 
-    messenger.registerContextAsContentScript();
+    var messenger = new Messenger(Messenger.prototype.contexts.INSPECTED_PAGE);
+
     messenger.onRecieve(function (payload) {
       window.alert(payload);
     });
