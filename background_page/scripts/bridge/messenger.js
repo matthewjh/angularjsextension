@@ -7,11 +7,11 @@ define([
     var Messenger
         raiseError;
 
-    var raiseError = function raiseError (reason) {
+    var raiseError = function (reason) {
       throw 'bridge/Messenger: ' + reason;
     };
 
-    Messenger = function Messenger (context) {
+    Messenger = function (context) {
       this.context = context;
     };
 
@@ -20,7 +20,7 @@ define([
       CONTENT_SCRIPT: 'content-script'
     };
 
-    Messenger.prototype.onRecieve = function  (handler) {
+    Messenger.prototype.onRecieve = function (handler) {
       var context = this.context;
 
       window.addEventListener('message', function (event) {

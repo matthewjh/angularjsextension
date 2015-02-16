@@ -1,12 +1,9 @@
 'use strict';
 
 define([
-  'main-impl',
-  'bridge/Messenger',
-  'window',
-  'sinon'
+  'main-impl'
   ],
-  function (main, Messenger, window, sinon) {
+  function (main) {
 
     describe('main', function () {
 

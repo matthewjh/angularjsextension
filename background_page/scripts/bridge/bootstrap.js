@@ -10,7 +10,7 @@ define([
   function (Messenger) {
     var start;
 
-    start = function start () {
+    start = function () {
       var messenger = new Messenger(Messenger.prototype.contexts.INSPECTED_PAGE);
 
       messenger.send('Inspected Page -> Content Script: hi');

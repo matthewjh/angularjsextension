@@ -6,7 +6,7 @@ define([
   function (angular) {
     var getNgModule;
 
-    getNgModule = function getNgModule () {
+    getNgModule = function () {
       return angular.module('ng');
     }
 
