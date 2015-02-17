@@ -16,7 +16,7 @@ module.exports = function(config) {
       'background_page/test/unit/test-main.js',
       {pattern: 'background_page/test/unit/mocks/**/*.js', included: false},
       {pattern: 'background_page/scripts/{,/*}*.js', included: false},
-      {pattern: 'background_page/scripts/*/{,/*}*.js', included: false},
+      {pattern: 'background_page/scripts/**/*.js', included: false},
       {pattern: 'bower_components/**/*.js', included: false}
     ],
 

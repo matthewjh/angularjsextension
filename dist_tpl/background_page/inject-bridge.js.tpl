@@ -3,6 +3,6 @@
 
   e.type = 'text/javascript';
   e.appendChild(document.createTextNode('(' + (<%= bridge_bootstrap_fn %>).toString() + ')()'));
-  document.head.removeChild(document.head.appendChild(e));
+  document.documentElement.removeChild(document.documentElement.appendChild(e));
 })();
 

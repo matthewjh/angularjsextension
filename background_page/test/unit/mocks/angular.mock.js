@@ -1,20 +1,16 @@
 'use strict';
 
-define([],
-  function () {
-    var modules;
-
-    modules = {};
-
-    return {
-      module: function (moduleName, moduleDependencies) {
-        if (!modules[moduleName]) {
-          modules[moduleName] = {
-            name: moduleName
-          };
-        }
-
-        return modules[moduleName];
-      }
+define([
+  'sinon'
+  ],
+  function (sinon) {
+    var angular = {
+      resumeBootstrap: sinon.stub()
     };
+
+    beforeEach(function () {
+      angular.resumeBootstrap.reset();
+    });
+
+    return angular;
   });

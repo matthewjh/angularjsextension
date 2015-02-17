@@ -5,19 +5,19 @@
 */
 
 define([
-  'bridge/Messenger'
+  'angular',
+  'bridge/wrapper/wrapper-module'
   ],
-  function (Messenger) {
+  function (angular, wrapperModule) {
     var start;
 
     start = function () {
-      var messenger = new Messenger(Messenger.prototype.contexts.INSPECTED_PAGE);
+      var modules;
 
-      messenger.send('Inspected Page -> Content Script: hi');
+      modules = [];
+      modules.push(wrapperModule);
 
-      messenger.onRecieve(function (payload) {
-        window.alert(payload);
-      });
+      angular.resumeBootstrap(modules);
     };
 
     return start;
