@@ -4,16 +4,16 @@ define([
   'bridge/wrapper/wrap-root-scope'
   ],
   function (wrapRootScope) {
-    var wrapperMapping,
+    var wrappers,
         wrapperModule;
 
-    wrapperMapping = {
+    wrappers = {
       $rootScope: wrapRootScope
     };
 
     wrapperModule = function ($provide) {
-      for (var serviceName in wrapperMapping) {
-        $provide.decorator(serviceName, ['$delegate', wrapperMapping[serviceName]]);
+      for (var serviceName in wrappers) {
+        $provide.decorator(serviceName, ['$delegate',  wrappers[serviceName]]);
       }
     };
 
