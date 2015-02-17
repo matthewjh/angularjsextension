@@ -6,7 +6,7 @@ define([
   function (sinon) {
     var MessengerMock;
 
-    MessengerMock = function MessengerMock () {
+    MessengerMock = function () {
       this.send = sinon.stub();
       this.onRecieve = sinon.stub();
     };
