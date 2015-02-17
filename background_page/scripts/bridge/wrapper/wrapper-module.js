@@ -4,8 +4,8 @@ define([
   'bridge/wrapper/wrap-root-scope'
   ],
   function (wrapRootScope) {
-    var wrappers,
-        wrapperModule;
+    var wrapperModule,
+        wrappers;
 
     wrappers = {
       $rootScope: wrapRootScope
