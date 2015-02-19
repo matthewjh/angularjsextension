@@ -5,7 +5,7 @@ define([
   ],
   function (Messenger, window) {
 
-    var messenger = new Messenger(Messenger.prototype.contexts.CONTENT_SCRIPT);
+    var messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
 
     messenger.onRecieve(function (payload) {
       window.alert(payload);

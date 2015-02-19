@@ -11,7 +11,7 @@ define([
       this.onRecieve = sinon.stub();
     };
 
-    MessengerMock.prototype.contexts = {
+    MessengerMock.contexts = {
       INSPECTED_PAGE: 'inspected-page',
       CONTENT_SCRIPT: 'content-script'
     };
