@@ -7,7 +7,7 @@ define([
     var Messenger
         raiseError;
 
-    var raiseError = function (reason) {
+    raiseError = function (reason) {
       throw 'bridge/Messenger: ' + reason;
     };
 
