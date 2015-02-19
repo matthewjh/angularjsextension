@@ -17,7 +17,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger(Messenger.prototype.contexts.CONTENT_SCRIPT);
+        messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
       });
 
       describe('.send', function () {
@@ -46,11 +46,11 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger(Messenger.prototype.contexts.CONTENT_SCRIPT);
+        messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
       });
 
       it('should have the context property set to CONTENT_SCRIPT', function () {
-        expect(messenger.context).toBe(Messenger.prototype.contexts.CONTENT_SCRIPT);
+        expect(messenger.context).toBe(Messenger.contexts.CONTENT_SCRIPT);
       });
 
       describe('.send', function () {
@@ -59,7 +59,7 @@ define([
 
           expect(
             window.postMessage
-            .withArgs(sinon.match.has('targetContext', Messenger.prototype.contexts.INSPECTED_PAGE), '*')
+            .withArgs(sinon.match.has('targetContext', Messenger.contexts.INSPECTED_PAGE), '*')
             .callCount).toBe(1);
         });
       });
@@ -80,7 +80,7 @@ define([
             and the targetContext is CONTENT_SCRIPT', function () {
           var handler;
 
-          event.data.targetContext = Messenger.prototype.contexts.CONTENT_SCRIPT;
+          event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
           messenger.onRecieve(handler);
 
@@ -93,7 +93,7 @@ define([
             and the targetContext is not CONTENT_SCRIPT', function () {
           var handler;
 
-          event.data.targetContext = Messenger.prototype.contexts.INSPECTED_PAGE;
+          event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
           messenger.onRecieve(handler);
 
@@ -108,11 +108,11 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger(Messenger.prototype.contexts.INSPECTED_PAGE);
+        messenger = new Messenger(Messenger.contexts.INSPECTED_PAGE);
       });
 
       it('should have the context property set to CONTENT_SCRIPT', function () {
-        expect(messenger.context).toBe(Messenger.prototype.contexts.INSPECTED_PAGE);
+        expect(messenger.context).toBe(Messenger.contexts.INSPECTED_PAGE);
       });
 
       describe('.send', function () {
@@ -121,7 +121,7 @@ define([
 
           expect(
             window.postMessage
-            .withArgs(sinon.match.has('targetContext', Messenger.prototype.contexts.CONTENT_SCRIPT), '*')
+            .withArgs(sinon.match.has('targetContext', Messenger.contexts.CONTENT_SCRIPT), '*')
             .callCount).toBe(1);
         });
       });
@@ -142,7 +142,7 @@ define([
             and the targetContext is INSPECTED_PAGE', function () {
           var handler;
 
-          event.data.targetContext = Messenger.prototype.contexts.INSPECTED_PAGE;
+          event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
           messenger.onRecieve(handler);
 
@@ -155,7 +155,7 @@ define([
             and the targetContext is not INSPECTED_PAGE', function () {
           var handler;
 
-          event.data.targetContext = Messenger.prototype.contexts.CONTENT_SCRIPT;
+          event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
           messenger.onRecieve(handler);
 

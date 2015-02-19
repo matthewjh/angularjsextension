@@ -4,7 +4,7 @@ define([
   'window'
   ],
   function (window) {
-    var Messenger
+    var Messenger,
         raiseError;
 
     raiseError = function (reason) {
@@ -15,7 +15,7 @@ define([
       this.context = context;
     };
 
-    Messenger.prototype.contexts = {
+    Messenger.contexts = {
       INSPECTED_PAGE: 'inspected-page',
       CONTENT_SCRIPT: 'content-script'
     };
@@ -35,11 +35,11 @@ define([
           targetContext;
 
       switch (this.context) {
-        case this.contexts.INSPECTED_PAGE:
-          targetContext = this.contexts.CONTENT_SCRIPT;
+        case Messenger.contexts.INSPECTED_PAGE:
+          targetContext = Messenger.contexts.CONTENT_SCRIPT;
           break;
-        case this.contexts.CONTENT_SCRIPT:
-          targetContext = this.contexts.INSPECTED_PAGE;
+        case Messenger.contexts.CONTENT_SCRIPT:
+          targetContext = Messenger.contexts.INSPECTED_PAGE;
           break;
         default:
           raiseError('invalid context: ' + this.context);
