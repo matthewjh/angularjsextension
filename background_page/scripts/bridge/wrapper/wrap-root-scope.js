@@ -1,9 +1,8 @@
 'use strict';
 
 define([
-  'window'
   ],
-  function (window) {
+  function () {
     var createNewPrototype,
         wrapper;
 

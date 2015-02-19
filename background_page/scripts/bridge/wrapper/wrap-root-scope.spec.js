@@ -1,10 +1,9 @@
 'use strict';
 
 define([
-  'bridge/wrapper/wrap-root-scope-impl',
-  'window'
+  'bridge/wrapper/wrap-root-scope-impl'
   ],
-  function (wrapRootScope, window) {
+  function (wrapRootScope) {
     var $rootScopePrototype,
         $rootScope;
 
