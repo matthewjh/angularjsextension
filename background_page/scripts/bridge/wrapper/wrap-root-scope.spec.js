@@ -14,8 +14,9 @@ define([
 
       $rootScopePrototype = {
         constructor: $rootScopeConstructor,
+        someProperty2: 'some-value',
         $digest: sinon.stub(),
-        someProperty2: 'some-value'
+        $new: sinon.stub()
       };
 
       $rootScopeConstructor.prototype = $rootScopePrototype;
@@ -82,6 +83,24 @@ define([
           $rootScopePrototype.$digest.returns(someValue);
 
           expect(wrapped$rootScope.$digest()).toBe(someValue);
+        });
+      });
+
+      describe('.$new', function () {
+        it('should call $rootScopePrototype.$new with the same arguments', function () {
+          wrapped$rootScope.$new('arg-1', 'arg-2');
+
+          expect($rootScopePrototype.$new.withArgs('arg-1', 'arg-2').callCount).toBe(1);
+        });
+
+        it('should return the same thing as $rootScope.$digest', function () {
+          var someValue;
+
+          someValue = 5;
+
+          $rootScopePrototype.$new.returns(someValue);
+
+          expect(wrapped$rootScope.$new()).toBe(someValue);
         });
       });
     });

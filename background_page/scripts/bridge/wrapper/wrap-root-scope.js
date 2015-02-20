@@ -8,9 +8,15 @@ define([
 
     wrapper = {
       $digest: function (original$digest) {
-        console.log('$digest', this, arguments);
+        console.log('$digest: ', this, arguments);
 
         return original$digest();
+      },
+
+      $new: function (original$new) {
+        console.log('$new: ', this, arguments);
+
+        return original$new();
       }
     };
 
@@ -19,7 +25,7 @@ define([
 
       prototype = {};
 
-      for (var methodName in wrapper) {
+      Object.keys(wrapper).forEach(function (methodName) {
         prototype[methodName] = function $rootScopeInjectedPrototypeMethod () {
           var callOriginalFunction,
               originalArguments,
@@ -36,7 +42,7 @@ define([
 
           return wrapper[methodName].apply(this, wrapperFunctionArguments);
         };
-      }
+      });
 
       return prototype;
     };
