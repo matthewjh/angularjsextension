@@ -8,15 +8,63 @@ define([
 
     wrapper = {
       $digest: function (original$digest) {
-        console.log('$digest: ', this, arguments);
+        this.$$$digesting = true;
+        this.$root.$$$anyScopeDigesting = true;
 
-        return original$digest();
+        console.log('$digest: ', this.$id);
+
+        try {
+          original$digest();
+        } finally {
+          this.$$$digesting = false;
+          this.$root.$$$anyScopeDigesting = false;
+        }
       },
 
       $new: function (original$new) {
-        console.log('$new: ', this, arguments);
+        var first$$watchers,
+            first$$childHead,
+            childScope;
 
-        return original$new();
+        console.log('$new: ', this.$id);
+
+        childScope = original$new();
+        childScope.$$$digesting = false;
+
+        first$$watchers = childScope.$$watchers;
+        first$$childHead = childScope.$$childHead;
+
+        Object.defineProperties(childScope, {
+          $$watchers: {
+            get: function () {
+              if (this.$root.$$$anyScopeDigesting) {
+                childScope.$$$digesting = true;
+                console.log('  begin $digest for: ', childScope.$id);
+              }
+              return this._$$watchers;
+            },
+            set: function (new$$watchers) {
+              this._$$watchers = new$$watchers;
+            }
+          },
+          $$childHead: {
+            get: function () {
+              if (childScope.$$$digesting) {
+                console.log('  end $digest for: ', childScope.$id);
+                childScope.$$$digesting = false;
+              }
+              return this._$$childHead;
+            },
+            set: function (new$$childHead) {
+              this._$$childHead = new$$childHead;
+            }
+          }
+        });
+
+        childScope.$$watchers = first$$watchers;
+        childScope.$$childHead = first$$childHead;
+
+        return childScope;
       }
     };
 
@@ -50,6 +98,8 @@ define([
     return function ($rootScope) {
      var originalPrototype,
          prototypeToInject;
+
+      $rootScope.$$$anyScopeDigesting = false;
 
       originalPrototype = Object.getPrototypeOf($rootScope);
       prototypeToInject = createNewPrototype(originalPrototype);
