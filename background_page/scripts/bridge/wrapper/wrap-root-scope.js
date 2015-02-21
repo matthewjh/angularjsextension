@@ -1,68 +1,39 @@
 'use strict';
 
-define([
-  ],
+define([],
   function () {
     var createNewPrototype,
+        originalPrototype,
         wrapper;
 
     wrapper = {
       $digest: function (original$digest) {
-        this.$$$digesting = true;
-        this.$root.$$$anyScopeDigesting = true;
+        var modified$digest,
+            $scopeTraversionLoopRegex,
+            $scopeTraversionLoopReplacement,
+            original$digestString,
+            new$digestString,
+            new$digest;
 
         console.log('$digest: ', this.$id);
 
-        try {
-          original$digest();
-        } finally {
-          this.$$$digesting = false;
-          this.$root.$$$anyScopeDigesting = false;
-        }
+        // Naughty...
+        original$digestString = originalPrototype.$digest.toString();
+        $scopeTraversionLoopRegex = /:do\s{/;
+        $scopeTraversionLoopReplacement = ':do{ current.$digestHasBegun();';
+        new$digestString = original$digestString.replace($scopeTraversionLoopRegex, $scopeTraversionLoopReplacement);
+        new$digest = new Function('(' + new$digestString + ').bind(this)()').bind(this);
+
+        debugger;
+        return new$digest();
       },
 
       $new: function (original$new) {
-        var first$$watchers,
-            first$$childHead,
-            childScope;
+        var childScope;
 
         console.log('$new: ', this.$id);
 
         childScope = original$new();
-        childScope.$$$digesting = false;
-
-        first$$watchers = childScope.$$watchers;
-        first$$childHead = childScope.$$childHead;
-
-        Object.defineProperties(childScope, {
-          $$watchers: {
-            get: function () {
-              if (this.$root.$$$anyScopeDigesting) {
-                childScope.$$$digesting = true;
-                console.log('  begin $digest for: ', childScope.$id);
-              }
-              return this._$$watchers;
-            },
-            set: function (new$$watchers) {
-              this._$$watchers = new$$watchers;
-            }
-          },
-          $$childHead: {
-            get: function () {
-              if (childScope.$$$digesting) {
-                console.log('  end $digest for: ', childScope.$id);
-                childScope.$$$digesting = false;
-              }
-              return this._$$childHead;
-            },
-            set: function (new$$childHead) {
-              this._$$childHead = new$$childHead;
-            }
-          }
-        });
-
-        childScope.$$watchers = first$$watchers;
-        childScope.$$childHead = first$$childHead;
 
         return childScope;
       }
@@ -96,8 +67,7 @@ define([
     };
 
     return function ($rootScope) {
-     var originalPrototype,
-         prototypeToInject;
+      var prototypeToInject;
 
       $rootScope.$$$anyScopeDigesting = false;
 
