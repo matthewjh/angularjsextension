@@ -4,7 +4,7 @@ define([
     'source-maps/angular-impl'
   ],
   function (angularSourceMap) {
-    fdescribe('angularSourceMap', function () {
+    describe('angularSourceMap', function () {
       var get;
 
       describe('angularSourceMap module', function () {
