@@ -26,9 +26,9 @@
     "describe": false,
     "before": false,
     "beforeEach": false,
-    "ddescribe": false,
+    "fdescribe": false,
     "it": false,
-    "itt": false,
+    "fit": false,
     "expect": false
   }
 }
