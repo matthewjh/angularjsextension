@@ -1,9 +1,10 @@
 'use strict';
 
 define([
-  'bridge/wrapper/wrap-root-scope-impl'
+  'bridge/wrapper/wrap-root-scope-impl',
+  'sinon'
   ],
-  function (wrapRootScope) {
+  function (wrapRootScope, sinon) {
     var $rootScopePrototype,
         $rootScope;
 

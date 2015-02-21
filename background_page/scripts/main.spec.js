@@ -3,7 +3,7 @@
 define([
   'main-impl'
   ],
-  function (main) {
+  function () {
 
     describe('main', function () {
 

@@ -2,9 +2,10 @@
 
 define([
   'bridge/wrapper/wrapper-module-impl',
-  'bridge/wrapper/wrap-root-scope'
+  'bridge/wrapper/wrap-root-scope',
+  'sinon'
   ],
-  function (wrapperModule, wrapRootScope) {
+  function (wrapperModule, wrapRootScope, sinon) {
 
     describe('wrapperModule module', function () {
 

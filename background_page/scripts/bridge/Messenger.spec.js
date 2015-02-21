@@ -76,8 +76,8 @@ define([
           };
         });
 
-        it('should call the handler with event.data.payload when the listener is fired \
-            and the targetContext is CONTENT_SCRIPT', function () {
+        it('should call the handler with event.data.payload when the listener is fired' +
+           'and the targetContext is CONTENT_SCRIPT', function () {
           var handler;
 
           event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;
@@ -89,8 +89,8 @@ define([
           expect(handler.withArgs(event.data.payload).callCount).toBe(1);
         });
 
-        it('should not call the handler with event.data.payload when the listener is fired \
-            and the targetContext is not CONTENT_SCRIPT', function () {
+        it('should not call the handler with event.data.payload when the listener is fired' +
+           'and the targetContext is not CONTENT_SCRIPT', function () {
           var handler;
 
           event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
@@ -138,8 +138,8 @@ define([
           };
         });
 
-        it('should call the handler with event.data.payload when the listener is fired \
-            and the targetContext is INSPECTED_PAGE', function () {
+        it('should call the handler with event.data.payload when the listener is fired' +
+           'and the targetContext is INSPECTED_PAGE', function () {
           var handler;
 
           event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
@@ -151,8 +151,8 @@ define([
           expect(handler.withArgs(event.data.payload).callCount).toBe(1);
         });
 
-        it('should not call the handler with event.data.payload when the listener is fired \
-            and the targetContext is not INSPECTED_PAGE', function () {
+        it('should not call the handler with event.data.payload when the listener is fired' +
+           'and the targetContext is not INSPECTED_PAGE', function () {
           var handler;
 
           event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;

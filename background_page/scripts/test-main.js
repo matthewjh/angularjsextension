@@ -8,6 +8,7 @@ var allImplFiles,
     implFileRegex,
     mockModulesPath,
     mockModuleSuffix,
+    onRequireJsReady,
     testFileRegex;
 
 allImplFiles = [];
@@ -36,9 +37,15 @@ getMockMap = function getMockMap (testFiles) {
   });
 
   return map;
-}
+};
 
-Object.keys(window.__karma__.files).forEach(function(file) {
+onRequireJsReady = function onRequireJsReady () {
+  require(allTestFiles, function () {
+    window.__karma__.start();
+  });
+};
+
+Object.keys(window.__karma__.files).forEach(function (file) {
   if (testFileRegex.test(file)) {
     // Normalize paths to RequireJS module names.
     allTestFiles.push(getPathToModule(file));
@@ -62,10 +69,5 @@ require.config({
 });
 
 // stub config module
-define('config', [], function () {});
-
-function onRequireJsReady () {
-  require(allTestFiles, function () {
-        window.__karma__.start();
-  });
-};
+define('config', [], function () {
+});

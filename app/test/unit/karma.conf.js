@@ -1,5 +1,4 @@
-// Karma configuration
-// Generated on Sun Feb 08 2015 22:19:05 GMT+0000 (GMT)
+'use strict';
 
 module.exports = function(config) {
   config.set({
@@ -15,10 +14,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'app/test/unit/test-main.js',
+      'app/scripts/test-main.js',
       {pattern: 'app/scripts/**/*.js', included: false},
       {pattern: 'app/*.js', included: false},
-      {pattern: 'bower_components/**/**/*.js', included: false},
+      {pattern: 'bower_components/**/**/*.js', included: false}
     ],
 
 
