@@ -25,16 +25,21 @@ define([
     });
 
     describe('.reportScopeDigest', function () {
-      var scope;
+      var $scope;
 
       beforeEach(function () {
-        scope = {};
+        $scope = {};
       });
 
-      it('should call messenger.send', function () {
-        reporter.reportScopeDigest(scope);
+      it('should call messenger.send with the correct payload', function () {
+        reporter.reportScopeDigest($scope);
 
-        expect(messenger.send.callCount).toBe(1);
+        expect(messenger.send
+          .withArgs({
+            $scope: $scope,
+            type: reporterFactory.reportTypes.REPORT_SCOPE_DIGEST
+          })
+          .callCount).toBe(1);
       });
     });
   });

@@ -3,17 +3,30 @@
 define([
   'bridge/messenger-factory'
 ], function (messengerFactory) {
+  var reporterFactory,
+      reportTypes;
 
-  return function reporterFactory () {
+  reportTypes = {
+    REPORT_SCOPE_DIGEST: 1
+  };
+
+  reporterFactory = function () {
     var messenger;
 
     messenger = messengerFactory(messengerFactory.contexts.INSPECTED_PAGE);
 
     return {
-      reportScopeDigest: function () {
-        messenger.send('digestBegin');
+      reportScopeDigest: function ($scope) {
+        messenger.send({
+          type: reportTypes.REPORT_SCOPE_DIGEST,
+          $scope: $scope
+        });
       }
     };
   };
+
+  reporterFactory.reportTypes = reportTypes;
+
+  return reporterFactory;
 
 });
