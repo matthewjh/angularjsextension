@@ -1,9 +1,12 @@
 'use strict';
 
-define([],
-  function () {
+define([
+    'bridge/reporter-factory'
+  ],
+  function (reporterFactory) {
     var createNewPrototype,
         originalPrototype,
+        reporter,
         wrapper;
 
     wrapper = {
@@ -28,7 +31,7 @@ define([],
       },
 
       __isDigesting: function () {
-        console.log(this.$id, ' is currently digesting');
+        reporter.reportScopeDigest(this);
       }
     };
 
@@ -61,6 +64,8 @@ define([],
 
     return function ($rootScope) {
       var prototypeToInject;
+
+      reporter = reporterFactory();
 
       originalPrototype = Object.getPrototypeOf($rootScope);
       prototypeToInject = createNewPrototype(originalPrototype);

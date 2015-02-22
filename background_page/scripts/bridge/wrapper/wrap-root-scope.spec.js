@@ -1,12 +1,14 @@
 'use strict';
 
 define([
-  'bridge/wrapper/wrap-root-scope-impl',
-  'sinon'
+    'bridge/wrapper/wrap-root-scope-impl',
+    'bridge/reporter-factory',
+    'sinon'
   ],
-  function (wrapRootScope, sinon) {
+  function (wrapRootScope, reporterFactory, sinon) {
     var $rootScopePrototype,
-        $rootScope;
+        $rootScope,
+        reporter;
 
     beforeEach(function () {
       var $rootScopeConstructor;
@@ -26,6 +28,12 @@ define([
 
       $rootScope = Object.create($rootScopePrototype);
       $rootScope.someProperty = 'some-value';
+
+      reporter = {
+        reportScopeDigest: sinon.stub()
+      };
+
+      reporterFactory.returns(reporter);
     });
 
     describe('wrapRootScope module', function () {
@@ -63,11 +71,11 @@ define([
         expect($rootScopePrototype.isPrototypeOf(wrapped$rootScope)).toBe(true);
       });
 
-      it('should preserve arbitary properties on $rootScope', function () {
+      it('should preserve arbitrary properties on $rootScope', function () {
         expect(wrapped$rootScope.someProperty).toBe('some-value');
       });
 
-      it('should expose arbitary properties on the original $rootScope prototype', function () {
+      it('should expose arbitrary properties on the original $rootScope prototype', function () {
         expect($rootScope.someProperty2).toBe($rootScopePrototype.someProperty2);
       });
 
@@ -117,5 +125,13 @@ define([
           expect(childScope.__isDigesting.callCount).toBe(1);
         });
       });
+
+      describe('.__isDigesting', function () {
+        it('should call reporter.reportScopeDigest with the correct arguments', function () {
+          $rootScope.__isDigesting();
+
+          expect(reporter.reportScopeDigest.withArgs($rootScope).callCount).toBe(1);
+        });
+      });
     });
-});
+  });
