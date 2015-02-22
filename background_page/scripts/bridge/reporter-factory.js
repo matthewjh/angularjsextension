@@ -19,7 +19,7 @@ define([
       reportScopeDigest: function ($scope) {
         messenger.send({
           type: reportTypes.REPORT_SCOPE_DIGEST,
-          $scope: $scope
+          $scopeId: $scope.$id
         });
       }
     };

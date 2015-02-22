@@ -28,7 +28,9 @@ define([
       var $scope;
 
       beforeEach(function () {
-        $scope = {};
+        $scope = {
+          $id: 1
+        };
       });
 
       it('should call messenger.send with the correct payload', function () {
@@ -36,8 +38,8 @@ define([
 
         expect(messenger.send
           .withArgs({
-            $scope: $scope,
-            type: reporterFactory.reportTypes.REPORT_SCOPE_DIGEST
+            type: reporterFactory.reportTypes.REPORT_SCOPE_DIGEST,
+            $scopeId: $scope.$id
           })
           .callCount).toBe(1);
       });
