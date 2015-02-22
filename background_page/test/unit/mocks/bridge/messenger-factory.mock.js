@@ -9,8 +9,8 @@ define([
     messengerFactory = factoryStubFactory();
 
     messengerFactory.contexts = {
-      INSPECTED_PAGE: 'inspected-page',
-      CONTENT_SCRIPT: 'content-script'
+      INSPECTED_PAGE: 0,
+      CONTENT_SCRIPT: 1
     };
 
     return messengerFactory;

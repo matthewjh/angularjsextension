@@ -4,8 +4,14 @@ define([
     'window'
   ],
   function (window) {
-    var messengerFactory,
+    var contexts,
+        messengerFactory,
         raiseError;
+
+    contexts = {
+      INSPECTED_PAGE: 0,
+      CONTENT_SCRIPT: 1
+    };
 
     raiseError = function (reason) {
       throw 'bridge/Messenger: ' + reason;
@@ -26,11 +32,11 @@ define([
               targetContext;
 
           switch (context) {
-            case messengerFactory.contexts.INSPECTED_PAGE:
-              targetContext = messengerFactory.contexts.CONTENT_SCRIPT;
+            case contexts.INSPECTED_PAGE:
+              targetContext = contexts.CONTENT_SCRIPT;
               break;
-            case messengerFactory.contexts.CONTENT_SCRIPT:
-              targetContext = messengerFactory.contexts.INSPECTED_PAGE;
+            case contexts.CONTENT_SCRIPT:
+              targetContext = contexts.INSPECTED_PAGE;
               break;
             default:
               raiseError('invalid context: ' + context);
@@ -46,10 +52,7 @@ define([
       };
     };
 
-    messengerFactory.contexts = {
-      INSPECTED_PAGE: 'inspected-page',
-      CONTENT_SCRIPT: 'content-script'
-    };
+    messengerFactory.contexts = contexts;
 
     return messengerFactory;
   });

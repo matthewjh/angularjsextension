@@ -7,7 +7,7 @@ define([
       reportTypes;
 
   reportTypes = {
-    REPORT_SCOPE_DIGEST: 1
+    REPORT_SCOPE_DIGEST: 0
   };
 
   reporterFactory = function () {
