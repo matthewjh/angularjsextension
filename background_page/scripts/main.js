@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-  'bridge/Messenger',
+  'bridge/messenger-factory',
   'window',
   'config'
   ],

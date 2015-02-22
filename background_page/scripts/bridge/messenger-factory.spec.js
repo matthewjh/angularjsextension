@@ -1,23 +1,17 @@
 'use strict';
 
 define([
-  'bridge/Messenger-impl',
+  'bridge/messenger-factory-impl',
   'window',
   'sinon'
   ],
-  function (Messenger, window, sinon) {
-
-    describe('Messenger module', function () {
-      it('should export a constructor', function () {
-        expect(Messenger.prototype).toBeDefined();
-      });
-    });
+  function (messengerFactory, window, sinon) {
 
     describe('messenger object created with a valid context', function () {
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
+        messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
       });
 
       describe('.send', function () {
@@ -46,11 +40,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
-      });
-
-      it('should have the context property set to CONTENT_SCRIPT', function () {
-        expect(messenger.context).toBe(Messenger.contexts.CONTENT_SCRIPT);
+        messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
       });
 
       describe('.send', function () {
@@ -59,7 +49,7 @@ define([
 
           expect(
             window.postMessage
-            .withArgs(sinon.match.has('targetContext', Messenger.contexts.INSPECTED_PAGE), '*')
+            .withArgs(sinon.match.has('targetContext', messengerFactory.contexts.INSPECTED_PAGE), '*')
             .callCount).toBe(1);
         });
       });
@@ -80,7 +70,7 @@ define([
            'and the targetContext is CONTENT_SCRIPT', function () {
           var handler;
 
-          event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;
+          event.data.targetContext = messengerFactory.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
           messenger.onRecieve(handler);
 
@@ -93,7 +83,7 @@ define([
            'and the targetContext is not CONTENT_SCRIPT', function () {
           var handler;
 
-          event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
+          event.data.targetContext = messengerFactory.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
           messenger.onRecieve(handler);
 
@@ -108,11 +98,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger(Messenger.contexts.INSPECTED_PAGE);
-      });
-
-      it('should have the context property set to CONTENT_SCRIPT', function () {
-        expect(messenger.context).toBe(Messenger.contexts.INSPECTED_PAGE);
+        messenger = messengerFactory(messengerFactory.contexts.INSPECTED_PAGE);
       });
 
       describe('.send', function () {
@@ -121,7 +107,7 @@ define([
 
           expect(
             window.postMessage
-            .withArgs(sinon.match.has('targetContext', Messenger.contexts.CONTENT_SCRIPT), '*')
+            .withArgs(sinon.match.has('targetContext', messengerFactory.contexts.CONTENT_SCRIPT), '*')
             .callCount).toBe(1);
         });
       });
@@ -142,7 +128,7 @@ define([
            'and the targetContext is INSPECTED_PAGE', function () {
           var handler;
 
-          event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
+          event.data.targetContext = messengerFactory.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
           messenger.onRecieve(handler);
 
@@ -155,7 +141,7 @@ define([
            'and the targetContext is not INSPECTED_PAGE', function () {
           var handler;
 
-          event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;
+          event.data.targetContext = messengerFactory.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
           messenger.onRecieve(handler);
 
@@ -170,7 +156,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger('some-invalid-context');
+        messenger = messengerFactory('some-invalid-context');
       });
 
       describe('.send', function () {
