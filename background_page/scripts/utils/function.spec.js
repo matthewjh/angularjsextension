@@ -4,7 +4,7 @@ define([
     'utils/function-impl'
   ],
   function (functionUtils) {
-    fdescribe('functionUtils', function () {
+    describe('functionUtils', function () {
 
       describe('functionUtils module', function () {
         it('should export a defined value', function () {
