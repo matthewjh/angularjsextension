@@ -17,9 +17,11 @@ define([
         constructor: $rootScopeConstructor,
         someProperty2: 'some-value',
         $digest: sinon.stub(),
-        $new: sinon.stub()
+        $new: sinon.stub(),
+        $watch: sinon.stub()
       };
 
+      $rootScopePrototype.$new.returns(Object.create($rootScopePrototype));
       $rootScopeConstructor.prototype = $rootScopePrototype;
 
       $rootScope = Object.create($rootScopePrototype);
@@ -94,14 +96,25 @@ define([
           expect($rootScopePrototype.$new.withArgs('arg-1', 'arg-2').callCount).toBe(1);
         });
 
-        it('should return the same thing as $rootScope.$digest', function () {
-          var someValue;
+        it('should return the same thing as $rootScope.new', function () {
+          expect(wrapped$rootScope.$new()).toBe($rootScopePrototype.$new());
+        });
 
-          someValue = 5;
+        it('should add a watcher onto the new scope', function () {
+          wrapped$rootScope.$new();
 
-          $rootScopePrototype.$new.returns(someValue);
+          expect($rootScopePrototype.$watch.withArgs(sinon.match.func).callCount).toBe(1);
+        });
 
-          expect(wrapped$rootScope.$new()).toBe(someValue);
+        it('should add a watcher which, when fired, calls __isDigesting', function () {
+          var childScope;
+
+          childScope = wrapped$rootScope.$new();
+          childScope.__isDigesting = sinon.stub();
+
+          $rootScopePrototype.$watch.callArg(0);
+
+          expect(childScope.__isDigesting.callCount).toBe(1);
         });
       });
     });

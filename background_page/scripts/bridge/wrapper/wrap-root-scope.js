@@ -8,34 +8,27 @@ define([],
 
     wrapper = {
       $digest: function (original$digest) {
-        var modified$digest,
-            $scopeTraversionLoopRegex,
-            $scopeTraversionLoopReplacement,
-            original$digestString,
-            new$digestString,
-            new$digest;
-
         console.log('$digest: ', this.$id);
 
-        // Naughty...
-        original$digestString = originalPrototype.$digest.toString();
-        $scopeTraversionLoopRegex = /:do\s{/;
-        $scopeTraversionLoopReplacement = ':do{ current.$digestHasBegun();';
-        new$digestString = original$digestString.replace($scopeTraversionLoopRegex, $scopeTraversionLoopReplacement);
-        new$digest = new Function('(' + new$digestString + ').bind(this)()').bind(this);
-
-        debugger;
-        return new$digest();
+        return original$digest();
       },
 
       $new: function (original$new) {
-        var childScope;
+        var childScope,
+            $digestDetectionWatch;
 
-        console.log('$new: ', this.$id);
+        $digestDetectionWatch = function () {
+          childScope.__isDigesting();
+        };
 
         childScope = original$new();
+        childScope.$watch($digestDetectionWatch);
 
         return childScope;
+      },
+
+      __isDigesting: function () {
+        console.log(this.$id, ' is currently digesting');
       }
     };
 
@@ -68,8 +61,6 @@ define([],
 
     return function ($rootScope) {
       var prototypeToInject;
-
-      $rootScope.$$$anyScopeDigesting = false;
 
       originalPrototype = Object.getPrototypeOf($rootScope);
       prototypeToInject = createNewPrototype(originalPrototype);
