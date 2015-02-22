@@ -32,6 +32,23 @@ define([],
           nonLocalsProviderArgs.push(argumentsArray);
           return nonLocalsProvider.apply(this, nonLocalsProviderArgs);
         };
+      },
+
+      createMinSafeClosure: function (targetFn, nonMinNonLocals, sourceMap) {
+        var minNonLocals,
+            nonMinNonLocalNames;
+
+        minNonLocals = {};
+        nonMinNonLocalNames = Object.keys(nonMinNonLocals);
+
+        nonMinNonLocalNames.forEach(function (name) {
+          var minNonLocalName;
+
+          minNonLocalName = sourceMap.get(name);
+          minNonLocals[minNonLocalName] = nonMinNonLocals[name];
+        });
+
+        return this.createClosure(targetFn, minNonLocals);
       }
     };
   });
