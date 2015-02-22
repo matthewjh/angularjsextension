@@ -4,17 +4,14 @@ define([
   'sinon'
   ],
   function (sinon) {
-    var MessengerMock;
+    var messengerFactory;
 
-    MessengerMock = function () {
-      this.send = sinon.stub();
-      this.onRecieve = sinon.stub();
-    };
+    messengerFactory = sinon.stub();
 
-    MessengerMock.contexts = {
+    messengerFactory.contexts = {
       INSPECTED_PAGE: 'inspected-page',
       CONTENT_SCRIPT: 'content-script'
     };
 
-    return MessengerMock;
+    return messengerFactory;
   });

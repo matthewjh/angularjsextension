@@ -1,19 +1,17 @@
 'use strict';
 
 define([
-  'bridge/messenger-factory',
-  'window',
   'config'
   ],
-  function (Messenger, window) {
+  function () {
 
-    var messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
-
-    messenger.onRecieve(function (payload) {
-      window.alert(payload);
-    });
-
-    messenger.send('Content Script -> Inspected Page: hello!');
+    //var messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
+    //
+    //messenger.onReceive(function (payload) {
+    //  window.alert(payload);
+    //});
+    //
+    //messenger.send('Content Script -> Inspected Page: hello!');
 
     return 'hello';
   });

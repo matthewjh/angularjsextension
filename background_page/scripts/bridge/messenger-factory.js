@@ -13,7 +13,7 @@ define([
 
     messengerFactory = function (context) {
       return {
-        onRecieve: function (handler) {
+        onReceive: function (handler) {
           window.addEventListener('message', function (event) {
             if (event.data.targetContext === context) {
               handler(event.data.payload);

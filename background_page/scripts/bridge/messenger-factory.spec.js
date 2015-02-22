@@ -27,9 +27,9 @@ define([
         });
       });
 
-      describe('.onRecieve', function () {
+      describe('.onReceive', function () {
         it('should call window.addEventListener with the correct arguments', function () {
-          messenger.onRecieve(sinon.stub());
+          messenger.onReceive(sinon.stub());
 
           expect(window.addEventListener.withArgs('message', sinon.match.func).callCount).toBe(1);
         });
@@ -54,7 +54,7 @@ define([
         });
       });
 
-      describe('.onRecieve', function () {
+      describe('.onReceive', function () {
         var event;
 
         beforeEach(function () {
@@ -72,7 +72,7 @@ define([
 
           event.data.targetContext = messengerFactory.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
-          messenger.onRecieve(handler);
+          messenger.onReceive(handler);
 
           window.addEventListener.callArgWith(1, event);
 
@@ -85,7 +85,7 @@ define([
 
           event.data.targetContext = messengerFactory.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
-          messenger.onRecieve(handler);
+          messenger.onReceive(handler);
 
           window.addEventListener.callArgWith(1, event);
 
@@ -112,7 +112,7 @@ define([
         });
       });
 
-      describe('.onRecieve', function () {
+      describe('.onReceive', function () {
         var event;
 
         beforeEach(function () {
@@ -130,7 +130,7 @@ define([
 
           event.data.targetContext = messengerFactory.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
-          messenger.onRecieve(handler);
+          messenger.onReceive(handler);
 
           window.addEventListener.callArgWith(1, event);
 
@@ -143,7 +143,7 @@ define([
 
           event.data.targetContext = messengerFactory.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
-          messenger.onRecieve(handler);
+          messenger.onReceive(handler);
 
           window.addEventListener.callArgWith(1, event);
 
