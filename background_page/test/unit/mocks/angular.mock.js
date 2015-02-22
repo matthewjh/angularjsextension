@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-  'sinon'
+    'sinon'
   ],
   function (sinon) {
     var angular = {

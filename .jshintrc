@@ -26,6 +26,7 @@
     "describe": false,
     "before": false,
     "beforeEach": false,
+    "afterEach": false,
     "fdescribe": false,
     "it": false,
     "fit": false,

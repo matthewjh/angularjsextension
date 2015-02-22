@@ -1,12 +1,12 @@
 'use strict';
 
 define([
-  'sinon'
+  'factory-stub-factory'
   ],
-  function (sinon) {
+  function (factoryStubFactory) {
     var messengerFactory;
 
-    messengerFactory = sinon.stub();
+    messengerFactory = factoryStubFactory();
 
     messengerFactory.contexts = {
       INSPECTED_PAGE: 'inspected-page',
