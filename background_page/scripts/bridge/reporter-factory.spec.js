@@ -6,8 +6,9 @@ define([
   'sinon'
 ], function (reporterFactory, messengerFactory, sinon) {
 
-  describe('reporterFactory', function () {
-    var messenger,
+  fdescribe('reporterFactory', function () {
+    var $scope,
+        messenger,
         reporter;
 
     beforeEach(function () {
@@ -18,6 +19,10 @@ define([
       messengerFactory.returns(messenger);
 
       reporter = reporterFactory();
+
+      $scope = {
+        $id: 1
+      };
     });
 
     it('should create a messenger with the INSPECTED_PAGE context', function () {
@@ -25,20 +30,25 @@ define([
     });
 
     describe('.reportScopeDigest', function () {
-      var $scope;
-
-      beforeEach(function () {
-        $scope = {
-          $id: 1
-        };
-      });
-
       it('should call messenger.send with the correct payload', function () {
         reporter.reportScopeDigest($scope);
 
         expect(messenger.send
           .withArgs({
             type: reporterFactory.types.SCOPE_DIGEST,
+            $scopeId: $scope.$id
+          })
+          .callCount).toBe(1);
+      });
+    });
+
+    describe('.reportScopeCreated', function () {
+      it('should call messenger.send with the correct payload', function () {
+        reporter.reportScopeCreated($scope);
+
+        expect(messenger.send
+          .withArgs({
+            type: reporterFactory.types.SCOPE_CREATED,
             $scopeId: $scope.$id
           })
           .callCount).toBe(1);

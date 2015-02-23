@@ -7,7 +7,8 @@ define([
       types;
 
   types = {
-    SCOPE_DIGEST: 0
+    SCOPE_DIGEST: 0,
+    SCOPE_CREATED: 1
   };
 
   reporterFactory = function () {
@@ -19,6 +20,13 @@ define([
       reportScopeDigest: function ($scope) {
         messenger.send({
           type: types.SCOPE_DIGEST,
+          $scopeId: $scope.$id
+        });
+      },
+
+      reportScopeCreated: function ($scope) {
+        messenger.send({
+          type: types.SCOPE_CREATED,
           $scopeId: $scope.$id
         });
       }

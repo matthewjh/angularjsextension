@@ -30,7 +30,8 @@ define([
       $rootScope.someProperty = 'some-value';
 
       reporter = {
-        reportScopeDigest: sinon.stub()
+        reportScopeDigest: sinon.stub(),
+        reportScopeCreated: sinon.stub()
       };
 
       reporterFactory.returns(reporter);
@@ -44,7 +45,7 @@ define([
 
     });
 
-    describe('wrapped$rootScope (the return value of wrapRootScope)', function () {
+    fdescribe('wrapped$rootScope (the return value of wrapRootScope)', function () {
       var original$rootScopeConstructorPrototype,
           wrapped$rootScope;
 
@@ -79,24 +80,6 @@ define([
         expect($rootScope.someProperty2).toBe($rootScopePrototype.someProperty2);
       });
 
-      describe('.$digest', function () {
-        it('should call $rootScopePrototype.$digest with the same arguments', function () {
-          wrapped$rootScope.$digest('arg-1', 'arg-2');
-
-          expect($rootScopePrototype.$digest.withArgs('arg-1', 'arg-2').callCount).toBe(1);
-        });
-
-        it('should return the same thing as $rootScope.$digest', function () {
-          var someValue;
-
-          someValue = 5;
-
-          $rootScopePrototype.$digest.returns(someValue);
-
-          expect(wrapped$rootScope.$digest()).toBe(someValue);
-        });
-      });
-
       describe('.$new', function () {
         it('should call $rootScopePrototype.$new with the same arguments', function () {
           wrapped$rootScope.$new('arg-1', 'arg-2');
@@ -124,13 +107,19 @@ define([
 
           expect(childScope.__isDigesting.callCount).toBe(1);
         });
+
+        it('should call reporter.reportScopeCreated with the correct arguments', function () {
+          wrapped$rootScope.$new();
+
+          expect(reporter.reportScopeCreated.withArgs(wrapped$rootScope).callCount).toBe(1);
+        });
       });
 
       describe('.__isDigesting', function () {
         it('should call reporter.reportScopeDigest with the correct arguments', function () {
-          $rootScope.__isDigesting();
+          wrapped$rootScope.__isDigesting();
 
-          expect(reporter.reportScopeDigest.withArgs($rootScope).callCount).toBe(1);
+          expect(reporter.reportScopeDigest.withArgs(wrapped$rootScope).callCount).toBe(1);
         });
       });
     });

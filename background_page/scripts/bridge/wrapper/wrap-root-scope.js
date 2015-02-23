@@ -10,12 +10,6 @@ define([
         wrapper;
 
     wrapper = {
-      $digest: function (original$digest) {
-        console.log('$digest: ', this.$id);
-
-        return original$digest();
-      },
-
       $new: function (original$new) {
         var childScope,
             $digestDetectionWatch;
@@ -26,6 +20,8 @@ define([
 
         childScope = original$new();
         childScope.$watch($digestDetectionWatch);
+
+        reporter.reportScopeCreated(this);
 
         return childScope;
       },
