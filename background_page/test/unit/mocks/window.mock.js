@@ -11,7 +11,10 @@ define([
       addEventListener: sinon.stub(),
       angular: angular,
       alert: sinon.stub(),
-      postMessage: sinon.stub()
+      postMessage: sinon.stub(),
+      chrome: {
+        runtime: {}
+      }
     };
 
     beforeEach(function () {
