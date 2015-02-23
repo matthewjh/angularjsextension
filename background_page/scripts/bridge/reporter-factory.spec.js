@@ -38,7 +38,7 @@ define([
 
         expect(messenger.send
           .withArgs({
-            type: reporterFactory.reportTypes.REPORT_SCOPE_DIGEST,
+            type: reporterFactory.types.REPORT_SCOPE_DIGEST,
             $scopeId: $scope.$id
           })
           .callCount).toBe(1);

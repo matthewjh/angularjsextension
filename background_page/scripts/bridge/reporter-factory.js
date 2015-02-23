@@ -25,7 +25,7 @@ define([
     };
   };
 
-  reporterFactory.reportTypes = reportTypes;
+  reporterFactory.types = reportTypes;
 
   return reporterFactory;
 

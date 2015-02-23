@@ -11,7 +11,7 @@ define([
     messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
 
     messenger.onReceive(function (payload) {
-      if (payload.type === reporterFactory.reportTypes.REPORT_SCOPE_DIGEST) {
+      if (payload.type === reporterFactory.types.REPORT_SCOPE_DIGEST) {
         console.log('$digest ', payload.$scopeId);
       }
     });
