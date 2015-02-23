@@ -6,7 +6,7 @@ define([
   'sinon'
 ], function (reporterFactory, messengerFactory, sinon) {
 
-  fdescribe('reporterFactory', function () {
+  describe('reporterFactory', function () {
     var $scope,
         messenger,
         reporter;

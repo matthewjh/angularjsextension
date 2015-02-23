@@ -45,7 +45,7 @@ define([
 
     });
 
-    fdescribe('wrapped$rootScope (the return value of wrapRootScope)', function () {
+    describe('wrapped$rootScope (the return value of wrapRootScope)', function () {
       var original$rootScopeConstructorPrototype,
           wrapped$rootScope;
 
