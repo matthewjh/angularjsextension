@@ -15,7 +15,7 @@ define([
             $digestDetectionWatch;
 
         $digestDetectionWatch = function () {
-          childScope.__isDigesting();
+          reporter.reportScopeDigest(this);
         };
 
         childScope = original$new();
@@ -34,10 +34,6 @@ define([
         reporter.reportScopeDestroyed(this);
 
         return returnValue;
-      },
-
-      __isDigesting: function () {
-        reporter.reportScopeDigest(this);
       }
     };
 
