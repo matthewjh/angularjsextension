@@ -15,7 +15,6 @@ define([
             $digestDetectionWatch;
 
         $digestDetectionWatch = function () {
-          console.log(1);
           reporter.reportScopeDigest(childScope);
         };
 
