@@ -20,7 +20,8 @@ define([
         someProperty2: 'some-value',
         $digest: sinon.stub(),
         $new: sinon.stub(),
-        $watch: sinon.stub()
+        $watch: sinon.stub(),
+        $destroy: sinon.stub()
       };
 
       $rootScopePrototype.$new.returns(Object.create($rootScopePrototype));
@@ -31,7 +32,8 @@ define([
 
       reporter = {
         reportScopeDigest: sinon.stub(),
-        reportScopeCreated: sinon.stub()
+        reportScopeCreated: sinon.stub(),
+        reportScopeDestroyed: sinon.stub()
       };
 
       reporterFactory.returns(reporter);
@@ -87,7 +89,7 @@ define([
           expect($rootScopePrototype.$new.withArgs('arg-1', 'arg-2').callCount).toBe(1);
         });
 
-        it('should return the same thing as $rootScope.new', function () {
+        it('should return the same thing as $rootScope.$new', function () {
           expect(wrapped$rootScope.$new()).toBe($rootScopePrototype.$new());
         });
 
@@ -112,6 +114,24 @@ define([
           wrapped$rootScope.$new();
 
           expect(reporter.reportScopeCreated.withArgs(wrapped$rootScope).callCount).toBe(1);
+        });
+      });
+
+      describe('.$destroy', function () {
+        it('should call $rootScopePrototype.$destroy with the same arguments', function () {
+          wrapped$rootScope.$destroy('arg-1', 'arg-2');
+
+          expect($rootScopePrototype.$destroy.withArgs('arg-1', 'arg-2').callCount).toBe(1);
+        });
+
+        it('should return the same thing as $rootScope.$destroy', function () {
+          expect(wrapped$rootScope.$destroy()).toBe($rootScopePrototype.$destroy());
+        });
+
+        it('should call reporter.reportScopeDestroyed with the correct arguments', function () {
+          wrapped$rootScope.$destroy();
+
+          expect(reporter.reportScopeDestroyed.withArgs(wrapped$rootScope).callCount).toBe(1);
         });
       });
 

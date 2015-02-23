@@ -54,6 +54,19 @@ define([
           .callCount).toBe(1);
       });
     });
+
+    describe('.reportScopeDestroyed', function () {
+      it('should call messenger.send with the correct payload', function () {
+        reporter.reportScopeDestroyed($scope);
+
+        expect(messenger.send
+          .withArgs({
+            type: reporterFactory.types.SCOPE_DESTROYED,
+            $scopeId: $scope.$id
+          })
+          .callCount).toBe(1);
+      });
+    });
   });
 
 })

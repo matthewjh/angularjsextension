@@ -26,6 +26,16 @@ define([
         return childScope;
       },
 
+      $destroy: function (original$destroy) {
+        var returnValue;
+
+        returnValue = original$destroy();
+
+        reporter.reportScopeDestroyed(this);
+
+        return returnValue;
+      },
+
       __isDigesting: function () {
         reporter.reportScopeDigest(this);
       }
