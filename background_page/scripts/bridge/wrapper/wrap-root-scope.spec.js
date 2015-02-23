@@ -99,15 +99,22 @@ define([
           expect($rootScopePrototype.$watch.withArgs(sinon.match.func).callCount).toBe(1);
         });
 
-        it('should add a watcher which, when fired, calls reporter.reportScopeCreated with the correct arguments', function () {
+        it('should call reporter.reportScopeCreated with the correct arguments', function () {
           var childScope;
 
           childScope = wrapped$rootScope.$new();
-          childScope.__isDigesting = sinon.stub();
+
+          expect(reporter.reportScopeCreated.withArgs(childScope).callCount).toBe(1);
+        });
+
+        it('should add a watcher which, when fired, calls reporter.reportScopeDigest with the correct arguments', function () {
+          var childScope;
+
+          childScope = wrapped$rootScope.$new();
 
           $rootScopePrototype.$watch.callArg(0);
 
-          expect(reporter.reportScopeCreated.withArgs(wrapped$rootScope).callCount).toBe(1);
+          expect(reporter.reportScopeDigest.withArgs(childScope).callCount).toBe(1);
         });
       });
 

@@ -15,13 +15,14 @@ define([
             $digestDetectionWatch;
 
         $digestDetectionWatch = function () {
-          reporter.reportScopeDigest(this);
+          console.log(1);
+          reporter.reportScopeDigest(childScope);
         };
 
         childScope = original$new();
         childScope.$watch($digestDetectionWatch);
 
-        reporter.reportScopeCreated(this);
+        reporter.reportScopeCreated(childScope);
 
         return childScope;
       },
