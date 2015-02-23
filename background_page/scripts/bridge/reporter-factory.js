@@ -4,9 +4,9 @@ define([
   'bridge/messenger-factory'
 ], function (messengerFactory) {
   var reporterFactory,
-      reportTypes;
+      types;
 
-  reportTypes = {
+  types = {
     REPORT_SCOPE_DIGEST: 0
   };
 
@@ -18,14 +18,14 @@ define([
     return {
       reportScopeDigest: function ($scope) {
         messenger.send({
-          type: reportTypes.REPORT_SCOPE_DIGEST,
+          type: types.REPORT_SCOPE_DIGEST,
           $scopeId: $scope.$id
         });
       }
     };
   };
 
-  reporterFactory.types = reportTypes;
+  reporterFactory.types = types;
 
   return reporterFactory;
 
