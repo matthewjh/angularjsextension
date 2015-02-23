@@ -1,17 +1,20 @@
 'use strict';
 
 define([
-  'config'
+    'bridge/messenger-factory',
+    'bridge/reporter-factory',
+    'config'
   ],
-  function () {
+  function (messengerFactory, reporterFactory) {
+    var messenger;
 
-    //var messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
-    //
-    //messenger.onReceive(function (payload) {
-    //  window.alert(payload);
-    //});
-    //
-    //messenger.send('Content Script -> Inspected Page: hello!');
+    messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
+
+    messenger.onReceive(function (payload) {
+      if (payload.type === reporterFactory.reportTypes.REPORT_SCOPE_DIGEST) {
+        console.log('$digest ', payload.$scopeId);
+      }
+    });
 
     return 'hello';
   });
