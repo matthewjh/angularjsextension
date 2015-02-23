@@ -59,7 +59,7 @@ define([
       });
 
       describe('wrapped$rootScope.constructor.prototype', function () {
-        it('should be different from $rootScope.contructor.prototype', function () {
+        it('should be different from $rootScope.constructor.prototype', function () {
           expect(wrapped$rootScope.constructor.prototype).not.toBe(original$rootScopeConstructorPrototype);
         });
 
