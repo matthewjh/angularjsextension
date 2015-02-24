@@ -9,11 +9,11 @@
   {
     "matches": ["<all_urls>"],
     "run_at": "document_start",
-    "js" : ["background_page/ng-defer-bootstrap.js"]
+    "js" : ["content_scripts/ng-defer-bootstrap.js"]
   },
   {
     "matches": ["<all_urls>"],
     "run_at": "document_end",
-    "js" : ["background_page/inject-bridge.js", "<%= bg_js_path %>"]
+    "js" : ["content_scripts/inject-bridge.js", "<%= main_content_script_js_path %>"]
   }]
 }
