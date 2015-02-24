@@ -2,9 +2,9 @@
 
 define([
   'bridge/reporter-factory-impl',
-  'bridge/messenger-factory',
+  'bridge/Messenger',
   'sinon'
-], function (reporterFactory, messengerFactory, sinon) {
+], function (reporterFactory, Messenger, sinon) {
 
   describe('reporterFactory', function () {
     var $scope,
@@ -16,7 +16,7 @@ define([
         send: sinon.stub()
       };
 
-      messengerFactory.returns(messenger);
+      Messenger.returns(messenger);
 
       reporter = reporterFactory();
 
@@ -26,7 +26,7 @@ define([
     });
 
     it('should create a messenger with the INSPECTED_PAGE context', function () {
-      expect(messengerFactory.withArgs(messengerFactory.contexts.INSPECTED_PAGE).callCount).toBe(1);
+      expect(Messenger.withArgs(Messenger.contexts.INSPECTED_PAGE).callCount).toBe(1);
     });
 
     describe('.reportScopeDigest', function () {

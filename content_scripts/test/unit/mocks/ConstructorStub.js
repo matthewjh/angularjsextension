@@ -4,7 +4,7 @@ define([
     'sinon'
   ],
   function (sinon) {
-    return function factoryStubFactory () {
+    return function ConstructorStub () {
       var stub;
 
       stub = sinon.stub();

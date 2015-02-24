@@ -1,8 +1,8 @@
 'use strict';
 
 define([
-  'bridge/messenger-factory'
-], function (messengerFactory) {
+  'bridge/Messenger'
+], function (Messenger) {
   var reporterFactory,
       types;
 
@@ -15,7 +15,7 @@ define([
   reporterFactory = function () {
     var messenger;
 
-    messenger = messengerFactory(messengerFactory.contexts.INSPECTED_PAGE);
+    messenger = new Messenger(Messenger.contexts.INSPECTED_PAGE);
 
     return {
       reportScopeDigest: function ($scope) {

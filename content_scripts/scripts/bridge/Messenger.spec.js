@@ -1,17 +1,17 @@
 'use strict';
 
 define([
-  'bridge/messenger-factory-impl',
+  'bridge/Messenger-impl',
   'window',
   'sinon'
   ],
-  function (messengerFactory, window, sinon) {
+  function (Messenger, window, sinon) {
 
     describe('messenger object created with a valid context', function () {
       var messenger;
 
       beforeEach(function () {
-        messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
+        messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
       });
 
       describe('.send', function () {
@@ -40,7 +40,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
+        messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
       });
 
       describe('.send', function () {
@@ -49,7 +49,7 @@ define([
 
           expect(
             window.postMessage
-            .withArgs(sinon.match.has('targetContext', messengerFactory.contexts.INSPECTED_PAGE), '*')
+            .withArgs(sinon.match.has('targetContext', Messenger.contexts.INSPECTED_PAGE), '*')
             .callCount).toBe(1);
         });
       });
@@ -70,7 +70,7 @@ define([
            'and the targetContext is CONTENT_SCRIPT', function () {
           var handler;
 
-          event.data.targetContext = messengerFactory.contexts.CONTENT_SCRIPT;
+          event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
           messenger.onReceive(handler);
 
@@ -83,7 +83,7 @@ define([
            'and the targetContext is not CONTENT_SCRIPT', function () {
           var handler;
 
-          event.data.targetContext = messengerFactory.contexts.INSPECTED_PAGE;
+          event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
           messenger.onReceive(handler);
 
@@ -98,7 +98,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = messengerFactory(messengerFactory.contexts.INSPECTED_PAGE);
+        messenger = new Messenger(Messenger.contexts.INSPECTED_PAGE);
       });
 
       describe('.send', function () {
@@ -107,7 +107,7 @@ define([
 
           expect(
             window.postMessage
-            .withArgs(sinon.match.has('targetContext', messengerFactory.contexts.CONTENT_SCRIPT), '*')
+            .withArgs(sinon.match.has('targetContext', Messenger.contexts.CONTENT_SCRIPT), '*')
             .callCount).toBe(1);
         });
       });
@@ -128,7 +128,7 @@ define([
            'and the targetContext is INSPECTED_PAGE', function () {
           var handler;
 
-          event.data.targetContext = messengerFactory.contexts.INSPECTED_PAGE;
+          event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
           messenger.onReceive(handler);
 
@@ -141,7 +141,7 @@ define([
            'and the targetContext is not INSPECTED_PAGE', function () {
           var handler;
 
-          event.data.targetContext = messengerFactory.contexts.CONTENT_SCRIPT;
+          event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
           messenger.onReceive(handler);
 
@@ -156,7 +156,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = messengerFactory('some-invalid-context');
+        messenger = new Messenger('some-invalid-context');
       });
 
       describe('.send', function () {

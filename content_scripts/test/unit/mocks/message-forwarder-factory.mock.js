@@ -1,12 +1,12 @@
 'use strict';
 
 define([
-  'factory-stub-factory'
+  'ConstructorStub'
   ],
-  function (factoryStubFactory) {
+  function (ConstructorStub) {
     var messageForwarderFactory;
 
-    messageForwarderFactory = factoryStubFactory();
+    messageForwarderFactory = new ConstructorStub();
 
     return messageForwarderFactory;
   });

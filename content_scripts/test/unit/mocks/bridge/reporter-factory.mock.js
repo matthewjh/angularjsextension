@@ -1,12 +1,12 @@
 'use strict';
 
 define([
-  'factory-stub-factory'
+  'ConstructorStub'
   ],
-  function (factoryStubFactory) {
+  function (ConstructorStub) {
     var reporterFactory;
 
-    reporterFactory = factoryStubFactory();
+    reporterFactory = new ConstructorStub();
 
     return reporterFactory;
   });

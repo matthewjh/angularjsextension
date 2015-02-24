@@ -31,7 +31,7 @@ getMockMap = function getMockMap (testFiles) {
     '*': {}
   };
 
-  map['*']['factory-stub-factory'] = mockModulesPath + 'factory-stub-factory';
+  map['*']['ConstructorStub'] = mockModulesPath + 'ConstructorStub';
 
   testFiles.forEach(function (testModuleName) {
     map['*'][testModuleName] = mockModulesPath + testModuleName + mockModuleSuffix;

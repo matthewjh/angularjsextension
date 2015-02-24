@@ -2,11 +2,11 @@
 
 define([
     'message-forwarder-factory-impl',
-    'bridge/messenger-factory',
+    'bridge/Messenger',
     'chrome-runtime',
     'sinon'
   ],
-  function (messageForwarderFactory, messengerFactory, chromeRuntime, sinon) {
+  function (messageForwarderFactory, Messenger, chromeRuntime, sinon) {
 
     describe('messageForwarder', function () {
       var chromeExtensionPort,
@@ -18,7 +18,7 @@ define([
           onReceive: sinon.stub()
         };
 
-        messengerFactory.returns(messenger);
+        Messenger.returns(messenger);
 
         chromeExtensionPort = {
           postMessage: sinon.stub()
@@ -31,7 +31,7 @@ define([
 
 
       it('should create a messenger under the CONTENT_SCRIPT context', function () {
-        expect(messengerFactory.withArgs(messengerFactory.contexts.CONTENT_SCRIPT).callCount).toBe(1);
+        expect(Messenger.withArgs(Messenger.contexts.CONTENT_SCRIPT).callCount).toBe(1);
       });
 
       it('should create a connection to the extension via chromeRuntime.connect', function () {

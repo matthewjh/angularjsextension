@@ -1,16 +1,16 @@
 'use strict';
 
 define([
-    'bridge/messenger-factory',
+    'bridge/Messenger',
     'chrome-runtime'
   ],
-  function (messengerFactory, chromeRuntime) {
+  function (Messenger, chromeRuntime) {
 
     return function messageForwarderFactory () {
       var messenger,
           chromeExtensionPort;
 
-      messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
+      messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
 
 
       chromeExtensionPort = chromeRuntime.connect();
