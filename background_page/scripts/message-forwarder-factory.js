@@ -11,6 +11,8 @@ define([
           chromeExtensionPort;
 
       messenger = messengerFactory(messengerFactory.contexts.CONTENT_SCRIPT);
+
+
       chromeExtensionPort = chromeRuntime.connect();
 
       return {

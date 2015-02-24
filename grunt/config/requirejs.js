@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (consts, grunt) {
   var almondPath,
       addDevTargets,
@@ -31,12 +33,12 @@ module.exports = function (consts, grunt) {
         baseUrl: consts.paths.backgroundPage + 'scripts',
         mainConfigFile: consts.paths.backgroundPage + 'scripts/config.js',
         out: consts.paths.dist + consts.paths.backgroundPage + 'main.js',
-        include: ['main'],
+        include: ['main-invoker'],
         stubModules: ['config'],
         findNestedDependencies: true,
         wrap: true,
         optimize: prodOptimisation,
-        insertRequire: ['main']
+        insertRequire: ['main-invoker']
       }
     },
     bridgeBootstrap: {
@@ -76,9 +78,9 @@ module.exports = function (consts, grunt) {
     }
 
     return options;
-  }
+  };
 
   addDevTargets(options);
 
   return options;
-}
+};
