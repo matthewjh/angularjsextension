@@ -5,7 +5,7 @@ module.exports = function (consts) {
         consts.paths.dist + consts.paths.app + '{,*/}*.js',
         consts.paths.dist + consts.paths.app + 'scripts/{,*/}*.js',
         consts.paths.dist + consts.paths.app + 'styles/{,*/}*.css',
-        consts.paths.dist + consts.paths.backgroundPage + '{,*/}*.js',
+        consts.paths.dist + consts.paths.contentScripts + '{,*/}*.js'
       ]
     }
   };

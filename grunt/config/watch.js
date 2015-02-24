@@ -3,7 +3,7 @@ module.exports = function (consts) {
 
   projectFiles = [
     consts.paths.app + '{,*/}*.js',
-    consts.paths.backgroundPage + '{,*/}*.js'
+    consts.paths.contentScripts + '{,*/}*.js'
   ];
 
   return {
@@ -24,6 +24,6 @@ module.exports = function (consts) {
       tasks: [
         'jshint'
       ]
-    },
+    }
   };
 };

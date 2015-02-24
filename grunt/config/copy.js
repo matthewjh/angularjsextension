@@ -17,8 +17,8 @@ module.exports = function (consts) {
       }, {
         expand: true,
         dot: true,
-        cwd: consts.paths.backgroundPage,
-        dest: consts.paths.dist + consts.paths.backgroundPage,
+        cwd: consts.paths.contentScripts,
+        dest: consts.paths.dist + consts.paths.contentScripts,
         src: [
           '*.{ico,png,txt}',
           '.htaccess',

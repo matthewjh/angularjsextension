@@ -5,7 +5,7 @@ module.exports = function (consts) {
       singleRun: true
     },
     background_page: {
-      configFile: consts.paths.backgroundPage + 'test/unit/karma.conf.js',
+      configFile: consts.paths.contentScripts + 'test/unit/karma.conf.js',
       singleRun: true
     }
   };

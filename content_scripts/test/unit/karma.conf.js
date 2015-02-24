@@ -15,18 +15,18 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'background_page/scripts/test-main.js',
-      {pattern: 'background_page/test/unit/mocks/**/*.js', included: false},
-      {pattern: 'background_page/scripts/{,/*}*.js', included: false},
-      {pattern: 'background_page/scripts/**/*.js', included: false},
+      'content_scripts/scripts/test-main.js',
+      {pattern: 'content_scripts/test/unit/mocks/**/*.js', included: false},
+      {pattern: 'content_scripts/scripts/{,/*}*.js', included: false},
+      {pattern: 'content_scripts/scripts/**/*.js', included: false},
       {pattern: 'bower_components/**/*.js', included: false}
     ],
 
 
     // list of files to exclude
     exclude: [
-      //'background_page/scripts/main.js',
-      'background_page/scripts/config.js'
+      //'content_scripts/scripts/main.js',
+      'content_scripts/scripts/config.js'
     ],
 
 

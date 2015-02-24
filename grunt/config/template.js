@@ -36,7 +36,7 @@ module.exports = function (consts, grunt) {
     mapping = {
       app_js_path: consts.paths.app + 'main.js',
       app_css_path: consts.paths.app + 'styles/main.css',
-      bg_js_path: consts.paths.backgroundPage + 'main.js',
+      bg_js_path: consts.paths.contentScripts + 'main.js',
       devtools_js_path: consts.paths.app + 'scripts/devtools_background.js'
     };
 

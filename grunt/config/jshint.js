@@ -6,7 +6,7 @@ module.exports = function (consts) {
     },
     files: [
       'Gruntfile.js',
-      consts.paths.backgroundPage + '**/*.js',
+      consts.paths.contentScripts + '**/*.js',
       consts.paths.app + '**/*.js'
     ]
   };

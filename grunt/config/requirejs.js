@@ -27,12 +27,12 @@ module.exports = function (consts, grunt) {
         insertRequire: ['main']
       }
     },
-    backgroundPage: {
+    contentScripts: {
       options: {
         name: almondPath,
-        baseUrl: consts.paths.backgroundPage + 'scripts',
-        mainConfigFile: consts.paths.backgroundPage + 'scripts/config.js',
-        out: consts.paths.dist + consts.paths.backgroundPage + 'main.js',
+        baseUrl: consts.paths.contentScripts + 'scripts',
+        mainConfigFile: consts.paths.contentScripts + 'scripts/config.js',
+        out: consts.paths.dist + consts.paths.contentScripts + 'main.js',
         include: ['main-invoker'],
         stubModules: ['config'],
         findNestedDependencies: true,
@@ -44,9 +44,9 @@ module.exports = function (consts, grunt) {
     bridgeBootstrap: {
       options: {
         name: almondPath,
-        baseUrl: consts.paths.backgroundPage + 'scripts',
-        mainConfigFile: consts.paths.backgroundPage + 'scripts/config.js',
-        out: consts.paths.dist + consts.paths.backgroundPage + 'bridge/bootstrap-self-executing.js',
+        baseUrl: consts.paths.contentScripts + 'scripts',
+        mainConfigFile: consts.paths.contentScripts + 'scripts/config.js',
+        out: consts.paths.dist + consts.paths.contentScripts + 'bridge/bootstrap-self-executing.js',
         include: ['bridge/bootstrap-self-executing'],
         stubModules: ['config'],
         findNestedDependencies: true,

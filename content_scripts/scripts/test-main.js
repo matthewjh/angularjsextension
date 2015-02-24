@@ -14,13 +14,13 @@ var allImplFiles,
 allImplFiles = [];
 allTestFiles = [];
 implModuleSuffix = '-impl';
-implFileRegex = /^\/base\/background_page.*\.js$/i;
+implFileRegex = /^\/base\/content_scripts.*\.js$/i;
 mockModulesPath = '../test/unit/mocks/';
 mockModuleSuffix = '.mock';
 testFileRegex = /(spec|test)\.js$/i;
 
 getPathToModule = function getPathToModule (path) {
-  return path.replace(/^\/base\/background_page\/scripts\//, '').replace(/\.js$/, '');
+  return path.replace(/^\/base\/content_scripts\/scripts\//, '').replace(/\.js$/, '');
 };
 
 // generate requirejs map so that mock modules can be injected into units under test
@@ -57,7 +57,7 @@ Object.keys(window.__karma__.files).forEach(function (file) {
 });
 
 require.config({
-  baseUrl: '/base/background_page/scripts',
+  baseUrl: '/base/content_scripts/scripts',
   paths: {
     'sinon': '../../bower_components/sinon/sinon-1.12.2'
   },

@@ -15,9 +15,9 @@ module.exports = function (grunt) {
   consts = {
     paths: {
       app: 'app/',
-      backgroundPage: 'background_page/',
+      contentScripts: 'content_scripts/',
       dist: 'dist/',
-      bridgeBootstrap: 'dist/background_page/bridge/bootstrap-self-executing.js'
+      bridgeBootstrap: 'dist/content_scripts/bridge/bootstrap-self-executing.js'
     },
     templateSuffix: 'tpl'
   };
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'autoprefixer',
     'requirejs:appDev',
-    'requirejs:backgroundPageDev',
+    'requirejs:contentScriptsDev',
     'requirejs:bridgeBootstrapDev',
     'copy:dist',
     'cssmin',
@@ -70,7 +70,7 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'autoprefixer',
     'requirejs:app',
-    'requirejs:backgroundPage',
+    'requirejs:contentScripts',
     'requirejs:bridgeBootstrap',
     'copy:dist',
     'cssmin',
