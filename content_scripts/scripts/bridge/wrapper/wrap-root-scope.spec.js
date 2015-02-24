@@ -2,10 +2,10 @@
 
 define([
     'bridge/wrapper/wrap-root-scope-impl',
-    'bridge/reporter-factory',
+    'bridge/Reporter',
     'sinon'
   ],
-  function (wrapRootScope, reporterFactory, sinon) {
+  function (wrapRootScope, Reporter, sinon) {
     var $rootScopePrototype,
         $rootScope,
         reporter;
@@ -36,7 +36,7 @@ define([
         reportScopeDestroyed: sinon.stub()
       };
 
-      reporterFactory.returns(reporter);
+      Reporter.returns(reporter);
     });
 
     describe('wrapRootScope module', function () {

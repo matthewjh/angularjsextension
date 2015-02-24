@@ -1,9 +1,9 @@
 'use strict';
 
 define([
-    'bridge/reporter-factory'
+    'bridge/Reporter'
   ],
-  function (reporterFactory) {
+  function (Reporter) {
     var createNewPrototype,
         originalPrototype,
         reporter,
@@ -67,7 +67,7 @@ define([
     return function ($rootScope) {
       var prototypeToInject;
 
-      reporter = reporterFactory();
+      reporter = new Reporter();
 
       originalPrototype = Object.getPrototypeOf($rootScope);
       prototypeToInject = createNewPrototype(originalPrototype);

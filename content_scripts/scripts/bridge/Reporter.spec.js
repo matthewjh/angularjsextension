@@ -1,12 +1,12 @@
 'use strict';
 
 define([
-  'bridge/reporter-factory-impl',
+  'bridge/Reporter-impl',
   'bridge/Messenger',
   'sinon'
-], function (reporterFactory, Messenger, sinon) {
+], function (Reporter, Messenger, sinon) {
 
-  describe('reporterFactory', function () {
+  describe('Reporter', function () {
     var $scope,
         messenger,
         reporter;
@@ -18,7 +18,7 @@ define([
 
       Messenger.returns(messenger);
 
-      reporter = reporterFactory();
+      reporter = new Reporter();
 
       $scope = {
         $id: 1
@@ -35,7 +35,7 @@ define([
 
         expect(messenger.send
           .withArgs({
-            type: reporterFactory.types.SCOPE_DIGEST,
+            type: Reporter.types.SCOPE_DIGEST,
             $scopeId: $scope.$id
           })
           .callCount).toBe(1);
@@ -48,7 +48,7 @@ define([
 
         expect(messenger.send
           .withArgs({
-            type: reporterFactory.types.SCOPE_CREATED,
+            type: Reporter.types.SCOPE_CREATED,
             $scopeId: $scope.$id
           })
           .callCount).toBe(1);
@@ -61,7 +61,7 @@ define([
 
         expect(messenger.send
           .withArgs({
-            type: reporterFactory.types.SCOPE_DESTROYED,
+            type: Reporter.types.SCOPE_DESTROYED,
             $scopeId: $scope.$id
           })
           .callCount).toBe(1);
