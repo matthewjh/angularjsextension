@@ -1,14 +1,14 @@
 'use strict';
 
 define([
-    'message-forwarder-factory',
+    'MessageForwarder',
     'config'
   ],
-  function (messageForwarderFactory) {
+  function (MessageForwarder) {
     return function main () {
       var messageForwarder;
 
-      messageForwarder = messageForwarderFactory();
+      messageForwarder = new MessageForwarder();
       messageForwarder.start();
     };
   });

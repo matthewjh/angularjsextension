@@ -2,10 +2,10 @@
 
 define([
     'main-impl',
-    'message-forwarder-factory',
+    'MessageForwarder',
     'sinon'
   ],
-  function (main, messageForwarderFactory, sinon) {
+  function (main, MessageForwarder, sinon) {
 
     describe('main', function () {
       var messageForwarder;
@@ -15,7 +15,7 @@ define([
           start: sinon.stub()
         };
 
-        messageForwarderFactory.returns(messageForwarder);
+        MessageForwarder.returns(messageForwarder);
       });
 
       it('should call .start and on a messageForwarder instance', function () {

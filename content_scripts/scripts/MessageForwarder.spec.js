@@ -1,12 +1,12 @@
 'use strict';
 
 define([
-    'message-forwarder-factory-impl',
+    'MessageForwarder-impl',
     'bridge/Messenger',
     'chrome-runtime',
     'sinon'
   ],
-  function (messageForwarderFactory, Messenger, chromeRuntime, sinon) {
+  function (MessageForwarder, Messenger, chromeRuntime, sinon) {
 
     describe('messageForwarder', function () {
       var chromeExtensionPort,
@@ -26,7 +26,7 @@ define([
 
         chromeRuntime.connect.returns(chromeExtensionPort);
 
-        messageForwarder = messageForwarderFactory();
+        messageForwarder = new MessageForwarder();
       });
 
 
