@@ -1,5 +1,9 @@
 'use strict';
 
+/*
+* Entry point for main content script.
+*/
+
 define([
     'main'
   ],

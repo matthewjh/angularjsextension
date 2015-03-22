@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-* This module is always to be ran in the context of the inspected page.
+* Entry point for script injected into inspected page.
 */
 
 define([
