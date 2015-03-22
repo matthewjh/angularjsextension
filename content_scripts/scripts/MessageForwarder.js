@@ -1,5 +1,9 @@
 'use strict';
 
+/*
+* Forwards messages from content script to background page.
+*/
+
 define([
     'bridge/Messenger',
     'chrome-runtime'

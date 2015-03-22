@@ -1,5 +1,9 @@
 'use strict';
 
+/*
+* Handles messaging between content scripts and inspected page.
+*/
+
 define([
     'window'
   ],

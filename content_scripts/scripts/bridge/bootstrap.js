@@ -6,10 +6,12 @@
 
 define([
   'angular',
-  'bridge/wrapper/wrapper-module'
+  'bridge/wrapper/wrapper-module',
+  'bridge/Messenger'
   ],
-  function (angular, wrapperModule) {
-    var start;
+  function (angular, wrapperModule, Messenger) {
+    var start,
+        messenger;
 
     start = function () {
       var modules;
@@ -18,6 +20,11 @@ define([
       modules.push(wrapperModule);
 
       angular.resumeBootstrap(modules);
+
+      messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
+      messenger.onReceive(function (message) {
+        console.log(message);
+      });
     };
 
     return start;
