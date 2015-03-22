@@ -5,6 +5,9 @@
   "manifest_version": 2,
   "minimum_chrome_version": "10.0",
   "devtools_page": "/app/devtools_page.html",
+  "background": {
+    "scripts": ["background.js"]
+  },
   "content_scripts": [
   {
     "matches": ["<all_urls>"],

@@ -20,11 +20,6 @@ define([
       modules.push(wrapperModule);
 
       angular.resumeBootstrap(modules);
-
-      messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
-      messenger.onReceive(function (message) {
-        console.log(message);
-      });
     };
 
     return start;
