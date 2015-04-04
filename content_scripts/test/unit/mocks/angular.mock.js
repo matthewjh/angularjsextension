@@ -4,9 +4,7 @@ define([
     'sinon'
   ],
   function (sinon) {
-    var angular = {
+    return {
       resumeBootstrap: sinon.stub()
     };
-
-    return angular;
   });

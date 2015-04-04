@@ -5,9 +5,7 @@ define([
   'sinon'
   ],
   function (angular, sinon) {
-    var window;
-
-    window = {
+    return {
       addEventListener: sinon.stub(),
       angular: angular,
       alert: sinon.stub(),
@@ -16,6 +14,4 @@ define([
         runtime: {}
       }
     };
-
-    return window;
   });

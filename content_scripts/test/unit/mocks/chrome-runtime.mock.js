@@ -4,12 +4,10 @@ define([
     'sinon'
   ],
   function (sinon) {
-    var chromeRuntime = {
+    return {
       connect: sinon.stub(),
       onConnect: {
         addListener: sinon.stub()
       }
     };
-
-    return chromeRuntime;
   });
