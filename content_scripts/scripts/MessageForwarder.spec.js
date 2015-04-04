@@ -7,6 +7,15 @@ define([
     'sinon'
   ],
   function (MessageForwarder, Messenger, chromeRuntime, sinon) {
+    var chromeRuntimeMock,
+        MessageForwarderImpl,
+        MessengerMock;
+
+    beforeEach(function () {
+      chromeRuntimeMock = chromeRuntime.get();
+      MessageForwarderImpl = MessageForwarder.get()
+      MessengerMock = Messenger.get();
+    });
 
     describe('messageForwarder', function () {
       var chromeExtensionPort,
@@ -18,24 +27,24 @@ define([
           onReceive: sinon.stub()
         };
 
-        Messenger.returns(messenger);
+        MessengerMock.returns(messenger);
 
         chromeExtensionPort = {
           postMessage: sinon.stub()
         };
 
-        chromeRuntime.connect.returns(chromeExtensionPort);
+        chromeRuntimeMock.connect.returns(chromeExtensionPort);
 
-        messageForwarder = new MessageForwarder();
+        messageForwarder = new MessageForwarderImpl();
       });
 
 
       it('should create a messenger under the CONTENT_SCRIPT context', function () {
-        expect(Messenger.withArgs(Messenger.contexts.CONTENT_SCRIPT).callCount).toBe(1);
+        expect(MessengerMock.withArgs(MessengerMock.contexts.CONTENT_SCRIPT).callCount).toBe(1);
       });
 
       it('should create a connection to the extension via chromeRuntime.connect', function () {
-        expect(chromeRuntime.connect.callCount).toBe(1);
+        expect(chromeRuntimeMock.connect.callCount).toBe(1);
       });
 
       describe('.start', function () {

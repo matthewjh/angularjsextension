@@ -23,24 +23,6 @@ getPathToModule = function getPathToModule (path) {
   return path.replace(/^\/base\/content_scripts\/scripts\//, '').replace(/\.js$/, '');
 };
 
-// generate requirejs map so that mock modules can be injected into units under test
-getMockMap = function getMockMap (testFiles) {
-  var map;
-
-  map = {
-    '*': {}
-  };
-
-  map['*']['ConstructorStub'] = mockModulesPath + 'ConstructorStub';
-
-  testFiles.forEach(function (testModuleName) {
-    map['*'][testModuleName] = mockModulesPath + testModuleName + mockModuleSuffix;
-    map['*'][testModuleName + implModuleSuffix] = testModuleName;
-  });
-
-  return map;
-};
-
 onRequireJsReady = function onRequireJsReady () {
   require(allTestFiles, function () {
     window.__karma__.start();
@@ -48,11 +30,13 @@ onRequireJsReady = function onRequireJsReady () {
 };
 
 Object.keys(window.__karma__.files).forEach(function (file) {
-  if (testFileRegex.test(file)) {
-    // Normalize paths to RequireJS module names.
-    allTestFiles.push(getPathToModule(file));
-  } else if (implFileRegex.test(file)) {
-    allImplFiles.push(getPathToModule(file));
+  if (!/bower_components/.test(file)) {
+    if (testFileRegex.test(file)) {
+      // Normalize paths to RequireJS module names.
+      allTestFiles.push(getPathToModule(file));
+    } else if (implFileRegex.test(file)) {
+      allImplFiles.push(getPathToModule(file));
+    }
   }
 });
 
@@ -66,8 +50,22 @@ require.config({
       exports: 'sinon'
     }
   },
-  map: getMockMap(allImplFiles),
-  callback: onRequireJsReady
+  map: {
+    '*': {
+      'ConstructorStub': mockModulesPath + 'ConstructorStub'
+    }
+  },
+  callback: onRequireJsReady,
+
+  // RequireJS.spec config
+  mockPath: '/base/content_scripts/test/unit/mocks/',
+  implRegex: /\-impl$/,
+  neverMock: [
+    'config',
+    'sinon',
+    'ConstructorStub'
+  ],
+  verboseMode: false
 });
 
 // stub config module

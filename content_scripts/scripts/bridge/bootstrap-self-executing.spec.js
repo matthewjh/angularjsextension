@@ -5,11 +5,17 @@ define([
   'bridge/bootstrap'
   ],
   function (bootstrapSelfExecuting, bootstrap) {
+    var bootstrapMock;
+
+    beforeEach(function () {
+      bootstrapSelfExecuting.get();
+      bootstrapMock = bootstrap.get();
+    });
 
     describe('during bootstrapSelfExecuting module loading', function () {
 
       it('should call bootstrap', function () {
-        expect(bootstrap.callCount).toBe(1);
+        expect(bootstrapMock.callCount).toBe(1);
       });
 
     });

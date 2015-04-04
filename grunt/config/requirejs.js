@@ -55,12 +55,12 @@ module.exports = function (consts, grunt) {
         insertRequire: ['bridge/bootstrap-self-executing']
       }
     },
-    backgroundMain: {
+    backgroundPageMain: {
       options: {
         name: almondPath,
         baseUrl: consts.paths.contentScripts + 'scripts',
         mainConfigFile: consts.paths.contentScripts + 'scripts/config.js',
-        out: consts.paths.dist + consts.paths.contentScripts + 'background/main-invoker',
+        out: consts.paths.dist + consts.paths.contentScripts + 'background/main.js',
         include: ['background/main-invoker'],
         stubModules: ['config'],
         findNestedDependencies: true,

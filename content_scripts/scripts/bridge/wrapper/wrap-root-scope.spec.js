@@ -8,13 +8,17 @@ define([
   function (wrapRootScope, Reporter, sinon) {
     var $rootScopePrototype,
         $rootScope,
-        reporter;
+        reporter,
+        ReporterMock,
+        wrapRootScopeImpl;
 
     beforeEach(function () {
       var $rootScopeConstructor;
 
-      $rootScopeConstructor = {};
+      ReporterMock = Reporter.get();
+      wrapRootScopeImpl = wrapRootScope.get();
 
+      $rootScopeConstructor = {};
       $rootScopePrototype = {
         constructor: $rootScopeConstructor,
         someProperty2: 'some-value',
@@ -36,24 +40,24 @@ define([
         reportScopeDestroyed: sinon.stub()
       };
 
-      Reporter.returns(reporter);
+      ReporterMock.returns(reporter);
     });
 
     describe('wrapRootScope module', function () {
 
       it('should export a function', function () {
-        expect(wrapRootScope.constructor).toBe(Function);
+        expect(wrapRootScopeImpl.constructor).toBe(Function);
       });
 
     });
 
-    describe('wrapped$rootScope (the return value of wrapRootScope)', function () {
+    describe('wrapped $rootScope', function () {
       var original$rootScopeConstructorPrototype,
           wrapped$rootScope;
 
       beforeEach(function () {
         original$rootScopeConstructorPrototype = $rootScope.constructor.prototype;
-        wrapped$rootScope = wrapRootScope($rootScope);
+        wrapped$rootScope = wrapRootScopeImpl($rootScope);
       });
 
       it('should have the same constructor as $rootScope', function () {

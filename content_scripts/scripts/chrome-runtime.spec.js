@@ -5,10 +5,17 @@ define([
     'window'
   ],
   function (chromeRuntime, window) {
+    var chromeRuntimeImpl,
+        windowMock;
+
+    beforeEach(function () {
+      chromeRuntimeImpl = chromeRuntime.get();
+      windowMock = window.get();
+    });
 
     describe('chromeRuntime', function () {
       it('should be window.chrome.runtime', function () {
-        expect(chromeRuntime).toBe(window.chrome.runtime);
+        expect(chromeRuntimeImpl).toBe(windowMock.chrome.runtime);
       });
     });
 

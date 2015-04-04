@@ -6,12 +6,19 @@ define([
   'sinon'
   ],
   function (Messenger, window, sinon) {
+    var MessengerImpl,
+        windowMock;
+
+    beforeEach(function () {
+      MessengerImpl = Messenger.get();
+      windowMock = window.get();
+    });
 
     describe('messenger object created with a valid context', function () {
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
+        messenger = new MessengerImpl(MessengerImpl.contexts.CONTENT_SCRIPT);
       });
 
       describe('.send', function () {
@@ -21,7 +28,7 @@ define([
           messenger.send(payload);
 
           expect(
-            window.postMessage
+            windowMock.postMessage
             .withArgs(sinon.match.has('payload', payload), '*')
             .callCount).toBe(1);
         });
@@ -31,7 +38,7 @@ define([
         it('should call window.addEventListener with the correct arguments', function () {
           messenger.onReceive(sinon.stub());
 
-          expect(window.addEventListener.withArgs('message', sinon.match.func).callCount).toBe(1);
+          expect(windowMock.addEventListener.withArgs('message', sinon.match.func).callCount).toBe(1);
         });
       });
     });
@@ -40,7 +47,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger(Messenger.contexts.CONTENT_SCRIPT);
+        messenger = new MessengerImpl(MessengerImpl.contexts.CONTENT_SCRIPT);
       });
 
       describe('.send', function () {
@@ -48,8 +55,8 @@ define([
           messenger.send('some-message');
 
           expect(
-            window.postMessage
-            .withArgs(sinon.match.has('targetContext', Messenger.contexts.INSPECTED_PAGE), '*')
+            windowMock.postMessage
+            .withArgs(sinon.match.has('targetContext', MessengerImpl.contexts.INSPECTED_PAGE), '*')
             .callCount).toBe(1);
         });
       });
@@ -70,11 +77,11 @@ define([
            'and the targetContext is CONTENT_SCRIPT', function () {
           var handler;
 
-          event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;
+          event.data.targetContext = MessengerImpl.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
           messenger.onReceive(handler);
 
-          window.addEventListener.callArgWith(1, event);
+          windowMock.addEventListener.callArgWith(1, event);
 
           expect(handler.withArgs(event.data.payload).callCount).toBe(1);
         });
@@ -83,11 +90,11 @@ define([
            'and the targetContext is not CONTENT_SCRIPT', function () {
           var handler;
 
-          event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
+          event.data.targetContext = MessengerImpl.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
           messenger.onReceive(handler);
 
-          window.addEventListener.callArgWith(1, event);
+          windowMock.addEventListener.callArgWith(1, event);
 
           expect(handler.withArgs(event.data.payload).callCount).toBe(0);
         });
@@ -98,7 +105,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger(Messenger.contexts.INSPECTED_PAGE);
+        messenger = new MessengerImpl(MessengerImpl.contexts.INSPECTED_PAGE);
       });
 
       describe('.send', function () {
@@ -106,8 +113,8 @@ define([
           messenger.send('some-message');
 
           expect(
-            window.postMessage
-            .withArgs(sinon.match.has('targetContext', Messenger.contexts.CONTENT_SCRIPT), '*')
+            windowMock.postMessage
+            .withArgs(sinon.match.has('targetContext', MessengerImpl.contexts.CONTENT_SCRIPT), '*')
             .callCount).toBe(1);
         });
       });
@@ -128,11 +135,11 @@ define([
            'and the targetContext is INSPECTED_PAGE', function () {
           var handler;
 
-          event.data.targetContext = Messenger.contexts.INSPECTED_PAGE;
+          event.data.targetContext = MessengerImpl.contexts.INSPECTED_PAGE;
           handler = sinon.stub();
           messenger.onReceive(handler);
 
-          window.addEventListener.callArgWith(1, event);
+          windowMock.addEventListener.callArgWith(1, event);
 
           expect(handler.withArgs(event.data.payload).callCount).toBe(1);
         });
@@ -141,11 +148,11 @@ define([
            'and the targetContext is not INSPECTED_PAGE', function () {
           var handler;
 
-          event.data.targetContext = Messenger.contexts.CONTENT_SCRIPT;
+          event.data.targetContext = MessengerImpl.contexts.CONTENT_SCRIPT;
           handler = sinon.stub();
           messenger.onReceive(handler);
 
-          window.addEventListener.callArgWith(1, event);
+          windowMock.addEventListener.callArgWith(1, event);
 
           expect(handler.withArgs(event.data.payload).callCount).toBe(0);
         });
@@ -156,7 +163,7 @@ define([
       var messenger;
 
       beforeEach(function () {
-        messenger = new Messenger('some-invalid-context');
+        messenger = new MessengerImpl('some-invalid-context');
       });
 
       describe('.send', function () {

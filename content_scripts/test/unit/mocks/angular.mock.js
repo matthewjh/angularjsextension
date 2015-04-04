@@ -8,9 +8,5 @@ define([
       resumeBootstrap: sinon.stub()
     };
 
-    afterEach(function () {
-      angular.resumeBootstrap.reset();
-    });
-
     return angular;
   });

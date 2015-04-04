@@ -6,21 +6,30 @@ define([
   'angular'
   ],
   function (bootstrap, wrapperModule, angular) {
+    var bootstrapImpl,
+        wrapperModuleMock,
+        angularMock;
+
+    beforeEach(function () {
+      bootstrapImpl = bootstrap.get();
+      wrapperModuleMock = wrapperModule.get();
+      angularMock = angular.get();
+    })
 
     describe('bootstrap module', function () {
 
       it('should export a defined value', function () {
-        expect(bootstrap).toBeDefined();
+        expect(bootstrapImpl).toBeDefined();
       });
 
     });
 
     describe('when bootstrap is called', function () {
       it('should call angular.resumeBootstrap with [wrapperModule]', function () {
-        bootstrap();
+        bootstrapImpl();
 
-        expect(angular.resumeBootstrap
-          .withArgs([wrapperModule])
+        expect(angularMock.resumeBootstrap
+          .withArgs([wrapperModuleMock])
           .callCount).toBe(1);
       });
     });

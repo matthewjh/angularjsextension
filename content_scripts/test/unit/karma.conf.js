@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/requirejs.spec/requirejs-spec.js',
       'content_scripts/scripts/test-main.js',
       {pattern: 'content_scripts/test/unit/mocks/**/*.js', included: false},
       {pattern: 'content_scripts/scripts/{,/*}*.js', included: false},

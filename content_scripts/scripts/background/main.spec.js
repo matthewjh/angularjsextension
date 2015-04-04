@@ -6,14 +6,21 @@ define([
   'chrome-runtime'
   ],
   function (main, sinon, chromeRuntime) {
+    var chromeRuntimeMock,
+        mainImpl;
+
+    beforeEach(function () {
+      chromeRuntimeMock = chromeRuntime.get();
+      mainImpl = main.get();
+    });
 
     describe('background page main function', function () {
       beforeEach(function () {
-        main();
+        mainImpl();
       });
 
       it('should add a chrome runtime connection listener', function () {
-        expect(chromeRuntime.onConnect.addListener.withArgs(sinon.match.func).callCount).toBe(1);
+        expect(chromeRuntimeMock.onConnect.addListener.withArgs(sinon.match.func).callCount).toBe(1);
       });
     });
 });

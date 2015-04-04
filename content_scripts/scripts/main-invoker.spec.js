@@ -5,10 +5,17 @@ define([
     'main'
   ],
   function (mainInvoker, main) {
+    var mainInvokerImpl,
+        mainMock;
+
+    beforeEach(function () {
+      mainInvokerImpl = mainInvoker.get();
+      mainMock = main.get();
+    });
 
     describe('mainInvoker', function () {
       it('should call main', function () {
-        expect(main.callCount).toBe(1);
+        expect(mainMock.callCount).toBe(1);
       });
     });
   });

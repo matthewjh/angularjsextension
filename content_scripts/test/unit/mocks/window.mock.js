@@ -17,11 +17,5 @@ define([
       }
     };
 
-    beforeEach(function () {
-      window.addEventListener.reset();
-      window.alert.reset();
-      window.postMessage.reset();
-    });
-
     return window;
   });

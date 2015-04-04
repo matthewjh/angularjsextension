@@ -6,7 +6,7 @@ module.exports = function (consts, grunt) {
 
   distTplPath = consts.paths.dist.replace(/\//, '_') + consts.templateSuffix + '/';
 
-  getFiles = function getFiles () {
+  getFiles = function () {
     var files,
         glob;
 
@@ -29,7 +29,7 @@ module.exports = function (consts, grunt) {
   };
 
 
-  getFileMapping = function getFileMapping () {
+  getFileMapping = function () {
     var mapping,
         fullMapping,
 
@@ -37,7 +37,8 @@ module.exports = function (consts, grunt) {
       app_js_path: consts.paths.app + 'main.js',
       app_css_path: consts.paths.app + 'styles/main.css',
       main_content_script_js_path: consts.paths.contentScripts + 'main.js',
-      devtools_js_path: consts.paths.app + 'scripts/devtools_background.js'
+      devtools_js_path: consts.paths.app + 'scripts/devtools_background.js',
+      background_page_js_path: consts.paths.contentScripts + 'background/main.js'
     };
 
     fullMapping = {};
@@ -55,7 +56,7 @@ module.exports = function (consts, grunt) {
     return fullMapping;
   };
 
-  getTemplateVars = function getTemplateVars () {
+  getTemplateVars = function () {
     var vars,
         bridgeBootstrapPath,
         bridgeBootstrapSource;

@@ -5,6 +5,13 @@ define([
   'bridge/Messenger',
   'sinon'
 ], function (Reporter, Messenger, sinon) {
+  var ReporterImpl,
+      MessengerMock;
+
+  beforeEach(function () {
+    ReporterImpl = Reporter.get();
+    MessengerMock = Messenger.get();
+  });
 
   describe('Reporter', function () {
     var $scope,
@@ -16,9 +23,9 @@ define([
         send: sinon.stub()
       };
 
-      Messenger.returns(messenger);
+      MessengerMock.returns(messenger);
 
-      reporter = new Reporter();
+      reporter = new ReporterImpl();
 
       $scope = {
         $id: 1
@@ -26,7 +33,7 @@ define([
     });
 
     it('should create a messenger with the INSPECTED_PAGE context', function () {
-      expect(Messenger.withArgs(Messenger.contexts.INSPECTED_PAGE).callCount).toBe(1);
+      expect(MessengerMock.withArgs(MessengerMock.contexts.INSPECTED_PAGE).callCount).toBe(1);
     });
 
     describe('.reportScopeDigest', function () {
@@ -35,7 +42,7 @@ define([
 
         expect(messenger.send
           .withArgs({
-            type: Reporter.types.SCOPE_DIGEST,
+            type: ReporterImpl.types.SCOPE_DIGEST,
             $scopeId: $scope.$id
           })
           .callCount).toBe(1);
@@ -48,7 +55,7 @@ define([
 
         expect(messenger.send
           .withArgs({
-            type: Reporter.types.SCOPE_CREATED,
+            type: ReporterImpl.types.SCOPE_CREATED,
             $scopeId: $scope.$id
           })
           .callCount).toBe(1);
@@ -61,7 +68,7 @@ define([
 
         expect(messenger.send
           .withArgs({
-            type: Reporter.types.SCOPE_DESTROYED,
+            type: ReporterImpl.types.SCOPE_DESTROYED,
             $scopeId: $scope.$id
           })
           .callCount).toBe(1);

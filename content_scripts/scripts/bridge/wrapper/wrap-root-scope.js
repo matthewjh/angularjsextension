@@ -1,44 +1,47 @@
 'use strict';
 
+/*
+* Function producing a wrapped $rootScope with reporting via Reporter.
+*/
+
 define([
     'bridge/Reporter'
   ],
   function (Reporter) {
     var createNewPrototype,
-        originalPrototype,
-        reporter,
-        wrapper;
+        originalPrototype;
 
-    wrapper = {
-      $new: function (original$new) {
-        var childScope,
-            $digestDetectionWatch;
+    createNewPrototype = function (originalPrototype, reporter) {
+      var prototype,
+          wrapper;
 
-        $digestDetectionWatch = function () {
-          reporter.reportScopeDigest(childScope);
-        };
+      wrapper = {
+        $new: function (original$new) {
+          var $digestDetectionWatch,
+              childScope;
 
-        childScope = original$new();
-        childScope.$watch($digestDetectionWatch);
+          $digestDetectionWatch = function () {
+            reporter.reportScopeDigest(childScope);
+          };
 
-        reporter.reportScopeCreated(childScope);
+          childScope = original$new();
+          childScope.$watch($digestDetectionWatch);
+          console.log(reporter.reportScopeCreated);
+          reporter.reportScopeCreated(childScope);
 
-        return childScope;
-      },
+          return childScope;
+        },
 
-      $destroy: function (original$destroy) {
-        var returnValue;
+        $destroy: function (original$destroy) {
+          var returnValue;
 
-        returnValue = original$destroy();
+          returnValue = original$destroy();
 
-        reporter.reportScopeDestroyed(this);
+          reporter.reportScopeDestroyed(this);
 
-        return returnValue;
-      }
-    };
-
-    createNewPrototype = function (originalPrototype) {
-      var prototype;
+          return returnValue;
+        }
+      };
 
       prototype = {};
 
@@ -54,6 +57,7 @@ define([
             return originalPrototype[methodName].apply(this, originalArguments);
           };
 
+          // Pass original function bound with arguments as the first argument to the wrapper function
           wrapperFunctionArguments = Array.prototype.slice.call(arguments);
           wrapperFunctionArguments.unshift(callOriginalFunction.bind(this));
 
@@ -65,12 +69,13 @@ define([
     };
 
     return function ($rootScope) {
-      var prototypeToInject;
+      var prototypeToInject,
+          reporter;
 
       reporter = new Reporter();
 
       originalPrototype = Object.getPrototypeOf($rootScope);
-      prototypeToInject = createNewPrototype(originalPrototype);
+      prototypeToInject = createNewPrototype(originalPrototype, reporter);
 
       // Need to do this so that isolate $scopes will have
       // our new prototype as their prototype

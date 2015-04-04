@@ -9,10 +9,6 @@ define([
 
       stub = sinon.stub();
 
-      afterEach(function () {
-        stub.reset();
-      });
-
       return stub;
     };
   });

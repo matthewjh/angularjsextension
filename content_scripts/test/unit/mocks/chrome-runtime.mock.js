@@ -11,10 +11,5 @@ define([
       }
     };
 
-    afterEach(function () {
-      chromeRuntime.connect.reset();
-      chromeRuntime.onConnect.addListener.reset();
-    });
-
     return chromeRuntime;
   });

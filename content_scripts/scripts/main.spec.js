@@ -6,6 +6,13 @@ define([
     'sinon'
   ],
   function (main, MessageForwarder, sinon) {
+    var mainImpl,
+        MessageForwarderMock;
+
+    beforeEach(function () {
+      mainImpl = main.get();
+      MessageForwarderMock = MessageForwarder.get();
+    });
 
     describe('main', function () {
       var messageForwarder;
@@ -15,11 +22,11 @@ define([
           start: sinon.stub()
         };
 
-        MessageForwarder.returns(messageForwarder);
+        MessageForwarderMock.returns(messageForwarder);
       });
 
-      it('should call .start and on a messageForwarder instance', function () {
-        main();
+      it('should call .start on a messageForwarder instance', function () {
+        mainImpl();
 
         expect(messageForwarder.start.callCount).toBe(1);
       });

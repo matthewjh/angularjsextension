@@ -6,15 +6,22 @@ define([
   'sinon'
   ],
   function (wrapperModule, wrapRootScope, sinon) {
+    var wrapperModuleImpl,
+        wrapRootScopeMock;
+
+    beforeEach(function () {
+      wrapperModuleImpl = wrapperModule.get();
+      wrapRootScopeMock = wrapRootScope.get();
+    });
 
     describe('wrapperModule module', function () {
 
       it('should export a function', function () {
-        expect(wrapperModule.constructor).toBe(Function);
+        expect(wrapperModuleImpl.constructor).toBe(Function);
       });
 
       it('should have the $inject property set to [\'$provide\']', function () {
-        expect(wrapperModule.$inject).toEqual(['$provide']);
+        expect(wrapperModuleImpl.$inject).toEqual(['$provide']);
       });
 
     });
@@ -29,10 +36,10 @@ define([
       });
 
       it('should call $provider.decorate(\'$rootScope\', ...)', function () {
-        wrapperModule($provide);
+        wrapperModuleImpl($provide);
 
         expect($provide.decorator
-          .withArgs('$rootScope', ['$delegate', wrapRootScope])
+          .withArgs('$rootScope', ['$delegate', wrapRootScopeMock])
           .callCount).toBe(1);
       });
     });

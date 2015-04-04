@@ -1,5 +1,9 @@
 'use strict';
 
+/*
+* Abstraction over the Messenger module for reporting $scope related events.
+*/
+
 define([
   'bridge/Messenger'
 ], function (Messenger) {
@@ -11,6 +15,7 @@ define([
   };
 
   Reporter.prototype.reportScopeCreated = function ($scope) {
+    console.log('scope with id ', $scope.$id, ' created');
     this._messenger.send({
       type: types.SCOPE_CREATED,
       $scopeId: $scope.$id
@@ -18,6 +23,7 @@ define([
   };
 
   Reporter.prototype.reportScopeDigest = function ($scope) {
+    console.log('scope with id ', $scope.$id, ' digesting');
     this._messenger.send({
       type: types.SCOPE_DIGEST,
       $scopeId: $scope.$id
@@ -25,6 +31,7 @@ define([
   };
 
   Reporter.prototype.reportScopeDestroyed = function ($scope) {
+    console.log('scope with id ', $scope.$id, ' destroyed');
     this._messenger.send({
       type: types.SCOPE_DESTROYED,
       $scopeId: $scope.$id
