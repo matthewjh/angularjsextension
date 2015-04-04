@@ -26,7 +26,7 @@ define([
 
           childScope = original$new();
           childScope.$watch($digestDetectionWatch);
-          console.log(reporter.reportScopeCreated);
+
           reporter.reportScopeCreated(childScope);
 
           return childScope;
