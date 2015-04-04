@@ -13,7 +13,7 @@
     "angular-mocks": "~1.2.0",
     "angular-scenario": "~1.2.0",
     "almond": "~0.3.0",
-    "requirejs.spec": "https://github.com/matthewjh/RequireJS.spec.git"
+    "requirejs.spec": "latest"
   },
   "appPath": "app"
 }
