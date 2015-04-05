@@ -6,17 +6,17 @@
   "minimum_chrome_version": "10.0",
   "devtools_page": "/app/devtools_page.html",
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["<%= background_page_js_path %>"]
   },
   "content_scripts": [
   {
     "matches": ["<all_urls>"],
     "run_at": "document_start",
-    "js" : ["content_scripts/ng-defer-bootstrap.js"]
+    "js" : ["/content_scripts/ng-defer-bootstrap.js"]
   },
   {
     "matches": ["<all_urls>"],
     "run_at": "document_end",
-    "js" : ["content_scripts/inject-bridge.js", "<%= main_content_script_js_path %>"]
+    "js" : ["/content_scripts/inject-bridge.js", "<%= main_content_script_js_path %>"]
   }]
 }

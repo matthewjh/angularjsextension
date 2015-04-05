@@ -83,11 +83,6 @@ module.exports = function (consts, grunt) {
 
       devTargetOptions.options.optimize = devOptimisation;
 
-      // Chrome CSP breaks useSourceUrl for DevTools pages :(
-      if (target !== 'app') {
-        devTargetOptions.options.useSourceUrl = true;
-      }
-
       options[target + 'Dev'] = devTargetOptions;
     }
 
