@@ -39,6 +39,15 @@ define([
           tabModel = modelMock.tabs[tabId];
         });
 
+        describe('.dispose', function () {
+          it('should delete the tab\'s model from the model', function () {
+            reportHandler.dispose();
+
+            expect(modelMock.tabs[tabId]).toBeUndefined();
+          });
+        });
+
+
         describe('.handleScopeCreated', function () {
           it('should create an object in tabModel.scopes for the new scope', function () {
             reportHandler.handleScopeCreated({

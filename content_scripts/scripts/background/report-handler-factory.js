@@ -22,6 +22,14 @@ define([
 
       return {
         /**
+         * Delete any data added by this report handler from the model, e.g.
+         * to cleanup after the tab has been closed.
+         */
+        dispose: function () {
+          delete model.tabs[tabId];
+        },
+
+        /**
          * Handle a scope created report from a {@link Reporter}.
          * @param {object} report the report to handle.
          */
