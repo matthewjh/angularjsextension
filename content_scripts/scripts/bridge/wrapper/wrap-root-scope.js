@@ -68,6 +68,11 @@ define([
       return prototype;
     };
 
+    /**
+     * Wraps angular's $rootScope, adding a new prototype into its prototype chain.
+     * @param  {object} $rootScope $rootScope to wrap
+     * @return {object} the wrapped $rootScope
+     */
     return function ($rootScope) {
       var prototypeToInject,
           reporter;
