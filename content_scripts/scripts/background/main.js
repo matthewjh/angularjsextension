@@ -7,7 +7,9 @@ define([
 
     return function () {
       chromeRuntime.onConnect.addListener(function (port) {
-        alert(port);
+        port.onMessage.addListener(function (message) {
+          alert(JSON.stringify(message));
+        });
       });
     };
   });
