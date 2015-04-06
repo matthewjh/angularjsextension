@@ -16,4 +16,4 @@ grunt build
 
 ## Architecture
 
-!(https://rawgit.com/matthewjh/angularjsextension/master/architecture.svg)
+![](https://rawgit.com/matthewjh/angularjsextension/master/architecture.svg)
