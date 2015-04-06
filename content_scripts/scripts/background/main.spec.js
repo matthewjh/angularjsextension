@@ -48,6 +48,9 @@ define([
             onMessage: {
               addListener: sinon.stub()
             },
+            onDisconnect: {
+              addListener: sinon.stub()
+            },
             sender: {
               tab: {
                 id: tabId
@@ -56,6 +59,7 @@ define([
           };
 
           reportHandler = {
+            dispose: sinon.stub(),
             handleScopeCreated: sinon.stub(),
             handleScopeDestroyed: sinon.stub(),
             handleScopeDigest: sinon.stub()
@@ -73,6 +77,21 @@ define([
         it('should add a message listener onto the port', function () {
           expect(port.onMessage.addListener.withArgs(sinon.match.func).callCount).toBe(1);
         });
+
+        it('should add a disconnect listener onto the port', function () {
+          expect(port.onDisconnect.addListener.withArgs(sinon.match.func).callCount).toBe(1);
+        });
+
+        describe('when the disconnect listener is called', function () {
+          beforeEach(function () {
+            port.onDisconnect.addListener.callArg(0);
+          });
+
+          it('should dispose of the report handler', function () {
+            expect(reportHandler.dispose.callCount).toBe(1);
+          });
+        });
+
 
         describe('when the message listener is called with a scope created report message', function () {
           var message;

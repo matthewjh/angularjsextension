@@ -37,6 +37,10 @@ define([
               break;
           }
         });
+
+        port.onDisconnect.addListener(function () {
+          reportHandler.dispose();
+        });
       });
     };
   });
