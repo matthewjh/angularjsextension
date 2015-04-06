@@ -17,15 +17,15 @@ define([
       };
 
       return {
-        handleScopeCreated: function (scopeInfo) {
-          tabModel.scopes[scopeInfo.$scopeId] = {
-            id: scopeInfo.$scopeId,
+        handleScopeCreated: function (report) {
+          tabModel.scopes[report.$scopeId] = {
+            id: report.$scopeId,
             isDigesting: false
           };
         },
 
-        handleScopeDigest: function (scopeInfo) {
-          tabModel.scopes[scopeInfo.$scopeId].isDigesting = true
+        handleScopeDigest: function (report) {
+          tabModel.scopes[report.$scopeId].isDigesting = true
         }
       };
     };
