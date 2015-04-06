@@ -1,21 +1,24 @@
 define([
   'background/main-impl',
   'background/report-handler-factory',
+  'background/model-publisher',
   'bridge/Reporter',
   'sinon',
   'chrome-runtime'
   ],
-  function (main, reportHandlerFactory, Reporter, sinon, chromeRuntime) {
+  function (main, reportHandlerFactory, modelPublisher, Reporter, sinon, chromeRuntime) {
     'use strict';
 
     var chromeRuntimeMock,
         mainImpl,
+        modelPublisherMock,
         reportHandlerFactoryMock,
         ReporterMock;
 
     beforeEach(function () {
       chromeRuntimeMock = chromeRuntime.get();
       mainImpl = main.get();
+      modelPublisherMock = modelPublisher.get();
       reportHandlerFactoryMock = reportHandlerFactory.get();
       ReporterMock = Reporter.get();
     });
@@ -27,6 +30,10 @@ define([
 
       it('should add a chrome runtime connection listener', function () {
         expect(chromeRuntimeMock.onConnect.addListener.withArgs(sinon.match.func).callCount).toBe(1);
+      });
+
+      it('should publish the model', function () {
+        expect(modelPublisherMock.callCount).toBe(1);
       });
 
       describe('when the chrome runtime connection listener is called with a port object', function () {

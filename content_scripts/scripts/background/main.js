@@ -1,15 +1,22 @@
 define([
   'chrome-runtime',
+  'background/model-publisher',
   'background/report-handler-factory',
   'bridge/Reporter'
   ],
-  function (chromeRuntime, reportHandlerFactory, Reporter) {
+  function (chromeRuntime, modelPublisher, reportHandlerFactory, Reporter) {
     'use strict';
 
     /**
      * Entry point for the background page.
+     *
+     * Adds listeners to handle messages from the content scripts and to use them to adjust the model.
+     *
+     * Publishes the model onto the global object (window).
      */
     return function main () {
+      modelPublisher();
+
       chromeRuntime.onConnect.addListener(function (port) {
         var reportHandler;
 
