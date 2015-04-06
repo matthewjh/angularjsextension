@@ -13,7 +13,7 @@ define([
       var tabModel;
 
       tabModel = model.tabs[tabId] = {
-        scopes: []
+        scopes: {}
       };
 
       return {
@@ -22,10 +22,11 @@ define([
             id: report.$scopeId,
             isDigesting: false
           };
+          alert(JSON.stringify(model));
         },
 
         handleScopeDigest: function (report) {
-          tabModel.scopes[report.$scopeId].isDigesting = true
+          tabModel.scopes[report.$scopeId].isDigesting = true;
         }
       };
     };

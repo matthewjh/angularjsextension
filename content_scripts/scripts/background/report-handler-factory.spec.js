@@ -26,7 +26,7 @@ define([
         reportHandlerFactoryImpl(tabId);
 
         expect(modelMock.tabs[tabId]).toEqual({
-          scopes: []
+          scopes: {}
         });
       });
 
