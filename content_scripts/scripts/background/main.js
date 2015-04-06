@@ -1,10 +1,10 @@
 define([
   'chrome-runtime',
-  'background/model-publisher',
+  'background/publish-model',
   'background/report-handler-factory',
   'bridge/Reporter'
   ],
-  function (chromeRuntime, modelPublisher, reportHandlerFactory, Reporter) {
+  function (chromeRuntime, publishModel, reportHandlerFactory, Reporter) {
     'use strict';
 
     /**
@@ -15,7 +15,7 @@ define([
      * Publishes the model onto the global object (window).
      */
     return function main () {
-      modelPublisher();
+      publishModel();
 
       chromeRuntime.onConnect.addListener(function (port) {
         var reportHandler;

@@ -1,24 +1,24 @@
 define([
-    'background/model-publisher-impl',
+    'background/publish-model-impl',
     'background/model',
     'window'
   ],
-  function (modelPublisher, model, window) {
+  function (publishModel, model, window) {
     'use strict';
 
     var modelMock,
-        modelPublisherImpl,
+        publishModelImpl,
         windowMock;
 
     beforeEach(function () {
       modelMock = model.get();
-      modelPublisherImpl = modelPublisher.get();
+      publishModelImpl = publishModel.get();
       windowMock = window.get();
     });
 
     describe('model publisher', function () {
       beforeEach(function () {
-        modelPublisherImpl();
+        publishModelImpl();
       });
 
       it('should set window.model to the model', function () {
