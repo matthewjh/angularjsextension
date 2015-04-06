@@ -17,21 +17,21 @@ define([
   Reporter.prototype.reportScopeCreated = function ($scope) {
     this._messenger.send({
       type: types.SCOPE_CREATED,
-      $scopeId: $scope.$id
+      scopeId: $scope.$id
     });
   };
 
   Reporter.prototype.reportScopeDigest = function ($scope) {
     this._messenger.send({
       type: types.SCOPE_DIGEST,
-      $scopeId: $scope.$id
+      scopeId: $scope.$id
     });
   };
 
   Reporter.prototype.reportScopeDestroyed = function ($scope) {
     this._messenger.send({
       type: types.SCOPE_DESTROYED,
-      $scopeId: $scope.$id
+      scopeId: $scope.$id
     });
   };
 

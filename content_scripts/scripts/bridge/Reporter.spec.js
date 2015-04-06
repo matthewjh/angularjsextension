@@ -43,7 +43,7 @@ define([
         expect(messenger.send
           .withArgs({
             type: ReporterImpl.types.SCOPE_DIGEST,
-            $scopeId: $scope.$id
+            scopeId: $scope.$id
           })
           .callCount).toBe(1);
       });
@@ -56,7 +56,7 @@ define([
         expect(messenger.send
           .withArgs({
             type: ReporterImpl.types.SCOPE_CREATED,
-            $scopeId: $scope.$id
+            scopeId: $scope.$id
           })
           .callCount).toBe(1);
       });
@@ -69,7 +69,7 @@ define([
         expect(messenger.send
           .withArgs({
             type: ReporterImpl.types.SCOPE_DESTROYED,
-            $scopeId: $scope.$id
+            scopeId: $scope.$id
           })
           .callCount).toBe(1);
       });

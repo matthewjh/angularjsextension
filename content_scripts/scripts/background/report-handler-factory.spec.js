@@ -42,7 +42,7 @@ define([
         describe('.handleScopeCreated', function () {
           it('should create an object in tabModel.scopes for the new scope', function () {
             reportHandler.handleScopeCreated({
-              $scopeId: scopeId
+              scopeId: scopeId
             });
 
             expect(tabModel.scopes[scopeId]).toEqual({
@@ -57,7 +57,7 @@ define([
           beforeEach(function () {
             // create scope in model
             reportHandler.handleScopeCreated({
-              $scopeId: scopeId
+              scopeId: scopeId
             });
           });
 
@@ -67,7 +67,7 @@ define([
             originalDigestCount = tabModel.scopes[scopeId].digestCount;
 
             reportHandler.handleScopeDigest({
-              $scopeId: scopeId
+              scopeId: scopeId
             });
 
             expect(tabModel.scopes[scopeId].digestCount).toBe(originalDigestCount + 1);
@@ -78,13 +78,13 @@ define([
           beforeEach(function () {
             // create scope in model
             reportHandler.handleScopeCreated({
-              $scopeId: scopeId
+              scopeId: scopeId
             });
           });
 
           it('should set destroyed to false for the scope\'s object in the model', function () {
             reportHandler.handleScopeDestroyed({
-              $scopeId: scopeId
+              scopeId: scopeId
             });
 
             expect(tabModel.scopes[scopeId].isDestroyed).toBe(true);

@@ -26,9 +26,9 @@ define([
          * @param {object} report the report to handle.
          */
         handleScopeCreated: function (report) {
-          tabModel.scopes[report.$scopeId] = {
+          tabModel.scopes[report.scopeId] = {
             digestCount: 0,
-            id: report.$scopeId,
+            id: report.scopeId,
             isDestroyed: false
           };
           alert(JSON.stringify(model));
@@ -39,7 +39,7 @@ define([
          * @param {object} report the report to handle.
          */
         handleScopeDigest: function (report) {
-          tabModel.scopes[report.$scopeId].digestCount++;
+          tabModel.scopes[report.scopeId].digestCount++;
         },
 
         /**
@@ -47,7 +47,7 @@ define([
          * @param {object} report the report to handle.
          */
         handleScopeDestroyed: function (report) {
-          tabModel.scopes[report.$scopeId].isDestroyed = true;
+          tabModel.scopes[report.scopeId].isDestroyed = true;
         }
       };
     };
