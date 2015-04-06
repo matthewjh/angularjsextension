@@ -47,7 +47,8 @@ define([
 
             expect(tabModel.scopes[scopeId]).toEqual({
               id: scopeId,
-              isDigesting: false
+              isDigesting: false,
+              isDestroyed: false
             });
           });
         });
@@ -66,6 +67,23 @@ define([
             });
 
             expect(tabModel.scopes[scopeId].isDigesting).toBe(true);
+          });
+        });
+
+        describe('.handleScopeDigest', function () {
+          beforeEach(function () {
+            // create scope in model
+            reportHandler.handleScopeCreated({
+              $scopeId: scopeId
+            });
+          });
+
+          it('should set destroyed to false for the scope\'s object in the model', function () {
+            reportHandler.handleScopeDestroyed({
+              $scopeId: scopeId
+            });
+
+            expect(tabModel.scopes[scopeId].isDestroyed).toBe(true);
           });
         });
       });

@@ -20,13 +20,18 @@ define([
         handleScopeCreated: function (report) {
           tabModel.scopes[report.$scopeId] = {
             id: report.$scopeId,
-            isDigesting: false
+            isDigesting: false,
+            isDestroyed: false
           };
           alert(JSON.stringify(model));
         },
 
         handleScopeDigest: function (report) {
           tabModel.scopes[report.$scopeId].isDigesting = true;
+        },
+
+        handleScopeDestroyed: function (report) {
+          tabModel.scopes[report.$scopeId].isDestroyed = true;
         }
       };
     };
