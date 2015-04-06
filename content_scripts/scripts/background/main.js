@@ -1,12 +1,14 @@
-'use strict';
-
 define([
   'chrome-runtime',
   'background/report-handler-factory',
   'bridge/Reporter'
   ],
   function (chromeRuntime, reportHandlerFactory, Reporter) {
+    'use strict';
 
+    /**
+     * Entry point for the background page.
+     */
     return function main () {
       chromeRuntime.onConnect.addListener(function (port) {
         var reportHandler;
