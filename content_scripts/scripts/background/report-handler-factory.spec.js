@@ -46,8 +46,8 @@ define([
             });
 
             expect(tabModel.scopes[scopeId]).toEqual({
+              digestCount: 0,
               id: scopeId,
-              isDigesting: false,
               isDestroyed: false
             });
           });
@@ -61,12 +61,16 @@ define([
             });
           });
 
-          it('should set isDigesting to true for the scope\'s object in the model', function () {
+          it('should increment the digest count on the scope\'s object in the model', function () {
+            var originalDigestCount;
+
+            originalDigestCount = tabModel.scopes[scopeId].digestCount;
+
             reportHandler.handleScopeDigest({
               $scopeId: scopeId
             });
 
-            expect(tabModel.scopes[scopeId].isDigesting).toBe(true);
+            expect(tabModel.scopes[scopeId].digestCount).toBe(originalDigestCount + 1);
           });
         });
 

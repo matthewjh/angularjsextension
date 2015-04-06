@@ -27,8 +27,8 @@ define([
          */
         handleScopeCreated: function (report) {
           tabModel.scopes[report.$scopeId] = {
+            digestCount: 0,
             id: report.$scopeId,
-            isDigesting: false,
             isDestroyed: false
           };
           alert(JSON.stringify(model));
@@ -39,7 +39,7 @@ define([
          * @param {object} report the report to handle.
          */
         handleScopeDigest: function (report) {
-          tabModel.scopes[report.$scopeId].isDigesting = true;
+          tabModel.scopes[report.$scopeId].digestCount++;
         },
 
         /**
