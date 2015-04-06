@@ -14,5 +14,12 @@ define([
     });
 
     describe('report handler factory', function () {
+      it('should create a new object in model.tabs for the given tab id', function () {
+        var tabId = 2;
+
+        reportHandlerFactoryImpl(tabId);
+
+        expect(modelMock.tabs[tabId]).toEqual({});
+      });
     });
 });
