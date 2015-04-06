@@ -16,3 +16,4 @@ grunt build
 
 ## Architecture
 
+!(https://rawgit.com/matthewjh/angularjsextension/master/architecture.svg)
