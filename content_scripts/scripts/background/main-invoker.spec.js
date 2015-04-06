@@ -1,10 +1,10 @@
-'use strict';
-
 define([
     'background/main-invoker-impl',
     'background/main'
   ],
   function (mainInvoker, main) {
+    'use strict';
+
     var mainInvokerImpl,
         mainMock;
 
