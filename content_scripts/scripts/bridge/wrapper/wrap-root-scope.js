@@ -1,5 +1,3 @@
-'use strict';
-
 /*
 * Function producing a wrapped $rootScope with reporting via Reporter.
 */
@@ -8,6 +6,8 @@ define([
     'bridge/Reporter'
   ],
   function (Reporter) {
+    'use strict';
+
     var createNewPrototype,
         originalPrototype;
 

@@ -1,9 +1,9 @@
-'use strict';
-
 define([
   'bridge/wrapper/wrap-root-scope'
   ],
   function (wrapRootScope) {
+    'use strict';
+
     var wrapperModule,
         wrappers;
 

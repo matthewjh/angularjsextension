@@ -1,19 +1,20 @@
-'use strict';
-
-/*
-* This module is always to be ran in the context of the inspected page.
-*/
-
 define([
   'angular',
   'bridge/wrapper/wrapper-module',
   'bridge/Messenger'
   ],
   function (angular, wrapperModule, Messenger) {
+    'use strict';
+
     var start,
         messenger;
 
-    start = function () {
+    /**
+     * To be run inside the inspected page.
+     *
+     * Assuming that it has already been deferred, resumes the bootstrap of angular with our own module loaded in.
+     */
+    return function bootstrap () {
       var modules;
 
       modules = [];
@@ -21,6 +22,4 @@ define([
 
       angular.resumeBootstrap(modules);
     };
-
-    return start;
   });
