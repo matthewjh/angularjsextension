@@ -14,12 +14,60 @@ define([
     });
 
     describe('report handler factory', function () {
-      it('should create a new object in model.tabs for the given tab id', function () {
-        var tabId = 2;
+      var scopeId,
+          tabId;
 
+      beforeEach(function () {
+        scopeId = 5;
+        tabId = 2;
+      });
+
+      it('should create a new object in model.tabs for the given tab id', function () {
         reportHandlerFactoryImpl(tabId);
 
-        expect(modelMock.tabs[tabId]).toEqual({});
+        expect(modelMock.tabs[tabId]).toEqual({
+          scopes: []
+        });
+      });
+
+      describe('a report handler', function () {
+        var reportHandler,
+            tabModel;
+
+        beforeEach(function () {
+          reportHandler = reportHandlerFactoryImpl(tabId);
+          tabModel = modelMock.tabs[tabId];
+        });
+
+        describe('.handleScopeCreated', function () {
+          it('should create an object in tabModel.scopes for the new scope', function () {
+            reportHandler.handleScopeCreated({
+              $scopeId: scopeId
+            });
+
+            expect(tabModel.scopes[scopeId]).toEqual({
+              id: scopeId,
+              isDigesting: false
+            });
+          });
+        });
+
+        describe('.handleScopeDigest', function () {
+          beforeEach(function () {
+            // create scope in model
+            reportHandler.handleScopeCreated({
+              $scopeId: scopeId
+            });
+          });
+
+          it('should set isDigesting to true for the scope\'s object in the model', function () {
+            reportHandler.handleScopeDigest({
+              $scopeId: scopeId
+            });
+
+            expect(tabModel.scopes[scopeId].isDigesting).toBe(true);
+          });
+        });
       });
     });
 });

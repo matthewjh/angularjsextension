@@ -1,6 +1,6 @@
 /*
- * Module to handle reports from the content script.
- *  It is intended that there will be one reportHandler per tab ID from which data is being received.
+ * Module to handle reports from the content script, updating the background page's model accordingly.
+ * It is intended that there will be one reportHandler per tab ID from which data is being received.
  */
 
 define([
@@ -10,7 +10,23 @@ define([
     'use strict';
 
     return function reportHandlerFactory (tabId) {
-      model.tabs[tabId] = {};
+      var tabModel;
 
+      tabModel = model.tabs[tabId] = {
+        scopes: []
+      };
+
+      return {
+        handleScopeCreated: function (scopeInfo) {
+          tabModel.scopes[scopeInfo.$scopeId] = {
+            id: scopeInfo.$scopeId,
+            isDigesting: false
+          };
+        },
+
+        handleScopeDigest: function (scopeInfo) {
+          tabModel.scopes[scopeInfo.$scopeId].isDigesting = true
+        }
+      };
     };
   });
