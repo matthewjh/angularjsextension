@@ -1,11 +1,11 @@
-'use strict';
-
 define([
   'background/main-impl',
   'sinon',
   'chrome-runtime'
   ],
   function (main, sinon, chromeRuntime) {
+    'use strict';
+
     var chromeRuntimeMock,
         mainImpl;
 

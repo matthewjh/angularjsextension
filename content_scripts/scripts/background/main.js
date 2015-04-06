@@ -5,7 +5,7 @@ define([
   ],
   function (chromeRuntime) {
 
-    return function () {
+    return function main () {
       chromeRuntime.onConnect.addListener(function (port) {
         port.onMessage.addListener(function (message) {
           alert(JSON.stringify(message));
