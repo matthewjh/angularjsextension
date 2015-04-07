@@ -9,6 +9,7 @@ module.exports = function (consts) {
         ]
       }]
     },
-    server: '.tmp'
+    server: '.tmp',
+    uiTests: 'tmp-ui-tests'
   };
 };

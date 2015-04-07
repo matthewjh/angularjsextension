@@ -24,6 +24,12 @@ module.exports = function (consts) {
       tasks: [
         'jshint'
       ]
+    },
+    uiTests: {
+      files: consts.paths.ui + '**/*.js',
+      tasks: [
+        'runTests:ui'
+      ]
     }
   };
 };
