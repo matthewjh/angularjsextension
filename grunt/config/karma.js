@@ -7,6 +7,10 @@ module.exports = function (consts) {
     background_page: {
       configFile: consts.paths.contentScripts + 'test/unit/karma.conf.js',
       singleRun: true
+    },
+    ui: {
+      configFile: consts.paths.ui + 'test/unit/karma.conf.es5.js',
+      singleRun: true
     }
   };
 };
