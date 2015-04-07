@@ -8,15 +8,18 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: ['jasmine', 'requirejs'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/traceur/bin/traceur-runtime.js',
-      'tmp-ui-tests/**.js',
-      'ui/test/unit/load-specs.es5.js'
+      'bower_components/requirejs.spec/requirejs-spec.js',
+      'ui/test/unit/test-main.es5.js',
+      {pattern: 'tmp-ui-tests/**/*.js', included: false}
     ],
+
 
     // list of files to exclude
     exclude: [

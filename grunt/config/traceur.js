@@ -4,7 +4,8 @@ module.exports = function (consts) {
       // traceur options here
       experimental: true,
       blockBinding: true,
-      copyRuntime: consts.paths.dist + consts.paths.ui
+      copyRuntime: consts.paths.dist + consts.paths.ui,
+      modules: 'amd'
     },
     ui: {
       files: [{
