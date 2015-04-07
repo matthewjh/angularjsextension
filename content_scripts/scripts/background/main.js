@@ -23,7 +23,6 @@ define([
         reportHandler = reportHandlerFactory(port.sender.tab.id);
 
         port.onMessage.addListener(function (message) {
-
           // Dispatch message to correct reportHandler method based on its type
           switch (message.type) {
             case Reporter.types.SCOPE_CREATED:
