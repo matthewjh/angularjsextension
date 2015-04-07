@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 
   consts = {
     paths: {
+      ui: 'ui/',
       app: 'app/',
       contentScripts: 'content_scripts/',
       dist: 'dist/',
