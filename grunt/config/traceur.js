@@ -6,22 +6,6 @@ module.exports = function (consts) {
       blockBinding: true,
       copyRuntime: consts.paths.dist + consts.paths.ui,
       modules: 'amd'
-    },
-    ui: {
-      files: [{
-        expand: true,
-        cwd: consts.paths.ui,
-        src: ['**/*[!spec].js'],
-        dest: consts.paths.dist + consts.paths.ui
-      }]
-    },
-    uiTests: {
-      files: [{
-        expand: true,
-        cwd: consts.paths.ui,
-        src: ['**/*[!es5].js'],
-        dest: 'tmp-ui-tests/'
-      }]
-    },
+    }
   };
 };

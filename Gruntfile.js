@@ -52,17 +52,6 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
-  grunt.registerTask('runTests:ui', [
-    'traceur:uiTests',
-    'karma:ui'
-  ]);
-
-  grunt.registerTask('test:ui', [
-    'runTests:ui',
-    'watch:uiTests',
-    'clean:uiTests'
-  ]);
-
   grunt.registerTask('build:dev', [
     'clean:dist',
     'concurrent:dist',
