@@ -2,6 +2,7 @@
   "name": "angularjsextension",
   "version": "0.0.0",
   "devDependencies": {
+    "es6-module-loader": "^0.16.5",
     "glob": "^4.3.5",
     "grunt": "^0.4.1",
     "grunt-autoprefixer": "^0.7.3",
@@ -19,6 +20,7 @@
     "grunt-contrib-requirejs": "^0.4.4",
     "grunt-contrib-uglify": "^0.4.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-exec": "^0.4.6",
     "grunt-filerev": "^0.2.1",
     "grunt-google-cdn": "^0.4.0",
     "grunt-jest": "^0.1.3",
@@ -39,8 +41,12 @@
     "load-grunt-tasks": "^0.4.0",
     "lodash": "^3.1.0",
     "requirejs": "^2.1.15",
+    "rtts_assert": "^2.0.0-alpha.18",
+    "rx": "^2.5.2",
+    "systemjs": "^0.16.7",
     "time-grunt": "^0.3.1",
-    "traceur": "0.0.87"
+    "traceur": "0.0.88",
+    "zone.js": "^0.4.3"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -10,6 +10,8 @@ module.exports = function (consts) {
       }]
     },
     server: '.tmp',
-    uiTests: 'tmp-ui-tests'
+    uiTests: 'tmp-ui-tests',
+    angular2Head: '.tmp/angular-HEAD',
+    angular2Dist: 'node_modules/angular'
   };
 };

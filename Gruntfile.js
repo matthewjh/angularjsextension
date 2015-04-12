@@ -44,6 +44,19 @@ module.exports = function (grunt) {
 
   grunt.initConfig(loadTasksConfig('./grunt/config/'));
 
+  grunt.registerTask('install', [
+    // 'exec:npmInstall',
+    // 'exec:bowerInstall',
+
+    // Install Angular from master rather than npm, so that we have the latest changes
+    'clean:angular2Head',
+    'clean:angular2Dist',
+    'exec:cloneAngular2',
+    'exec:buildAngular2',
+    'exec:copyBuiltAngular2',
+    'clean:angular2Head'
+  ]);
+
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
