@@ -26,6 +26,7 @@ module.exports = function(config) {
       {pattern: 'node_modules/systemjs/dist/system.js.map', included: false},
       'node_modules/zone.js/zone.js',
       'node_modules/zone.js/long-stack-trace-zone.js',
+      'node_modules/sinon/pkg/sinon.js',
 
       'ui/test/unit/test-main.js'
     ],

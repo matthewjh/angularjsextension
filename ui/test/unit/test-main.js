@@ -9,6 +9,7 @@ System.paths = {
   '*.es6': '/base/ui/*.es6',
   'angular2/*': '/base/node_modules/angular2/es6/dev/es6/angular2/*.es6',
   'rtts_assert/*': '/base/node_modules/rtts_assert/es6/src/*.es6',
+  'node_modules/rtts_assert/es6/src/*.es6': '/base/node_modules/rtts_assert/es6/src/*.es6',
   'rx/*': '/base/node_modules/rx/*.js'
 };
 

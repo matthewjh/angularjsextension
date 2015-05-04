@@ -4,6 +4,6 @@ import {Component, View} from 'angular2/angular2';
   selector: 'app'
 })
 @View({
-  template: '<b>hi</b>'
+  templateUrl: 'src/components/app/template.html'
 })
 export class AppComponent {}

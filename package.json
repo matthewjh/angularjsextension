@@ -44,6 +44,7 @@
     "requirejs": "^2.1.15",
     "rtts_assert": "^2.0.0-alpha.18",
     "rx": "^2.5.2",
+    "sinon": "^1.14.1",
     "systemjs": "^0.16.7",
     "time-grunt": "^0.3.1",
     "traceur": "0.0.88",
