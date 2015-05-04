@@ -42,7 +42,6 @@ function onlySpecFiles(path) {
 }
 
 function filePathToModuleName(filePath) {
-  console.log(filePath);
   return filePath.replace(/\\/g, '/')
     .replace(/^\/base\/ui\//, '')
     .replace(/\.js$/, '');
