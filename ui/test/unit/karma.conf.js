@@ -9,13 +9,23 @@ module.exports = function(config) {
     frameworks: ['jasmine', 'traceur'],
 
     files: [
+      // Non-included scripts + source maps
       {pattern: 'ui/src/**/*.js', included: false},
+      {pattern: 'ui/src/**/*.js.map', included: false},
       {pattern: 'node_modules/angular2/**/*.es6', included: false},
-      {pattern: 'node_modules/rtts_assert/es6/src/rtts_assert.es6', included: false},
+      {pattern: 'node_modules/angular2/**/*.map', included: false},
+      {pattern: 'node_modules/rtts_assert/es6/src/*.es6', included: false},
+      {pattern: 'node_modules/rtts_assert/es6/src/*.map', included: false},
+      {pattern: 'node_modules/rx/**/*.js', included: false},
+      {pattern: 'node_modules/rx/**/*.js.map', included: false},
 
-      'node_modules/traceur/bin/traceur.js',
-      'node_modules/traceur/bin/traceur-runtime.js',
-      'node_modules/es6-module-loader/dist/es6-module-loader-sans-promises.src.js',
+      // Included scripts + source maps
+      'node_modules/es6-module-loader/dist/es6-module-loader-sans-promises.js',
+      {pattern: 'node_modules/es6-module-loader/dist/es6-module-loader-sans-promises.js.map', included: false},
+      'node_modules/systemjs/dist/system.js',
+      {pattern: 'node_modules/systemjs/dist/system.js.map', included: false},
+      'node_modules/zone.js/zone.js',
+      'node_modules/zone.js/long-stack-trace-zone.js',
 
       'ui/test/unit/test-main.js'
     ],
@@ -29,8 +39,8 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'modules/**/*.js': ['traceur'],
-      'modules/**/*.es6': ['traceur']
+      'ui/src/**/*.js': ['traceur'],
+      '**/*.es6': ['traceur']
     },
 
     plugins: [
@@ -58,7 +68,9 @@ module.exports = function(config) {
         annotations: true
       },
       transformPath: function(fileName) {
-        return fileName.replace(/\.es6$/, '.js');
+        // By default karma-traceur-preprocessor will replace .es6 extensions with .js.
+        // We don't want that here.
+        return fileName;
       }
     }
   });
