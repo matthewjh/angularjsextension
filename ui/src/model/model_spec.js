@@ -20,21 +20,21 @@ export function main() {
     });
 
     it('should have 5 scopes with default properties', () => {
-      expect(model.scopes.size).toBe(5);
+      expect(model.scopes.length).toBe(5);
 
-      for (var scopeModel of model.scopes.values()) {
+      for (var scopeModel of model.scopes) {
         expect(scopeModel.digestCount).toBe(0);
         expect(scopeModel.isDestroyed).toBe(false);
       }
     });
 
     it('should mutate the model when the ticker ticks', () => {
-      var scopesBeforeTick = model.scopes.values();
+      var scopeDigestCountBeforeTick = model.scopes[0].digestCount;
 
       // tick
       ticker.addTickHandler.callArg(0);
 
-      expect(model.scopes.values()).not.toEqual(model.scopes.values());
+      expect(scopeDigestCountBeforeTick).not.toEqual(model.scopes[0].digestCount);
     });
 
   });

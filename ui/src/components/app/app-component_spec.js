@@ -13,7 +13,7 @@ import {
 export function main () {
   describe('app component directive', () => {
 
-    it('should render the correct template', inject([AsyncTestCompleter, TestBed], (async, tb) => {
+    xit('should render the correct template', inject([AsyncTestCompleter, TestBed], (async, tb) => {
       var html = '<app></app>';
 
       tb.createView(TestComponent, {html: html}).then((view) => {

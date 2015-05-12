@@ -6,6 +6,6 @@ define([
   var app;
 
   app = angular.module('angularJsExtension', []);
-  
+
   return app;
 });

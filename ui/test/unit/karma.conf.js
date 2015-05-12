@@ -19,6 +19,8 @@ module.exports = function(config) {
       {pattern: 'node_modules/rx/**/*.js', included: false},
       {pattern: 'node_modules/rx/**/*.js.map', included: false},
 
+      {pattern: 'ui/**/*.html', included: false},
+
       // Included scripts + source maps
       'node_modules/es6-module-loader/dist/es6-module-loader-sans-promises.js',
       {pattern: 'node_modules/es6-module-loader/dist/es6-module-loader-sans-promises.js.map', included: false},
