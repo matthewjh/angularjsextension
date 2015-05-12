@@ -22,8 +22,16 @@ export class FakeModel extends Model {
   }
 
   _mutate() {
-    for (var scopeModel of this.scopes) {
-      scopeModel.digestCount++;
+    for (var scope of this.scopes) {
+      if (!scope.isDestroyed) {
+        if (Math.random() < 0.2) {
+          scope.digestCount++;
+        }
+
+        if (Math.random < 0.05) {
+          scope.isDestroyed = true;
+        }
+      }
     }
   }
 

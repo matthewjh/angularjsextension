@@ -27,15 +27,5 @@ export function main() {
         expect(scopeModel.isDestroyed).toBe(false);
       }
     });
-
-    it('should mutate the model when the ticker ticks', () => {
-      var scopeDigestCountBeforeTick = model.scopes[0].digestCount;
-
-      // tick
-      ticker.addTickHandler.callArg(0);
-
-      expect(scopeDigestCountBeforeTick).not.toEqual(model.scopes[0].digestCount);
-    });
-
   });
 };

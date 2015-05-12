@@ -3,20 +3,22 @@ import {Ticker, IntervalTicker} from 'src/model/ticker';
 
 export function main() {
   describe('IntervalTicker', () => {
-    var ticker: Ticker;
+    var ticker: Ticker,
+        intervalMs: number;
 
     beforeEach(() => {
       sinon.spy(window, 'setInterval');
 
-      ticker = new IntervalTicker();
+      intervalMs = 50;
+      ticker = new IntervalTicker(intervalMs);
     });
 
     afterEach(() => {
       window.setInterval.restore();
     });
 
-    it('should set an interval for 2000ms', () => {
-      expect(window.setInterval.withArgs(sinon.match.func, 2000).calledOnce).toBe(true);
+    it('should set an interval', () => {
+      expect(window.setInterval.withArgs(sinon.match.func, intervalMs).calledOnce).toBe(true);
     });
 
     it('should call tick handlers when the setInterval callback is fired', () => {

@@ -1,4 +1,6 @@
-import {Injectable} from 'angular2/di';
+import {Injectable, Inject, OpaqueToken} from 'angular2/di';
+
+export const TICK_INTERVAL_MS = new OpaqueToken('Ticker.tickIntervalMs');
 
 @Injectable()
 export class Ticker {
@@ -20,10 +22,10 @@ export class Ticker {
 }
 
 export class IntervalTicker extends Ticker {
-  constructor() {
+  constructor(@Inject(TICK_INTERVAL_MS) tickIntervalMs: number) {
     super();
     window.setInterval(() => {
       this._onTick();
-    }, 2000);
+    }, tickIntervalMs);
   }
 }
