@@ -2,7 +2,6 @@ import {Injectable} from 'angular2/di';
 
 import {Ticker} from 'src/model/ticker';
 
-@Injectable()
 export class Model {
   scopes: Array<Object>;
 }
@@ -28,7 +27,7 @@ export class FakeModel extends Model {
           scope.digestCount++;
         }
 
-        if (Math.random() < 0.01) {
+        if (Math.random() < 0.005) {
           scope.isDestroyed = true;
         }
 
