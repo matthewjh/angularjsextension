@@ -1,6 +1,6 @@
 import {Injectable, Inject, OpaqueToken} from 'angular2/di';
 
-export const TICK_INTERVAL_MS = new OpaqueToken('Ticker.tickIntervalMs');
+export const TICK_INTERVAL_MS: OpaqueToken = new OpaqueToken('Ticker.tickIntervalMs');
 
 @Injectable()
 export class Ticker {

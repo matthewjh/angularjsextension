@@ -7,7 +7,7 @@ import {Ticker, IntervalTicker, TICK_INTERVAL_MS} from 'src/model/ticker';
 var injectorBindings = [
   bind(Model).toClass(FakeModel),
   bind(Ticker).toClass(IntervalTicker),
-  bind(TICK_INTERVAL_MS).toValue(500)
+  bind(TICK_INTERVAL_MS).toValue(10)
 ];
 
 @Component({

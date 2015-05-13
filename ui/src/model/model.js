@@ -4,7 +4,7 @@ import {Ticker} from 'src/model/ticker';
 
 @Injectable()
 export class Model {
-  scopes: Object;
+  scopes: Array<Object>;
 }
 
 export class FakeModel extends Model {
@@ -12,7 +12,7 @@ export class FakeModel extends Model {
     super();
 
     this.scopes = [];
-    for (var i of [0, 1, 2, 3, 5]) {
+    for (var i of [0, 1, 2, 3, 4]) {
       this.scopes.push(this._createFakeScope(i));
     }
 
@@ -28,8 +28,14 @@ export class FakeModel extends Model {
           scope.digestCount++;
         }
 
-        if (Math.random < 0.05) {
+        if (Math.random() < 0.01) {
           scope.isDestroyed = true;
+        }
+
+        if (Math.random() < 0.01) {
+          var childScope = this._createFakeScope(this.scopes.length);
+          this.scopes.push(childScope);
+          attachScopeAsNextChild(scope, childScope);
         }
       }
     }
@@ -39,8 +45,21 @@ export class FakeModel extends Model {
     return {
       id: id,
       digestCount: 0,
-      isDestroyed: false
+      isDestroyed: false,
+      nextSibling: null,
+      childHead: null,
+      childTail: null
     }
+  }
+}
+
+function attachScopeAsNextChild(parent: Object, child: Object) {
+  if (!parent.childHead) {
+    parent.childHead = child;
+    parent.childTail = child;
+  } else {
+    parent.childTail.nextSibling = child;
+    parent.childTail = child;
   }
 }
 
