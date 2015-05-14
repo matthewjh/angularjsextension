@@ -3,6 +3,7 @@ import {AppComponent} from 'src/components/app/app-component';
 import {Component, View} from 'angular2/angular2';
 import {TestBed} from 'angular2/src/test_lib/test_bed';
 import {DOM} from 'angular2/src/dom/dom_adapter';
+import {XHR} from 'angular2/src/services/xhr';
 import {
   AsyncTestCompleter,
   describe,
@@ -13,7 +14,7 @@ import {
 export function main () {
   describe('app component directive', () => {
 
-    xit('should render the correct template', inject([AsyncTestCompleter, TestBed], (async, tb) => {
+    it('should render the correct template', inject([AsyncTestCompleter, TestBed, XHR], (async, tb, xhr) => {
       var html = '<app></app>';
 
       tb.createView(TestComponent, {html: html}).then((view) => {
@@ -23,6 +24,8 @@ export function main () {
 
         async.done();
       });
+
+      xhr.flush();
     }));
   });
 };
