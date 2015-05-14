@@ -29,9 +29,9 @@ export function main() {
 
     it('should reflect changes to the underlying scope object\'s properties', () => {
       underlyingScope.id = nextId++;
-      underlyingScope.nextSibling = {id: nextId++};
-      underlyingScope.childHead = {id: nextId++};
-      underlyingScope.childTail = {id: nextId++};
+      underlyingScope.nextSibling.id = nextId++;
+      underlyingScope.childHead.id = nextId++;
+      underlyingScope.childTail.id = nextId++;
       underlyingScope.isDestroyed = true;
       underlyingScope.digestCount = 1;
 

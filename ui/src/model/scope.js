@@ -37,6 +37,6 @@ export class MutableScope extends Scope {}
 
 /**
  * An ImmutableScope cannot be changed by our code -- any and all changes reflect changes in the underlying
- * scope object
+ * scope object.
  */
 export class ImmutableScope extends Scope {}
