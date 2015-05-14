@@ -1,9 +1,9 @@
 import {Injectable} from 'angular2/di';
-
+import {MutableScope, Scope} from 'src/model/scope';
 import {Ticker} from 'src/model/ticker';
 
 export class Model {
-  scopes: Array<Object>;
+  scopes: Array<Scope>;
 }
 
 export class FakeModel extends Model {
@@ -12,7 +12,7 @@ export class FakeModel extends Model {
 
     this.scopes = [];
     for (var i of [0, 1, 2, 3, 4]) {
-      this.scopes.push(this._createFakeScope(i));
+      this._createFakeScope(i);
     }
 
     ticker.addTickHandler(() => {
@@ -24,41 +24,33 @@ export class FakeModel extends Model {
     for (var scope of this.scopes) {
       if (!scope.isDestroyed) {
         if (Math.random() < 0.2) {
-          scope.digestCount++;
+          scope.digest();
         }
 
         if (Math.random() < 0.005) {
-          scope.isDestroyed = true;
+          scope.destroy();
         }
 
         if (Math.random() < 0.01) {
           var childScope = this._createFakeScope(this.scopes.length);
-          this.scopes.push(childScope);
-          attachScopeAsNextChild(scope, childScope);
+          scope.addChild(childScope);
         }
       }
     }
   }
 
-  _createFakeScope(id: number): Object {
-    return {
+  _createFakeScope(id: number): MutableScope {
+    var scope = new MutableScope({
       id: id,
       digestCount: 0,
       isDestroyed: false,
       nextSibling: null,
       childHead: null,
       childTail: null
-    }
+    });
+
+    this.scopes.push(scope);
+
+    return scope;
   }
 }
-
-function attachScopeAsNextChild(parent: Object, child: Object) {
-  if (!parent.childHead) {
-    parent.childHead = child;
-    parent.childTail = child;
-  } else {
-    parent.childTail.nextSibling = child;
-    parent.childTail = child;
-  }
-}
-
