@@ -1,9 +1,8 @@
-import {AppComponent} from 'src/components/app/app-component';
+import {TreeComponent} from 'src/components/tree/tree-component';
 
 import {Component, View} from 'angular2/angular2';
 import {TestBed} from 'angular2/src/test_lib/test_bed';
 import {DOM} from 'angular2/src/dom/dom_adapter';
-import {XHR} from 'angular2/src/services/xhr';
 import {
   AsyncTestCompleter,
   describe,
@@ -12,15 +11,15 @@ import {
 } from 'angular2/test_lib';
 
 export function main () {
-  describe('app component directive', () => {
+  describe('tree component directive', () => {
 
-    xit('should render the correct template', inject([AsyncTestCompleter, TestBed, XHR], (async, tb, xhr) => {
-      var html = '<app></app>';
+    it('should render the correct template', inject([AsyncTestCompleter, TestBed], (async, tb) => {
+      var html = '<tree></tree>';
 
       tb.createView(TestComponent, {html: html}).then((view) => {
         view.detectChanges();
 
-        expect(DOM.getText(view.rootNodes[0])).toEqual('hi');
+        expect(DOM.getText(view.rootNodes[0])).toEqual('insert tree here');
 
         async.done();
       });
@@ -30,6 +29,6 @@ export function main () {
 
 @Component()
 @View({
-  directives: [AppComponent]
+  directives: [TreeComponent]
 })
 class TestComponent {}
